@@ -21,13 +21,17 @@ public class ProdutoDAO {
 		sql.append("INSERT INTO produto ");
 		sql.append(" ( ");
 		sql.append(" produto ");
+		sql.append(" marca ");
+		sql.append(" valor ");
 		sql.append(" ) ");
-		sql.append(" VALUES (?);");
+		sql.append(" VALUES (?,?,?);");
 		
 		
 		try {
 			pstmt = db.prepareStatement(sql.toString(), Statement.RETURN_GENERATED_KEYS);
 			pstmt.setString(1, produto.getProduto());
+			pstmt.setString(2, produto.getProduto());
+			pstmt.setString(3, produto.getProduto());
 			pstmt.executeUpdate();
 			
 		}finally {
