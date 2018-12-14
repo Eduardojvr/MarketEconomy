@@ -1,58 +1,62 @@
 var login = new Vue({
-	el : '#login',
-	data : {
-		dto : {
-			login : '',
-			senha : ''
+    el : '#containerLogin',
+    data : {
+        dto : {
+            login : '',
+            senha : '',
+            nome : '',
+            id : ''
+        }, 
+        msgErro : ''
     },
-    msgErro : ''
-	},
-  methods: {
-    login : function(event) {
-  	  if (event) {
-  		  event.preventDefault();
-  	  }
-  	  iniciaLoader("loader-primario");
-	  
-  	  var btn = document.getElementById("btn-login");
-      btn.disabled = true;
-        
-  	  axios.post('rs/auth/login', this.dto)
-  		  .then(function (response) {
-  			  mockDB();
-  			  window.location = "pages/inicio.html";
-  			  return false;
-  		  })
-  		  .catch(function (error) {
-		      if (error != null && error != undefined &&
-		              error.response != null && error.response != undefined) {
-    			  if(error.response.status == 412){
-    			      login.msgErro = "Preencha o login e a senha";
-    			  }
-				  if(error.response.status == 500){
-				      login.msgErro = "Login ou senha inválidos";
-    			  }
-				  if(error.response.status == 406){
-				    login.msgErro = "Usuário não autorizado";
-    			  }
-		      } else {
-		        login.msgErro = "Erro interno do servidor";
-		      }
-		      
-		      btn.disabled = false;
-		      encerraLoader("loader-primario");
-  		  })
-    	  .finally(function () {
-    		  
-		    })
-      }
+    methods: {
+        login(event) {
+            const vm = this;
+            if (event) {
+                event.preventDefault();
+            }
+            iniciaLoader("loader-primario");
+
+            var btn = document.getElementById("btn-login");
+            btn.disabled = true;
+
+            axios.post('rs/auth/login', this.dto)
+            .then(function (response) {
+                if(!response || !response.headers || !response.headers["grupo"]) {
+                    login.msgErro = "Erro interno do servidor";
+                    return;
+                } else {
+                    vm.setCookie("sghGrupo", response.headers["grupo"], 90);
+                    window.location = "pages/index.html";
+                }
+            })
+            .catch(function (error) {
+            	btn.disabled = false;
+            	encerraLoader("loader-primario");
+            	
+                if (error != null && error != undefined &&
+                    error.response != null && error.response != undefined) {
+                    if(error.response.status == 412)
+                        login.msgErro = "Preencha o login e a senha";
+                    if(error.response.status == 403)
+                        login.msgErro = "Usuário não autorizado";
+                    if(error.response.status == 500)
+                        login.msgErro = "Login ou senha inválidos";
+                    if(error.response.status == 406)
+                        login.msgErro = "Usuário não autorizado";
+                } else {
+                    login.msgErro = "Erro interno do servidor";
+                }
+            })
+            .finally(function () {
+            	
+            })
+        },
+        setCookie(cname, cvalue, exdays) {
+            var d = new Date();
+            d.setTime(d.getTime() + (exdays*24*60*60*1000));
+            var expires = "expires="+ d.toUTCString();
+            document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+        }
     }
 });
-
-//por alguma razão o vue não está instanciando corretamente o menuHeader, 
-//só consigo acessar as funções dele via javascript dessa maneira abaixo.
-function logout(){
-  if(menuHeader!=null){
-    menuHeader.logout();
-  }
-}

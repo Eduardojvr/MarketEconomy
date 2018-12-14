@@ -1,0 +1,77 @@
+
+.nav-pills .nav-link.active, .nav-pills .show>.nav-link {
+    color: #fff;
+    background-color: #adbb58;
+}
+.btn-primary {
+    color: #fff;
+    background-color:  #adbb58;
+    border-color:  #adbb58;
+}
+.form-control:focus {
+    color: #495057;
+    background-color: #fff;
+    border-color:  #adbb58;
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem rgba(173, 187, 88, 0.25)
+}
+.page-item.active .page-link {
+    z-index: 1;
+    color: #fff;
+    background-color: #adbb58;
+    border-color: #adbb58;
+}
+.page-link {
+    position: relative;
+    display: block;
+    padding: .5rem .75rem;
+    margin-left: -1px;
+    line-height: 1.25;
+    color: #adbb58;
+    background-color: #fff;
+    border: 1px solid #adbb58;
+}
+a {
+    color: #adbb58;
+    text-decoration: none;
+    background-color: transparent;
+    -webkit-text-decoration-skip: objects;
+}
+table {
+	
+}
+
+thead {
+    border-bottom: 3px solid #adbb58;
+}
+tfoot {
+    border-top: 3px solid #adbb58;
+}
+
+.table td, .table th {
+    vertical-align: top;
+    border-top: 1px solid #adbb58;
+}
+.table-hover tbody tr:hover {
+    background-color: rgba(173, 187, 88,.075);
+}
+:focus {
+    outline: rgba(173, 187, 88,.075) auto 5px;
+}
+input[type=checkbox]:focus {
+    outline: rgba(173, 187, 88,.075) auto 5px;
+}
+
+input[type=checkbox]:hover, option:hover {
+  background: #adbb58 ;
+  color:  black;
+}
+checkbox:active,option:active {
+  background: #adbb58 ;
+  color:  black;
+}
+input[type=checkbox]:checked, option:checked {
+  background: #adbb58 ;
+  color:  black;
+}
+

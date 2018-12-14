@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+	<link rel="stylesheet" type="text/css" href="resources/css/js1.css">	
+
+	<meta charset="UTF-8">
+	<title>Cadastro de produto</title>
+</head>
+
+<body>
+
+
+<script src="resources/js/vue.js"></script>
+<script src="resources/js/axios.min.js"></script>
+
+
+	<div id="formulario">
+		<form id="formulario">  <!-- id soma -->
+			<label>Produto</label>
+                        <input type="text" name="produto" id="produto" v-model="produto"><br><br>
+			<button type="button" class="btn btn-primary btn-lg" @click="pega()">Salvar</button>	
+		</form>
+	</div>
+		
+<script>
+
+
+
+let vm = new Vue({
+        el: '#formulario',
+        data: {
+                produto: ''
+             
+        },
+         created: function () {
+                const vm = this;
+
+                this.chamaHello();
+        },
+        methods: {
+                chamaHello: function(){
+                        const vm = this;
+                        
+                      
+						 //var obj;
+                     	axios.get('rs/hello/world')
+                        .then(function (response) {
+                                vm.hello = response.data;
+                        })
+                        .catch(function (error){
+                                console.log(error);
+                        })
+                        .finally(function() {
+
+                        });
+                },
+					
+                pega: function(){
+                        const vm = this;
+                          let obj = {
+                                produto: vm.produto
+                        }
+
+                        //vm.produto
+							   axios.post('rs/hello/insert',obj).then(function (response) {
+/*                             vm.hello = response.data;
+ */                            console.log(response);
+/*  							   alert(obj.produto);
+ */                        });
+		} 
+   
+                
+
+        }
+                
+});
+</script>
+
+
+
+</body>
+
+
+</html> 

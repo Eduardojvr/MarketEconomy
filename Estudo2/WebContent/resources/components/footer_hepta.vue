@@ -18,7 +18,7 @@
 				const vm = this;
 				iniciaLoader("loader-primario");
 
-				axios.get('https://gitlab.com/api/v4/projects/desenvolvimento-hepta%2Fcontrole-de-pagamento/repository/tags', 
+				axios.get('https://gitlab.com/api/v4/projects/desenvolvimento-hepta%2Fsgh/repository/tags', 
 				{
 					headers: {
 					'Content-Type': 'application/json',

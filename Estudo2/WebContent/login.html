@@ -1,46 +1,111 @@
- <!DOCTYPE html>
-
-<html lang="pt-br">
-
+<!DOCTYPE html>
+<html>
 <head>
- <link rel="stylesheet" type="text/css" href="resources/css/js1.css">
- 
-</head> 
- 
+<meta charset="utf-8">
+<title>Sistema de mercados</title>
+<link rel="shortcut icon" href="favicon.ico" />
+<link rel="stylesheet" type="text/css"
+	href="resources/css/bootstrap_4/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css"
+	href="resources/css/bootstrap_4/modelo.css">
+<link rel="stylesheet" type="text/css"
+	href="resources/fontawesome-free-5.3.1-web/css/all.css">
+<link rel="stylesheet" type="text/css"
+	href="resources/css/header_generico.css">
+</head>
 <body>
-
-<div class="barra">
-		<div id="titulo">
-			 <a href="index.html">Cadastrar produto</a>
+	<!-- Header genérico -->
+	<nav id="header_sistemas"
+		class="navbar fixed-top navbar-light bg-light shadow-sm p-3 mb-5 align-items-start">
+		<!-- logo do sistema   -->
+		<div class="navbar-brand">
+			<img id="logo_listemas" alt="" src="resources/img/headerIcon.svg" />
+			<h1 class="navbar-text">Sistema de Preços</h1>
 		</div>
-
-</div>
- 
- <form>
-  <div class="imgcontainer">
-<!--     <img src="img_avatar2.png" alt="Avatar" class="avatar">
- -->  </div>
-
-  <div class="container">
-    <label for="uname"><b>Username</b></label>
-    <input type="text" placeholder="Enter Username" name="uname" required>
-
-    <label for="psw"><b>Password</b></label>
-    <input type="password" placeholder="Enter Password" name="psw" required>
-
-    <button type="submit">Login</button>
-
-    <label>
-      <input type="checkbox" checked="checked" name="remember"> Remember me
-    </label>
-  </div>
-
-  <div class="container" style="background-color:#f1f1f1">
-    <button type="button" class="cancelbtn">Cancel</button>
-    <span class="psw">Esqueceu a <a href="#">senha?</a></span>
-  </div>
-</form> 
-
+		<!-- /logo do sistema   -->
+		<!-- menu do sistema   -->
+		<div id="menu_sistema"
+			class="navbar navbar-expand-lg navbar-light bg-light col">
+			<button class="navbar-toggler" type="button" data-toggle="collapse"
+				data-target="#navbarNav" aria-controls="navbarNav"
+				aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse  nav-pills" id="navbarNav">
+				<!-- 			  my-2 my-md-0 mr-md-3 -->
+				
+			</div>
+		</div>
+		<!-- /menu do sistema   -->
+		
+	
+		<!-- Logo Hepta  -->
+		<div id="logo_hepta" class="navbar-brand">
+			<img alt="" src="resources/img/logo_hepta-sistemas.png"
+				style="vertical-align: middle; border-style: none; height: 50px;">
+		</div>
+		<!-- /Logo Hepta  -->
+	</nav>
+	<!-- Fim Header genérico -->
+	<div class="loader" id="loader-primario">
+		<span></span> <span></span> <span></span> <span></span>
+	</div>
+	<div class="loaderFocus" id="loader-primario-focus"></div>
+	<div class="container-fluid ">
+		<div id="wrapper" class=" shadow-sm">
+			<div class="container">
+				<h2 class="display-8">Login</h2>
+			</div>
+			<div class="row">
+				<div class="col">
+					<!-- opções de campo para formulários -->
+					<form>
+						<div class="card">
+							<div class="card-body">
+								<div class="form-group">
+									<label for="exampleFormControlInput1">Email address</label> <input
+										type="email" class="form-control"
+										id="exampleFormControlInput1" placeholder="name@example.com">
+								</div>
+								<div class="form-group">
+									<label for="inputPassword5">Password</label> <input
+										type="password" id="inputPassword5" class="form-control"
+										aria-describedby="passwordHelpBlock"> <small
+										id="passwordHelpBlock" class="form-text text-muted">
+										Your password must be 8-20 characters long, contain letters
+										and numbers, and must not contain spaces, special characters,
+										or emoji. </small>
+								</div>
+								<div class="card-body">
+									<button type="button" class="btn btn-sm btn-primary">Logar</button>
+								</div>
+							</div>
+							<hr />	
+						</div>
+					
+					</form>
+					<!-- opções de campo para formulários -->
+					<hr />
+				</div>
+			</div>
+		</div>
+	</div>
+	<footer>
+		<div class="footerSpacing"></div>
+		<div class="footer" id="footer">
+			<span> Criado por: Hepta Tecnologia - {{versao}} </span>
+		</div>
+	</footer>
+	<script src="resources/js/axios.min.js"></script>
+	<script src="resources/js/vue.js"></script>
+	<script src="resources/js/header.js"></script>
+	<script src="resources/js/loader.js"></script>
+	<script src="resources/js/paginas/gpc/cargo.js"></script>
+	<script src="resources/js/footer.js"></script>
+	<script src="resources/js/jquery-3.3.1.min.js"></script>
+	<script src="resources/js/bootstrap.min.js"></script>
+	<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+	<script src="resources/js/ie10-viewport-bug-workaround.js"></script>
 </body>
-
 </html>
+

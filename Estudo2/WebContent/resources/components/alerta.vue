@@ -1,6 +1,6 @@
 <template>
     <div id="alerta">
-        <div v-if="exibeErro" role="alert" style="z-index: 9999" class="alert alert-danger  alert-dismissible fade show">
+        <div v-if="exibeErro" role="alert" style="position: fixed; z-index: 9999" class="alert alert-danger  alert-dismissible fade show">
                     
             <h4 class="alert-heading">{{ tituloErro }}</h4>
             <p>{{ mensagemErro }}</p>
@@ -10,7 +10,7 @@
             </button>
         </div>
 
-        <div v-if="exibeSucesso" role="alert" style="z-index: 9999" class="alert alert-success  alert-dismissible fade show">
+        <div v-if="exibeSucesso" role="alert" style="position: fixed; z-index: 9999" class="alert alert-success  alert-dismissible fade show">
                     
             <p>{{ mensagemSucesso }}</p>
             

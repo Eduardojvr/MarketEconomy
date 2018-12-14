@@ -3,10 +3,10 @@
 
         <!-- logo do sistema   -->
         <div class="navbar-brand">
-            <a href="../pages/inicio.html">
-                <img  id="logo_listemas" alt="" src="../resources/img/headerIcon.png" />
+            <a href="/sgh/pages/index.html">
+                <img  id="logo_listemas" alt="" v-bind:src="caminho_relativo + icone" />
             </a>
-            <h1 class="navbar-text"> Controle de Pagamento </h1>
+            <h1 class="navbar-text"> Sistema de Gestão Hepta </h1>
         </div>
         <!-- /logo do sistema   -->
 
@@ -16,24 +16,52 @@
             <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse  nav-pills" id="navbarNav">
-            	<ul class="navbar-nav">
-					<li v-bind:class="{'nav-item' : true, 'active' : ativo == 'Início' }">
-						<a v-bind:class="{'nav-link' : true, 'p-2': true, 'active' : ativo == 'Início' }" href="inicio.html"> Inicio</a>
-					</li>
-					<li v-bind:class="{'nav-item' : true, 'active' : ativo == 'Controle de Pagamentos' }">
-						<a v-bind:class="{'nav-link' : true, 'p-2': true, 'active' : ativo == 'Controle de Pagamentos' }" href="meus-controles.html">Controles de Pagamentos</a>
-					</li>
-					<li v-bind:class="{'nav-item' : true, 'active' : ativo == 'Notas Fiscais' }">
-						<a v-bind:class="{'nav-link' : true, 'p-2': true, 'active' : ativo == 'Notas Fiscais' }" href="minhas-notas.html"></i>Notas Fiscais</a>
-					</li>
-					<li v-bind:class="{'nav-item' : true, 'active' : ativo == 'Consultas e Relatórios' }">
-						<a v-bind:class="{'nav-link' : true, 'p-2': true, 'active' : ativo == 'Consultas e Relatórios' }" href="consultas-relatorios.html">Consultas e Relatórios</a>
-					</li>
-					<li v-bind:class="{'nav-item' : true, 'active' : ativo == 'Ajuda' }">
-						<a v-bind:class="{'nav-link' : true, 'p-2': true, 'active' : ativo == 'Ajuda' }" href="ajuda.html">Ajuda</a>
-					</li>
-				</ul>
-                
+
+                <ul v-if="vis === 'geral'" class="navbar-nav">
+                    <li v-bind:class="{'nav-item' : true, 'active' : ativo == 'Início' }">
+                        <a v-bind:class="{'nav-link' : true, 'p-2': true, 'active' : ativo == 'Início' }" href="/sgh/pages/geral/geral.html">Início</a>
+                    </li>
+                    <li v-bind:class="{'nav-item' : true, 'active' : ativo == 'Solicitação' }">
+                        <a v-bind:class="{'nav-link' : true, 'p-2': true, 'active' : ativo == 'Solicitação' }" href="/sgh/pages/geral/abertura_vaga.html">Solicitar nova de abertura de vaga</a>
+                    </li>
+                </ul>
+
+                <ul v-if="vis === 'gpc'" class="navbar-nav">
+                    <li v-bind:class="{'nav-item' : true, 'active' : ativo == 'Início' }">
+                        <a v-bind:class="{'nav-link' : true, 'p-2': true, 'active' : ativo == 'Início' }" href="/sgh/pages/gpc/gpc.html">Início</a>
+                    </li>
+                    <li v-bind:class="{'nav-item' : true, 'dropdown' : true, 'active' : ativo == 'CHAVE' }">
+                        <a class="nav-link dropdown-toggle" href="#" id="chave" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          CHAVE
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="chave">
+                            <a class="dropdown-item" href="/sgh/pages/gpc/tipochav.html">Gerenciar tipos de CHAVEs</a>
+                            <a class="dropdown-item" href="/sgh/pages/gpc/chav.html">Gerenciar CHAVEs</a>
+                        </div>
+                    </li>
+                    <li v-bind:class="{'nav-item' : true, 'active' : ativo == 'Cargo' }">
+                        <a v-bind:class="{'nav-link' : true, 'p-2': true, 'active' : ativo == 'Cargo' }" href="/sgh/pages/gpc/cargo.html">Cargo</a>
+                    </li>
+                    <li v-bind:class="{'nav-item' : true, 'dropdown' : true, 'active' : ativo == 'Cliente' }">
+                        <a class="nav-link dropdown-toggle" href="#" id="cliente" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          Cliente
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="cliente">
+                            <a class="dropdown-item" href="/sgh/pages/gpc/cliente.html">Gerenciar clientes</a>
+                            <a class="dropdown-item" href="/sgh/pages/gpc/contrato.html">Gerenciar contratos</a>
+                        </div>
+                    </li>
+                   
+                     <li v-bind:class="{'nav-item' : true, 'dropdown' : true, 'active' : ativo == 'Certificação' }">
+                        <a class="nav-link dropdown-toggle" href="#" id="certificacao" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          Certificação
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="certificacao">
+                            <a class="dropdown-item" href="/sgh/pages/gpc/certificacao.html">Gerenciar certificações</a>
+                            <a class="dropdown-item" href="/sgh/pages/gpc/empresa.html">Gerenciar empresas certificadoras</a>
+                        </div>
+                    </li>
+                </ul>
 
             </div>
         </div>
@@ -53,18 +81,18 @@
                             <span>Financeiro</span>
                         </div>
                         <div class="col">
-                            <a href="#"><img alt="" v-bind:src="caminho_relativo + 'resources/img/IconeSistemas_hepta.png'" class="img-thumbnail"></a>
+                            <a href="#"><img alt="" v-bind:src="caminho_relativo + 'resources/img/header_adm.png'" class="img-thumbnail"></a>
                             <span>Administrativo</span>
                         </div>
                         <div class="col">
-                            <a href="/sgh/gpc/"><img alt="" v-bind:src="caminho_relativo + 'resources/img/projetos/sgh_gpc.png'" class="img-thumbnail"></a>
+                            <a href="/sgh/gpc/"><img alt="" v-bind:src="caminho_relativo + 'resources/img/header_gpc.png'" class="img-thumbnail"></a>
                             <span>GPC</span>
                         </div>
                         
                         <div class="w-100"></div>
 
                         <div class="col">
-                            <a href="/sgh/geral/"><img alt="" v-bind:src="caminho_relativo + 'resources/img/IconeSistemas_hepta.png'" class="img-thumbnail"></a>
+                            <a href="/sgh/geral/"><img alt="" v-bind:src="caminho_relativo + 'resources/img/header_geral.png'" class="img-thumbnail"></a>
                             <span>Geral</span>
                         </div>
                         
@@ -118,17 +146,18 @@
 </template>
 <script>
     module.exports = {
-        props: ['caminho_relativo', 'ativo'],
+        props: ['caminho_relativo', 'icone', 'ativo'],
         data: function() {
             return {
-                nomeCompleto:''
+                nomeCompleto:'',
+                vis: ''
             }
         },
         methods: {
             buscaNomeCompleto(){
                 const vm = this;
                  
-                axios.get('../rs/auth/buscaNomeCompleto')
+                axios.get('/sgh/rs/auth/buscaNomeCompleto')
                     .then(function (response) {
                         vm.nomeCompleto = response.data;
                     })
@@ -139,7 +168,7 @@
                     });
             },
             logout() {
-                axios.get('../rs/auth/logout')
+                axios.get('/sgh/rs/auth/logout')
                     .then(function (response) {
                         window.location = response.data;
                     })
@@ -172,8 +201,22 @@
         /* ON LOAD */
         created: function() {
             const vm = this;
+            var path = window.location.pathname;
 
             vm.buscaNomeCompleto();
+
+            if(path.includes("geral/")){
+                vm.vis = "geral";
+            }
+            else if(path.includes("gpc/")){
+                vm.vis = "gpc";
+            }
+            else if(path.includes("financeiro/")){
+                vm.vis = "financeiro";
+            }
+            else{
+                vm.vis = "index";
+            }
         }
     }
 

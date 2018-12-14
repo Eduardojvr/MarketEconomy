@@ -87,6 +87,38 @@ function formatDateDMYHM(date) {
     return [[day,month,year].join('/') , [hour, minute].join(':')].join(' ');
 }
 
+function resolverVisualizacao(grupos){    
+    //"G_DESENV",
+    //"INVENTARIOCSC",
+    //"PREPOSTOS",
+    //"RESP_TECNICOS",
+    //"GERENTES",
+    //"G_CHECKLIST_AUDITORIA",
+    //"G_AUDITORIA_LEITURA",
+    //"G_GPC",
+    //"G_ADMINIST",
+    //"G_GOVERNANCA",
+    //"GE_CSC_N3",
+    //"gerentesgestores",
+    //"G_RECEPCAO",
+    //"G_GPC_CONSULTORIA"
+    var objRes = {};
+
+    if(grupos.includes("G_DESENV")){
+        objRes.mostraGeral = true;
+        objRes.mostraFinanceiro = true;
+        objRes.mostraGPC = true;
+    }
+    if(grupos.includes("G_GPC")){
+        objRes.mostraGeral = true;
+        objRes.mostraGPC = true;
+    }
+    if(grupos.includes("G_ADMINIST")){
+        objRes.mostraGeral = true;
+        objRes.mostraFinanceiro = true;
+    }
+    return objRes;
+}
 
 function isNullUndefined(a){
     return (a === null || a === undefined);
@@ -145,42 +177,4 @@ function todosCamposRequiredForamPreenchidos(form){
 	}
 	
 	return formValido;
-}
-
-function getUrlVars() {
-	var vars = {};
-	var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
-		vars[key] = value;
-	});
-	return vars;
-}
-function getParams(item){
-	const urlParams = (new URL(window.location)).searchParams;
-	return urlParams.get(item);
-}
-
-function setEstado(pendencia){
-	let today = new Date();
-	today.setHours(0, 0, 0, 0);
-	
-	if(pendencia.dtaResolucao){
-		//pedencia resolvida
-		pendencia.estado = '\u2705'
-	}
-	else if(pendencia.dtaLimite < today){
-		//pedencia vencida
-		pendencia.estado = '\u2757'
-	}
-	else{
-		//pedencia pedente
-		pendencia.estado = '\u26A1';
-	}
-}
-
-function orderPendenciasByDtaInclusao(pendencias){
-	pendencias = pendencias.sort(function(a, b){
-		return a.dtaInclusao - b.dtaInclusao;
-	});
-	
-	return pendencias;
 }
