@@ -1,49 +1,4 @@
 <!DOCTYPE html>
-
-<html lang="pt-br">
-
-<head>
-<title>Cadastro</title>
-<link rel="stylesheet" type="text/css" href="resources/css/js1.css">
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
-</head>
-
-<body>
-
-
-	<div class="barra">
-		<div id="titulo">
-			 <a href="../Estudo2">Login</a>
-		</div>
-
-	</div>
-	<br>
-
-	<div id="formulario">
-		<form method="post">
-			<label>Produto</label><br> <input type="text" /><br> <label>Marca</label><br>
-			<input type="text" /><br> <label>Valor</label><br> <input
-				type="number" /><br><br>
-			<button>Cadastrar</button>
-		</form>
-	</div>
-
-
-
-
-</body>
-
-</html>
-
-
-
-<!-- <!DOCTYPE html>
 <html>
 
 <head>
@@ -53,34 +8,28 @@
 
 <body>
 
-<div id="main">
-{{ hello }}
-
-</div>
-	<fieldset>
-	     <legend>Formulário de cadastro de produto</legend>
-	  <form method="post">
-	  <label>Produto</label><br>
-	        <input type="text" /><br>
-	        <label>Marca</label><br>
-	        <input type="text" /><br>
-	        <label>Valor</label><br>
-	  <input type="number"/><br>
-	  
-	  <button>Cadastrar</button>
-	  </form>
-	</fieldset>
 
 <script src="resources/js/vue.js"></script>
 <script src="resources/js/axios.min.js"></script>
 
 
+	<div id="formulario">
+		<form id="soma">
+			<label>Produto</label>
+                        <input type="text" name="produto" id="produto" v-model="produto"><br><br>
+			<button type="button" class="btn btn-primary btn-lg" @click="pega()">Salvar</button>	
+		</form>
+	</div>
+		
 <script>
 
+
+
 let vm = new Vue({
-        el: '#main',
+        el: '#formulario',
         data: {
-                hello: ''
+                produto: ''
+             
         },
          created: function () {
                 const vm = this;
@@ -90,8 +39,10 @@ let vm = new Vue({
         methods: {
                 chamaHello: function(){
                         const vm = this;
-						var obj;
-                        axios.post('rs/hello/teste',obj)
+                        
+                      
+						 //var obj;
+                     	axios.get('rs/hello/world')
                         .then(function (response) {
                                 vm.hello = response.data;
                         })
@@ -100,12 +51,27 @@ let vm = new Vue({
                         })
                         .finally(function() {
 
+                        });
+                },
+					
+                pega: function(){
+                        const vm = this;
+                          let obj = {
+                                produto: vm.produto
                         }
-                );
 
-                }
+                        //vm.produto
+			axios.post('rs/hello/insert',obj).then(function (response) {
+/*                             vm.hello = response.data;
+ */                            console.log(response);
+                        });
+		} 
+   
+                
+
         }
-        })
+                
+});
 </script>
 
 
@@ -113,4 +79,4 @@ let vm = new Vue({
 </body>
 
 
-</html>   -->
+</html> 
