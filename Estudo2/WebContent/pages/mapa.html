@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+
+<html lang="pt">
+
+<head>
+
+
+
+
+</head>
+
+<body>
+<div id="main">
+<div>{{ hello }}</div>
+</div>
+
+<script src="resources/js/vue.js"></script>
+<script src="resources/js/axios.min.js"></script>
+
+
+<script>
+
+
+
+let vm = new Vue({
+	el: '#main',
+	data: {
+		hello: 'oi'
+	},
+	 created: function () {
+		    // `this` aponta para a instância
+		const vm = this;
+		    
+		this.chamaHello();    
+	},
+	methods: {
+		chamaHello: function(){
+			const vm = this;			
+			
+			axios.get('rs/map/mapa')
+			.then(function (response) {
+				vm.hello = response.data;
+			})
+			.catch(function (error){
+				console.log(error);
+			})
+			.finally(function() {
+				
+			}
+		);
+
+		}
+	}
+	})
+</script>
+
+
+
+</body>
+
+
+
+
+</html>

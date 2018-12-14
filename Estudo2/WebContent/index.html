@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+
+<html lang="pt-br">
+
+<head>
+<title>Cadastro</title>
+<link rel="stylesheet" type="text/css" href="resources/css/js1.css">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+</head>
+
+<body>
+
+
+	<div class="barra">
+		<div id="titulo">
+			 <a href="../Estudo2">Login</a>
+		</div>
+
+	</div>
+	<br>
+
+	<div id="formulario">
+		<form method="post">
+			<label>Produto</label><br> <input type="text" /><br> <label>Marca</label><br>
+			<input type="text" /><br> <label>Valor</label><br> <input
+				type="number" /><br><br>
+			<button>Cadastrar</button>
+		</form>
+	</div>
+
+
+
+
+</body>
+
+</html>
+
+
+
+<!-- <!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title>Cadastro de livro</title>
+</head>
+
+<body>
+
+<div id="main">
+{{ hello }}
+
+</div>
+	<fieldset>
+	     <legend>Formulário de cadastro de produto</legend>
+	  <form method="post">
+	  <label>Produto</label><br>
+	        <input type="text" /><br>
+	        <label>Marca</label><br>
+	        <input type="text" /><br>
+	        <label>Valor</label><br>
+	  <input type="number"/><br>
+	  
+	  <button>Cadastrar</button>
+	  </form>
+	</fieldset>
+
+<script src="resources/js/vue.js"></script>
+<script src="resources/js/axios.min.js"></script>
+
+
+<script>
+
+let vm = new Vue({
+        el: '#main',
+        data: {
+                hello: ''
+        },
+         created: function () {
+                const vm = this;
+
+                this.chamaHello();
+        },
+        methods: {
+                chamaHello: function(){
+                        const vm = this;
+						var obj;
+                        axios.post('rs/hello/teste',obj)
+                        .then(function (response) {
+                                vm.hello = response.data;
+                        })
+                        .catch(function (error){
+                                console.log(error);
+                        })
+                        .finally(function() {
+
+                        }
+                );
+
+                }
+        }
+        })
+</script>
+
+
+
+</body>
+
+
+</html>   -->

@@ -1,0 +1,112 @@
+/*
+Estilo para configuração do header genérico.
+As personalizações poderão serem feito em arquivos a parte.
+
+Autor: samuel Ribeiro Borges
+Data: 20/11/2018
+*/
+
+body {
+	padding-top: 90px;
+}
+
+.navbar {
+	padding: 0px !important;
+	margin: 0px !important;
+}
+
+.navbar-brand {
+	padding-top: 0 !important;
+	padding-bottom: 0 !important;
+}
+/**/
+#header_sistemas .navbar-brand h1 {
+	font-size: 1.3rem;
+	color: #1f3545;
+}
+
+
+
+#header_sistemas #logo_listemas {
+	height: 65px;
+}
+
+#header_sistemas #menu_sistema {
+	margin: 15px 0px !important;
+}
+
+#header_sistemas #menu_user {
+	margin: 15px 0px !important;
+}
+
+#header_sistemas #sistemas {
+	margin: 15px 0px !important;
+}
+
+#header_sistemas #logo_hepta {
+	margin: 7px 10px 7px 7px !important;
+	vertical-align: middle;
+	border-style: none;
+
+}
+#logo_hepta img {
+	height: 50px;
+
+}
+/**/
+#grid_sistemas {
+	margin: 1px 0px 0px -55px !important;
+	width: 350px;
+	padding: 10px;
+}
+
+#grid_sistemas img {
+	height: 50px;
+	margin: 10px ;
+}
+
+#grid_user {
+	margin: 1px 0px 0px 37px !important;
+}
+
+/***/
+@media (min-width: 576px) {
+	#header_sistemas .navbar-nav {
+		flex-direction: row;
+	    margin: 10px 0 0 -170px;
+	}
+	#header_sistemas .dropdown-menu {
+	    margin: 0px 0 0 -240px;
+	}
+}
+
+@media (min-width: 768px) {
+		#header_sistemas .navbar-nav {
+		flex-direction: row;
+	    margin: 10px 0 0 -170px;
+	}
+	#header_sistemas .dropdown-menu {
+	    margin: 0px 0 0 -240px;
+	}
+}
+
+@media (min-width: 992px) {
+	
+	#header_sistemas .navbar-nav {
+		flex-direction: row;
+	    margin: 0px 0 0 0px;
+	}
+	#header_sistemas .dropdown-menu {
+	    margin: 0px 0 0 0px;
+	}
+}
+
+@media (min-width: 1200px) {
+	#header_sistemas .navbar-nav {
+		flex-direction: row;
+	    margin: 0px 0 0 0px;
+	}
+	#header_sistemas .dropdown-menu {
+	    margin: 0px 0 0 0px;
+	}
+}

@@ -1,0 +1,44 @@
+#cp .detalhes {
+	padding: 15px;
+	background: #eee;
+	color: #5e8e8c;
+	box-shadow: 0px 0px 2px 0px #5e8e8c;
+}
+#cp .detalhes .row {
+	margin: 8px 0px;
+}
+#cp .detalhes .col-2 {
+	font-weight: bold;
+}
+button{
+	font-weight: normal !important;
+}
+#cp .detalhes input:read-only {
+	outline: none;
+	background: none;
+	padding: 0px;
+}
+#cp .detalhes input {
+	width: 100%;
+	border: none;
+	padding: 0px 8px;
+	outline: 1px solid #5e8e8c;
+	color: #5e8e8c;
+}
+#cp .detalhes input:focus {
+	outline-offset: 0px;
+}
+#cp .detalhes .modal-button span:hover {
+	text-decoration: underline;
+	cursor: pointer;
+}
+
+#cp .form-row{
+	margin-top: 5px;
+}
+#cp #cpNaoEncontrado {
+	text-align: center;
+}
+#cp #cpNaoEncontrado h4 {
+	color: #f00 !important;
+}
