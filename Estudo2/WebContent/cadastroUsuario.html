@@ -14,6 +14,10 @@
 	href="resources/css/header_generico.css">
 </head>
 <body>
+
+<script src="resources/js/vue.js"></script>
+<script src="resources/js/axios.min.js"></script>
+
 	<!-- Header genérico -->
 	<nav id="header_sistemas"
 		class="navbar fixed-top navbar-light bg-light shadow-sm p-3 mb-5 align-items-start">
@@ -33,12 +37,12 @@
 			</button>
 			<div class="collapse navbar-collapse  nav-pills" id="navbarNav">
 				<!-- 			  my-2 my-md-0 mr-md-3 -->
-				
+
 			</div>
 		</div>
 		<!-- /menu do sistema   -->
-		
-	
+
+
 		<!-- Logo Hepta  -->
 		<div id="logo_hepta" class="navbar-brand">
 			<img alt="" src="resources/img/logo_hepta-sistemas.png"
@@ -54,39 +58,61 @@
 	<div class="container-fluid ">
 		<div id="wrapper" class=" shadow-sm">
 			<div class="container">
-				<h2 class="display-8">Login</h2>
+				<h2 class="display-8">Cadastro de Usuário</h2>
 			</div>
 			<div class="row">
 				<div class="col">
 					<!-- opções de campo para formulários -->
-					<form>
+					<form id="formulario">
 						<div class="card">
 							<div class="card-body">
 								<div class="form-group">
-									<label for="exampleFormControlInput1">Email address</label> <input
-										type="email" class="form-control"
-										id="exampleFormControlInput1" placeholder="name@example.com">
+									<label for="exampleFormControlInput1">Nome</label> <input
+										type="text" class="form-control" v-model="nome" id="exampleFormControlInput1"
+										placeholder="Nome">
 								</div>
 								<div class="form-group">
-									<label for="inputPassword5">Password</label> <input
-										type="password" id="inputPassword5" class="form-control"
-										aria-describedby="passwordHelpBlock"> <small
-										id="passwordHelpBlock" class="form-text text-muted">
-										Your password must be 8-20 characters long, contain letters
-										and numbers, and must not contain spaces, special characters,
-										or emoji. </small>
+									<label for="exampleFormControlInput1">Email</label> <input
+										type="text" class="form-control" v-model="email" id="exampleFormControlInput1"
+										placeholder="Email">
+								</div>
+								<div class="form-group">
+									<label for="exampleFormControlInput1">Endereço</label> <input
+										type="text" class="form-control" v-model="endereco" id="exampleFormControlInput1"
+										placeholder="Endereço">
+								</div>
+								<div class="form-group">
+									<label for="exampleFormControlInput1">Senha</label> <input
+										type="password" class="form-control" v-model="senha" id="exampleFormControlInput1"
+										placeholder="***********">
 								</div>
 								<div class="card-body">
-									<button type="button" class="btn btn-sm btn-primary">Logar</button>
-									<button type="button" class="btn btn-link" onclick="window.location.href='cadastroUsuario.html';" >Cadastrar</button>
+									<div class="custom-file">
+										<label class="custom-file-label" for="customFile">Imagem do usuário</label>
+										<input type="file" class="custom-file-input" id="imagem">
+									</div>
+								</div>
+								<div class="card-body">
+									<div class="custom-control custom-radio">
+										<input type="radio" id="customRadio1" name="customRadio"
+											class="custom-control-input"> <label
+											class="custom-control-label" for="customRadio1">Usuário Comum</label>
+									</div>
+									<div class="custom-control custom-radio">
+										<input type="radio" id="customRadio2" name="customRadio"
+											class="custom-control-input"> <label
+											class="custom-control-label" for="customRadio2">Mercado</label>
+									</div>
+								</div>
+								<hr />
+								<div class="card-body">
+									<button type="button" class="btn btn-sm btn-primary">Cadastrar</button>
+									<button type="button" class="btn btn-link" onclick="window.location.href='../Estudo2';" >Voltar</button>
 								</div>
 							</div>
-							<hr />	
 						</div>
-					
 					</form>
 					<!-- opções de campo para formulários -->
-					<hr />
 				</div>
 			</div>
 		</div>
@@ -107,6 +133,28 @@
 	<script src="resources/js/bootstrap.min.js"></script>
 	<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
 	<script src="resources/js/ie10-viewport-bug-workaround.js"></script>
+	<script>
+	
+	let vm = new Vue({
+        el: '#formulario',
+        methods: {			
+        	pega: function(){
+				const vm = this;
+				let obj = {
+					produto: vm.produto,
+					marca: vm.marca,
+					valor: vm.valor
+				}
+	 			axios.post('rs/product/insert',obj).then(function (response) {
+					console.log(response);
+					alert("Cadastro realizado com sucesso!");
+                });
+			} 
+        }
+	});
+	
+</script>
+
 </body>
 </html>
 

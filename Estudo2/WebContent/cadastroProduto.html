@@ -14,6 +14,10 @@
 	href="resources/css/header_generico.css">
 </head>
 <body>
+
+<script src="resources/js/vue.js"></script>
+<script src="resources/js/axios.min.js"></script>
+
 	<!-- Header genérico -->
 	<nav id="header_sistemas"
 		class="navbar fixed-top navbar-light bg-light shadow-sm p-3 mb-5 align-items-start">
@@ -33,12 +37,12 @@
 			</button>
 			<div class="collapse navbar-collapse  nav-pills" id="navbarNav">
 				<!-- 			  my-2 my-md-0 mr-md-3 -->
-				
+
 			</div>
 		</div>
 		<!-- /menu do sistema   -->
-		
-	
+
+
 		<!-- Logo Hepta  -->
 		<div id="logo_hepta" class="navbar-brand">
 			<img alt="" src="resources/img/logo_hepta-sistemas.png"
@@ -59,31 +63,39 @@
 			<div class="row">
 				<div class="col">
 					<!-- opções de campo para formulários -->
-					<form>
+					<form id="formulario">
 						<div class="card">
 							<div class="card-body">
 								<div class="form-group">
 									<label for="exampleFormControlInput1">Produto</label> <input
-										type="text" class="form-control"
-										id="exampleFormControlInput1" placeholder="">
+										type="text" class="form-control" v-model="produto" id="exampleFormControlInput1"
+										placeholder="">
 								</div>
 								<div class="form-group">
 									<label for="exampleFormControlInput1">Marca</label> <input
-										type="text" class="form-control"
-										id="exampleFormControlInput1" placeholder="">
+										type="text" class="form-control" v-model="marca" id="exampleFormControlInput1"
+										placeholder="">
 								</div>
 								<div class="form-group">
 									<label for="exampleFormControlInput1">Valor</label> <input
-										type="text" class="form-control"
-										id="exampleFormControlInput1" placeholder="">
+										type="text" class="form-control" v-model="valor" id="exampleFormControlInput1"
+										placeholder="">
+								</div>
+								<div class="form-group">
+									<p>Categoria</p>
+									<select>
+										<option selected>Selecione a categoria</option>
+										<option value="1">Arroz</option>
+									
+									</select>
 								</div>
 								<div class="card-body">
-									<button type="button" class="btn btn-sm btn-primary">Cadastrar</button>
+									<button type="button" class="btn btn-sm btn-primary" @click="pega()">Cadastrar</button>
 								</div>
 							</div>
-							<hr />	
+							<hr />
 						</div>
-					
+
 					</form>
 					<!-- opções de campo para formulários -->
 					<hr />
@@ -107,6 +119,28 @@
 	<script src="resources/js/bootstrap.min.js"></script>
 	<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
 	<script src="resources/js/ie10-viewport-bug-workaround.js"></script>
+	<script>
+	
+	let vm = new Vue({
+        el: '#formulario',
+        methods: {			
+        	pega: function(){
+				const vm = this;
+				let obj = {
+					produto: vm.produto,
+					marca: vm.marca,
+					valor: vm.valor
+				}
+	 			axios.post('rs/product/insert',obj).then(function (response) {
+					console.log(response);
+					alert("Cadastro realizado com sucesso!");
+                });
+			} 
+        }
+	});
+	
+</script>
+
 </body>
 </html>
 
