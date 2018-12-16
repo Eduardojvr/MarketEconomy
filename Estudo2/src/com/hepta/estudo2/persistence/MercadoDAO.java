@@ -59,6 +59,7 @@ public List<Mercado> todosMercados() throws Exception {
 
 			while (result.next()) {
 				Mercado mercado = new Mercado();
+                mercado.setId(result.getInt("id"));
                 mercado.setNome(result.getString("nome"));
                 mercado.setEndereco(result.getString("endereco"));
                 mercado.setFoto(result.getString("foto"));

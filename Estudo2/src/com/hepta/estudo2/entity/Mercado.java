@@ -1,6 +1,13 @@
 package com.hepta.estudo2.entity;
 
 public class Mercado {
+	private int id;
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
 	private String nome;
 	private String endereco;
 	private String foto;

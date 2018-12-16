@@ -128,7 +128,6 @@
 					endereco: vm.endereco,
 					foto: vm.foto
 				}
-				alert(vm.nome);
 	 			axios.post('rs/market/insert',obj).then(function (response) {
 					console.log(response);
 					alert("Cadastro realizado com sucesso!");

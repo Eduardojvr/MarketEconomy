@@ -87,11 +87,11 @@
 										id="exampleFormControlInput1" placeholder="">
 								</div>
 								<div class="form-group">
-									<a>Categoria</a>
+									<a style="padding-left:0px;padding-right:10px;">Categoria</a>
 									<select v-model="categoria">
 										<option v-for="category in categorias" v-bind:value="category.categoria">{{category.categoria }}</option>
 									</select>
-									<a style="padding-left:80px;" >Mercado</a>
+									<a style="padding-left:80px;padding-right:10px;" >Mercado</a>
 									<select v-model="mercados">
 										<option v-for="mercados in mercado" v-bind:value="mercados.nome">{{mercados.nome }}</option>
 									</select>
