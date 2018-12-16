@@ -15,8 +15,8 @@
 </head>
 <body>
 
-<script src="resources/js/vue.js"></script>
-<script src="resources/js/axios.min.js"></script>
+	<script src="resources/js/vue.js"></script>
+	<script src="resources/js/axios.min.js"></script>
 
 	<!-- Header genérico -->
 	<nav id="header_sistemas"
@@ -67,39 +67,43 @@
 						<div class="card">
 							<div class="card-body">
 								<div class="form-group">
-									<label for="exampleFormControlInput1">Produto</label> <input
-										type="text" class="form-control" v-model="produto" id="exampleFormControlInput1"
-										placeholder="">
+									<label for="exampleFormControlInput1">Nome</label> <input
+										type="text" class="form-control" v-model="nome"
+										id="exampleFormControlInput1" placeholder="">
 								</div>
 								<div class="form-group">
 									<label for="exampleFormControlInput1">Marca</label> <input
-										type="text" class="form-control" v-model="marca" id="exampleFormControlInput1"
-										placeholder="">
+										type="text" class="form-control" v-model="marca"
+										id="exampleFormControlInput1" placeholder="">
 								</div>
 								<div class="form-group">
-									<label for="exampleFormControlInput1">Valor</label> <input
-										type="text" class="form-control" v-model="valor" id="exampleFormControlInput1"
-										placeholder="">
+									<label for="exampleFormControlInput1">Preço</label> <input
+										type="text" class="form-control" v-model="valor"
+										id="exampleFormControlInput1" placeholder="">
 								</div>
 								<div class="form-group">
-									<p>Categoria</p>
-									<select>
-										<option selected>Selecione a categoria</option>
-										<option value="1">Arroz</option>
-									
+									<a>Categoria</a>
+									<select v-model="categorias">
+										<option v-for="categorias in categoria" v-bind:value="categorias.categoria">{{categorias.categoria }}</option>
+									</select>
+									<a style="padding-left:80px;" >Mercado</a>
+									<select v-model="mercados">
+										<option v-for="mercados in mercado" v-bind:value="mercados.nome">{{mercados.nome }}</option>
 									</select>
 								</div>
-								<div class="card-body">
-									<button type="button" class="btn btn-sm btn-primary" @click="pega()">Cadastrar</button>
+									
 								</div>
-							</div>
-							<hr />
+								<div class="card-body">
+									<button type="button" class="btn btn-sm btn-primary" style="width:160px;height:30px;" @click="pega()">Cadastrar</button>
+									<button type="button" class="btn btn-sm btn-danger"  style="width:100px;height:30px;">Cancelar</button>
+								</div>	
 						</div>
-
 					</form>
-					<!-- opções de campo para formulários -->
 					<hr />
 				</div>
+
+				<!-- opções de campo para formulários -->
+				<hr />
 			</div>
 		</div>
 	</div>
@@ -120,26 +124,52 @@
 	<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
 	<script src="resources/js/ie10-viewport-bug-workaround.js"></script>
 	<script>
-	
-	let vm = new Vue({
-        el: '#formulario',
-        methods: {			
-        	pega: function(){
+		let vm = new Vue({
+			el : '#formulario',
+			data : {
+				mercado : [],
+				categoria : []
+			},
+			created : function() {
 				const vm = this;
-				let obj = {
-					produto: vm.produto,
-					marca: vm.marca,
-					valor: vm.valor
+
+				this.inicia();
+				this.mercados();
+
+			},
+			methods : {
+				pega : function() {
+					const vm = this;
+					let obj = {
+						nome : vm.nome,
+						marca : vm.marca,
+						valor : vm.valor,
+						categorias : vm.categorias,
+						mercados : vm.mercados
+					}
+					axios.post('rs/product/insert', obj).then(
+							function(response) {
+								console.log(response);
+								alert("Cadastro realizado com sucesso!");
+							});
+				},
+				inicia : function() {
+					const vm = this;
+					axios.get('rs/category/get').then(function(response) {
+						console.log(response);
+						vm.categoria = response.data;
+					});
+				},
+				mercados : function() {
+					const vm = this;
+					axios.get('rs/market/get').then(function(response) {
+						console.log(response);
+						vm.mercado = response.data;
+					});
 				}
-	 			axios.post('rs/product/insert',obj).then(function (response) {
-					console.log(response);
-					alert("Cadastro realizado com sucesso!");
-                });
-			} 
-        }
-	});
-	
-</script>
+			}
+		});
+	</script>
 
 </body>
 </html>

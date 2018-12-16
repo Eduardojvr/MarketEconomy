@@ -11,7 +11,7 @@ public class ConnectionManager implements Serializable {
 	/*
 	 * * ######## PRODUÇÃO #########################################################
 	 * *
-	 */ private static final String DB_CONNECTION = "jdbc:mysql://localhost:3306/cadastro?serverTimezone=America/Sao_Paulo&useSSL=false";
+	 */ private static final String DB_CONNECTION = "jdbc:mysql://localhost:3306/banco?serverTimezone=America/Sao_Paulo&useSSL=false";
 	private static final String DB_USER = "root";
 	private static final String DB_PASSWORD = "slash35006578";
 	/*

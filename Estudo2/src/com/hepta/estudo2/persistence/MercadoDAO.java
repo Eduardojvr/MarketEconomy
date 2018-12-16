@@ -6,37 +6,34 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import com.hepta.estudo2.entity.Mercado;
 
-import com.hepta.estudo2.entity.Produto;
-
-public class ProdutoDAO {
-	public ProdutoDAO() {
+public class MercadoDAO {
+	public MercadoDAO() {
 		
 	}
 	
-	public boolean insert(Produto produto) throws Exception {
+	public boolean insert(Mercado mercado) throws Exception {
 		
 		Connection db = ConnectionManager.getDBConnection();
 		PreparedStatement pstmt = null;
 
 		StringBuilder sql = new StringBuilder();
 		
-		sql.append("INSERT INTO produto ");
+		sql.append("INSERT INTO mercado ");
 		sql.append(" ( ");
 		sql.append(" nome, ");
-		sql.append(" marca, ");
-		sql.append(" valor, ");
-		sql.append(" categoria ");
+		sql.append(" endereco, ");
+		sql.append(" foto ");
 		sql.append(" ) ");
-		sql.append(" VALUES (?,?,?,?);");
+		sql.append(" VALUES (?,?,?);");
 				
 		
 		try {
 			pstmt = db.prepareStatement(sql.toString(), Statement.RETURN_GENERATED_KEYS);
-			pstmt.setString(1, produto.getNome());
-			pstmt.setString(2, produto.getMarca());
-			pstmt.setFloat(3, produto.getValor());
-			pstmt.setString(4, produto.getCategoria());
+			pstmt.setString(1, mercado.getNome());
+			pstmt.setString(2, mercado.getEndereco());
+			pstmt.setString(3, mercado.getFoto());
 			pstmt.executeUpdate();
 			
 		}finally {
@@ -49,24 +46,23 @@ public class ProdutoDAO {
 
 	}
 
-public List<Produto> todosProdutos() throws Exception {
+public List<Mercado> todosMercados() throws Exception {
 		Connection db = ConnectionManager.getDBConnection();
-		List<Produto> arrayList = new ArrayList<>();
+		List<Mercado> arrayList = new ArrayList<>();
 
 		PreparedStatement pstmt = null;
 		ResultSet result = null;
 		
 		try {
-			pstmt = db.prepareStatement("SELECT * FROM produto");
+			pstmt = db.prepareStatement("SELECT * FROM mercado");
 			result = pstmt.executeQuery();
 
 			while (result.next()) {
-				Produto produto = new Produto();
-                produto.setNome(result.getString("nome"));
-                produto.setMarca(result.getString("marca"));
-                produto.setValor(result.getFloat("valor"));
-                produto.setCategoria(result.getString("categoria"));
-                arrayList.add(produto);
+				Mercado mercado = new Mercado();
+                mercado.setNome(result.getString("nome"));
+                mercado.setEndereco(result.getString("endereco"));
+                mercado.setFoto(result.getString("foto"));
+                arrayList.add(mercado);
 			}
 
 		} catch (Exception e) {
