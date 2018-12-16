@@ -69,7 +69,8 @@
 				<th>Produto</th>
 				<th>Marca</th>
 				<th>Valor</th>
-				<th>Mercado</th>
+				<th>Categoria</th>
+				<th>Id</th>
 				<th>Mapa</th>
 
 			</tr>
@@ -77,9 +78,11 @@
 				<td>{{ produtos.nome }}</td>
 				<td>{{ produtos.marca }}</td>
 				<td>{{ produtos.valor }}</td>
-				<td><img src="resources/img/extra.png" alt="some text" width=60
-					height=40></td>
-				<td><img src="resources/img/mapa.png" alt="some text" width=60
+				<td>{{ produtos.categoria }}</td>
+				<td>{{ produtos.id }}</td>				
+			<!-- 	<td><img src="{{ produtos.foto }}" alt="some text" width=60
+					height=40></td> -->
+				<td><img src="resources/img/mapa.png" onclick="window.location.href='mapa.html';" alt="some text" width=60
 					height=40></td>
 
 			</tr>
@@ -111,7 +114,8 @@
 		let vm = new Vue({
 			el : '#lista',
 			data : {
-				produto : []
+				produto : [],
+				mercado : []
 			},
 			created : function() {
 				const vm = this;
@@ -124,13 +128,13 @@
 					axios.get('rs/product/get').then(function(response) {
 						vm.produto = response.data;
 					});
-				}/* ,
+				},
 				mercados: function(){
 					const vm = this;
 					axios.get('rs/market/get').then(function(response) {
-						vm.produto = response.data;
+						vm.mercado = response.data;
 					});
-				} */
+				}
 			}
 		});
 	</script>

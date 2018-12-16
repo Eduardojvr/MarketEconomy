@@ -37,7 +37,12 @@
 			</button>
 			<div class="collapse navbar-collapse  nav-pills" id="navbarNav">
 				<!-- 			  my-2 my-md-0 mr-md-3 -->
-
+				<ul class="navbar-nav">
+					<li class="nav-item "><a class="nav-link p-2" href="cadastroProduto.html">Cadastrar Produto</a></li>
+					<li class="nav-item "><a class="nav-link p-2" href="cadastroMercado.html">Cadastrar Mercado</a></li>
+					<li class="nav-item "><a class="nav-link p-2" href="listaProduto.html">Lista de Produtos</a></li>
+			
+				</ul>
 			</div>
 		</div>
 		<!-- /menu do sistema   -->
@@ -83,8 +88,8 @@
 								</div>
 								<div class="form-group">
 									<a>Categoria</a>
-									<select v-model="categorias">
-										<option v-for="categorias in categoria" v-bind:value="categorias.categoria">{{categorias.categoria }}</option>
+									<select v-model="categoria">
+										<option v-for="category in categorias" v-bind:value="category.categoria">{{category.categoria }}</option>
 									</select>
 									<a style="padding-left:80px;" >Mercado</a>
 									<select v-model="mercados">
@@ -95,7 +100,7 @@
 								</div>
 								<div class="card-body">
 									<button type="button" class="btn btn-sm btn-primary" style="width:160px;height:30px;" @click="pega()">Cadastrar</button>
-									<button type="button" class="btn btn-sm btn-danger"  style="width:100px;height:30px;">Cancelar</button>
+									<button type="button" class="btn btn-sm btn-danger"  style="width:100px;height:30px;" onclick="window.location.href='listaProduto.html';" >Cancelar</button>
 								</div>	
 						</div>
 					</form>
@@ -128,7 +133,7 @@
 			el : '#formulario',
 			data : {
 				mercado : [],
-				categoria : []
+				categorias : []
 			},
 			created : function() {
 				const vm = this;
@@ -144,9 +149,9 @@
 						nome : vm.nome,
 						marca : vm.marca,
 						valor : vm.valor,
-						categorias : vm.categorias,
-						mercados : vm.mercados
-					}
+						categoria : vm.categoria
+/* 						mercados : vm.mercados
+ */					}
 					axios.post('rs/product/insert', obj).then(
 							function(response) {
 								console.log(response);
@@ -157,7 +162,7 @@
 					const vm = this;
 					axios.get('rs/category/get').then(function(response) {
 						console.log(response);
-						vm.categoria = response.data;
+						vm.categorias = response.data;
 					});
 				},
 				mercados : function() {

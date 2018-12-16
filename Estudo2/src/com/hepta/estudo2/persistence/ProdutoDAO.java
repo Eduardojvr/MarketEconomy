@@ -62,6 +62,7 @@ public List<Produto> todosProdutos() throws Exception {
 
 			while (result.next()) {
 				Produto produto = new Produto();
+                produto.setId(result.getInt("id"));
                 produto.setNome(result.getString("nome"));
                 produto.setMarca(result.getString("marca"));
                 produto.setValor(result.getFloat("valor"));

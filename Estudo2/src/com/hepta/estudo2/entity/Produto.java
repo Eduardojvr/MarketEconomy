@@ -1,7 +1,7 @@
 package com.hepta.estudo2.entity;
 
 public class Produto {
-	
+	private int id;
 	private String nome;
 	private String marca;
 	private float valor;
@@ -37,6 +37,14 @@ public class Produto {
 
 	public void setValor(float valor) {
 		this.valor = valor;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 	
 	
