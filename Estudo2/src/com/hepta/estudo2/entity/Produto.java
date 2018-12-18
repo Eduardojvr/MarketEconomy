@@ -2,10 +2,21 @@ package com.hepta.estudo2.entity;
 
 public class Produto {
 	private int id;
+	private int mercadoid;
 	private String nome;
 	private String marca;
 	private float valor;
     private String categoria;
+	
+    
+   
+	public int getMercadoid() {
+		return mercadoid;
+	}
+
+	public void setMercadoid(int mercadoid) {
+		this.mercadoid = mercadoid;
+	}
 
 	public String getNome() {
 		return nome;

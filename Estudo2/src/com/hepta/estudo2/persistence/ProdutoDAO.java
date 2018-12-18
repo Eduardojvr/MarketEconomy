@@ -5,8 +5,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
+import com.hepta.estudo2.dto.ProdutoMercadoDTO;
 import com.hepta.estudo2.entity.Produto;
 
 public class ProdutoDAO {
@@ -26,9 +28,10 @@ public class ProdutoDAO {
 		sql.append(" nome, ");
 		sql.append(" marca, ");
 		sql.append(" valor, ");
-		sql.append(" categoria ");
+		sql.append(" categoria, ");
+		sql.append(" mercadoId ");
 		sql.append(" ) ");
-		sql.append(" VALUES (?,?,?,?);");
+		sql.append(" VALUES (?,?,?,?,?);");
 				
 		
 		try {
@@ -37,6 +40,7 @@ public class ProdutoDAO {
 			pstmt.setString(2, produto.getMarca());
 			pstmt.setFloat(3, produto.getValor());
 			pstmt.setString(4, produto.getCategoria());
+			pstmt.setInt(5, produto.getMercadoid());
 			pstmt.executeUpdate();
 			
 		}finally {
@@ -49,27 +53,29 @@ public class ProdutoDAO {
 
 	}
 
-public List<Produto> todosProdutos() throws Exception {
+public List<ProdutoMercadoDTO> todosProdutos() throws Exception {
 		Connection db = ConnectionManager.getDBConnection();
-		List<Produto> arrayList = new ArrayList<>();
+		List<ProdutoMercadoDTO> arrayList = new ArrayList<>();
 
 		PreparedStatement pstmt = null;
-		ResultSet result = null;
-		
-		try {
-			pstmt = db.prepareStatement("SELECT * FROM produto");
-			result = pstmt.executeQuery();
 
+		ResultSet result = null;		
+		
+		try {	
+			pstmt = db.prepareStatement("select produto.nome, produto.marca, produto.valor, produto.categoria, mercado.nome, mercado.endereco from produto\n" + 
+					"INNER JOIN mercado ON produto.mercadoId = mercado.id");
+			result = pstmt.executeQuery();
+			
 			while (result.next()) {
-				Produto produto = new Produto();
-                produto.setId(result.getInt("id"));
-                produto.setNome(result.getString("nome"));
-                produto.setMarca(result.getString("marca"));
-                produto.setValor(result.getFloat("valor"));
-                produto.setCategoria(result.getString("categoria"));
+				ProdutoMercadoDTO produto = new ProdutoMercadoDTO();
+                produto.setNomeProduto(result.getString("produto.nome"));
+                produto.setMarca(result.getString("produto.marca"));
+                produto.setValor(result.getFloat("produto.valor"));
+                produto.setCategoria(result.getString("produto.categoria"));
+                produto.setMercado(result.getString("mercado.nome"));
+                produto.setEndereco(result.getString("mercado.endereco"));
                 arrayList.add(produto);
 			}
-
 		} catch (Exception e) {
 			throw new Exception(e);
 		} finally {

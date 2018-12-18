@@ -68,23 +68,24 @@
 			<div class="row">
 				<div class="col">
 					<!-- opções de campo para formulários -->
-					<form id="formulario">
+					<form id="formulario" >
 						<div class="card">
 							<div class="card-body">
 								<div class="form-group">
-									<label for="exampleFormControlInput1">Nome</label> <input
-										type="text" class="form-control" v-model="nome" id="exampleFormControlInput1"
-										placeholder="Nome">
+									<label for="exampleFormControlInput1">Nome</label> * <input
+										type="text" class="form-control" v-model="nome" id="nome"
+										placeholder="Nome" required>
 								</div>
 								<div class="form-group">
-									<label for="exampleFormControlInput1">Endereço</label> <input
-										type="text" class="form-control" v-model="endereco" id="exampleFormControlInput1"
-										placeholder="Endereço">
+									<label for="exampleFormControlInput1">Endereço</label> * <input
+										type="text" class="form-control" v-model="endereco" id="endereco"
+										placeholder="Endereço" required>
 								</div>
 								<div class="form-group">
-									<label for="exampleFormControlInput1">Foto</label> <input
-										type="text" class="form-control" v-model="foto" id="exampleFormControlInput1"
+									<label >Foto</label> <input
+										type="text" class="form-control" v-model="foto" id="foto"
 										placeholder="Url da foto">
+										
 								</div>
 								
 								<hr />
@@ -103,7 +104,7 @@
 	<footer>
 		<div class="footerSpacing"></div>
 		<div class="footer" id="footer">
-			<span> Criado por: Hepta Tecnologia - {{versao}} </span>
+			<span> Criado por: Hepta Tecnologia - 1.0 </span>
 		</div>
 	</footer>
 	<script src="resources/js/axios.min.js"></script>
@@ -116,23 +117,30 @@
 	<script src="resources/js/bootstrap.min.js"></script>
 	<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
 	<script src="resources/js/ie10-viewport-bug-workaround.js"></script>
-	<script>
 	
+<script>	
 	let vm = new Vue({
         el: '#formulario',
         methods: {			
         	cadastrar: function(){
-				const vm = this;
+        		const vm = this;
 				let obj = {
 					nome: vm.nome,
 					endereco: vm.endereco,
 					foto: vm.foto
 				}
-	 			axios.post('rs/market/insert',obj).then(function (response) {
-					console.log(response);
-					alert("Cadastro realizado com sucesso!");
-                });
-			} 
+				if(vm.foto == null){
+					obj.foto = '';
+				}
+				if (vm.nome == null || vm.endereco == null) {
+	        		alert("Os campos marcados com asterisco são obrigatórios!");
+				}else{
+		 			axios.post('rs/market/insert',obj).then(function (response) {
+						console.log(response);
+						alert("Cadastro realizado com sucesso!");
+	                });
+				}
+			}
         }
 	});
 	

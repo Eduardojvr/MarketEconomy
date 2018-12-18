@@ -70,16 +70,16 @@
 				<th>Marca</th>
 				<th>Valor</th>
 				<th>Categoria</th>
-				<th>Id</th>
+				<th>Mercado</th>
 				<th>Mapa</th>
 
 			</tr>
 			<tr v-for="produtos in produto">
-				<td>{{ produtos.nome }}</td>
+				<td>{{ produtos.nomeProduto }}</td>
 				<td>{{ produtos.marca }}</td>
 				<td>R$ {{ produtos.valor }}</td>
 				<td>{{ produtos.categoria }}</td>
-				<td>{{ produtos.id }}</td>				
+				<td>{{ produtos.mercado }}</td>								
 			<!-- 	<td><img src="{{ produtos.foto }}" alt="some text" width=60
 					height=40></td> -->
 				<td><img src="resources/img/mapa.png" onclick="window.location.href='mapa.html';" alt="some text" width=60
@@ -88,7 +88,6 @@
 			</tr>
 		</table>
 
-
 	</div>
 	<footer>
 		<div class="footerSpacing"></div>
@@ -96,6 +95,7 @@
 			<span> Criado por: Hepta Tecnologia - {{versao}} </span>
 		</div>
 	</footer>
+	
 	<script src="resources/js/axios.min.js"></script>
 	<script src="resources/js/vue.js"></script>
 	<script src="resources/js/header.js"></script>
@@ -106,9 +106,6 @@
 	<script src="resources/js/bootstrap.min.js"></script>
 	<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
 	<script src="resources/js/ie10-viewport-bug-workaround.js"></script>
-	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.4.4/vue.min.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/vue-resource@1.3.4"></script>
 
 	<script>
 		let vm = new Vue({
@@ -138,9 +135,5 @@
 			}
 		});
 	</script>
-
-
-
 </body>
 </html>
-

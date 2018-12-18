@@ -15,13 +15,11 @@ import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
+import com.hepta.estudo2.entity.Usuario;
+import com.hepta.estudo2.persistence.UsuarioDAO;
 
-import com.hepta.estudo2.dto.ProdutoMercadoDTO;
-import com.hepta.estudo2.entity.Produto;
-import com.hepta.estudo2.persistence.ProdutoDAO;
-
-@Path("/product")
-public class RESTHelloService {
+@Path("/user")
+public class RESTUsuario {
 	@Context
 	private HttpServletRequest request;
 
@@ -33,21 +31,21 @@ public class RESTHelloService {
 	}
 
 	@GET
-	@Path("/get")
+	@Path("/getall")
 	@Produces({ MediaType.APPLICATION_JSON })
 	public Response world() {
 		try {
-			ProdutoDAO gerenciadorProduto = new ProdutoDAO();
+			UsuarioDAO gerenciadorUsuario = new UsuarioDAO();
 
-			List<ProdutoMercadoDTO> produtos = gerenciadorProduto.todosProdutos();
-			Collections.reverse(produtos);
-			GenericEntity<List<ProdutoMercadoDTO>> entity = new GenericEntity<List<ProdutoMercadoDTO>>(
-					produtos) {
+			List<Usuario> usuarios = gerenciadorUsuario.todosUsuario();
+			Collections.reverse(usuarios);
+			GenericEntity<List<Usuario>> entity = new GenericEntity<List<Usuario>>(
+					usuarios) {
 			};
 			return Response.ok().entity(entity).build();
 		} catch (Exception e) {
 			e.printStackTrace();
-			return Response.status(Status.PRECONDITION_FAILED).entity("Erro ao buscar produtos").build();
+			return Response.status(Status.PRECONDITION_FAILED).entity("Erro ao buscar usuarios").build();
 		}
 	}
 	
@@ -56,16 +54,16 @@ public class RESTHelloService {
 	@POST
 	@Path("/insert")
 	@Produces({ MediaType.APPLICATION_JSON })
-	public Response insert(Produto p) {
-		ProdutoDAO dao = new ProdutoDAO();
+	public Response insert(Usuario usuario) {
+		UsuarioDAO dao = new UsuarioDAO();
 		
 		try {
-			dao.insert(p);
-			return Response.ok().entity("deu tudo certo").build();
+			dao.insert(usuario);
+			return Response.ok().entity("Usuario cadastrado").build();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			return Response.status(Status.BAD_REQUEST).entity("Erro ao inserir!").build();
+			return Response.status(Status.BAD_REQUEST).entity("Erro ao cadastrar!").build();
 		}
 		
 	}

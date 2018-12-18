@@ -73,40 +73,18 @@
 								</div>
 								<div class="form-group">
 									<label for="exampleFormControlInput1">Email</label> <input
-										type="text" class="form-control" v-model="email" id="exampleFormControlInput1"
-										placeholder="Email">
+										type="email" class="form-control" v-model="email" id="exampleFormControlInput1"
+										placeholder="email@email.com">
 								</div>
-								<div class="form-group">
-									<label for="exampleFormControlInput1">Endereço</label> <input
-										type="text" class="form-control" v-model="endereco" id="exampleFormControlInput1"
-										placeholder="Endereço">
-								</div>
+							
 								<div class="form-group">
 									<label for="exampleFormControlInput1">Senha</label> <input
 										type="password" class="form-control" v-model="senha" id="exampleFormControlInput1"
 										placeholder="***********">
 								</div>
-							<!-- 	<div class="card-body">
-									<div class="custom-file">
-										<label class="custom-file-label" for="customFile">Imagem do usuário</label>
-										<input type="file" class="custom-file-input" id="imagem">
-									</div>
-								</div>
-								<div class="card-body">
-									<div class="custom-control custom-radio">
-										<input type="radio" id="customRadio1" name="customRadio"
-											class="custom-control-input"> <label
-											class="custom-control-label" for="customRadio1">Usuário Comum</label>
-									</div>
-									<div class="custom-control custom-radio">
-										<input type="radio" id="customRadio2" name="customRadio"
-											class="custom-control-input"> <label
-											class="custom-control-label" for="customRadio2">Mercado</label>
-									</div>
-								</div> -->
 								<hr />
 								<div class="card-body">
-									<button type="button" class="btn btn-sm btn-primary">Cadastrar</button>
+									<button type="button" class="btn btn-sm btn-primary" @click="pega()" >Cadastrar</button>
 									<button type="button" class="btn btn-link" onclick="window.location.href='../Estudo2';" >Voltar</button>
 								</div>
 							</div>
@@ -141,13 +119,14 @@
         	pega: function(){
 				const vm = this;
 				let obj = {
-					produto: vm.produto,
-					marca: vm.marca,
-					valor: vm.valor
+					nome: vm.nome,
+					email: vm.email,
+					senha: vm.senha
 				}
-	 			axios.post('rs/product/insert',obj).then(function (response) {
+	 			axios.post('rs/user/insert',obj).then(function (response) {
 					console.log(response);
 					alert("Cadastro realizado com sucesso!");
+					window.location.href = "login.html";
                 });
 			} 
         }
