@@ -1,9 +1,11 @@
 package com.hepta.estudo2.persistence;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.List;
 
+import com.hepta.estudo2.dto.ProdutoMercadoDTO;
 import com.hepta.estudo2.entity.Usuario;
 
 public class UsuarioDAO {
@@ -44,8 +46,30 @@ public class UsuarioDAO {
 
 	}
 
-	public List<Usuario> todosUsuario() {
-		// TODO Auto-generated method stub
-		return null;
+	public boolean getLogin(Usuario user) throws Exception {
+		boolean achou = false;
+		Connection db = ConnectionManager.getDBConnection();
+		PreparedStatement pstmt = null;
+		
+		ResultSet result = null;
+		
+		pstmt = db.prepareStatement("select email, senha from usuario");
+		
+		try {
+			result = pstmt.executeQuery();
+			while (result.next()) {
+				if(user.getEmail().equals(result.getString("email")) && user.getSenha().equals(result.getString("senha"))) {
+					achou = true;
+				}
+			}
+		}catch (Exception e) {
+			throw new Exception(e);
+		} finally {
+			if (pstmt != null)
+				pstmt.close();
+			db.close();
+		}
+		return achou;
 	}
+	
 }

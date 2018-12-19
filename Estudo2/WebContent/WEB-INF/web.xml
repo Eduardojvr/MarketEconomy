@@ -19,5 +19,15 @@
 		<servlet-name>Jersey Servlet</servlet-name>
 		<url-pattern>/rs/*</url-pattern>
 	</servlet-mapping>
+	
+		<filter>
+        <filter-name>filtroSessao</filter-name>
+        <filter-class>com.hepta.estudo2.security.SecurityFilter</filter-class>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>filtroSessao</filter-name>
+        <url-pattern>/pages/*</url-pattern>
+    </filter-mapping>
   
 </web-app>

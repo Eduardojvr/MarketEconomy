@@ -1,3 +1,4 @@
+
 package com.hepta.estudo2.rest;
 
 
@@ -6,6 +7,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -30,25 +32,25 @@ public class RESTUsuario {
 		this.request = request;
 	}
 
-	@GET
-	@Path("/getall")
-	@Produces({ MediaType.APPLICATION_JSON })
-	public Response world() {
-		try {
-			UsuarioDAO gerenciadorUsuario = new UsuarioDAO();
-
-			List<Usuario> usuarios = gerenciadorUsuario.todosUsuario();
-			Collections.reverse(usuarios);
-			GenericEntity<List<Usuario>> entity = new GenericEntity<List<Usuario>>(
-					usuarios) {
-			};
-			return Response.ok().entity(entity).build();
-		} catch (Exception e) {
-			e.printStackTrace();
-			return Response.status(Status.PRECONDITION_FAILED).entity("Erro ao buscar usuarios").build();
-		}
-	}
-	
+//	@GET
+//	@Path("/getall")
+//	@Produces({ MediaType.APPLICATION_JSON })
+//	public Response world() {
+//		try {
+//			UsuarioDAO gerenciadorUsuario = new UsuarioDAO();
+//
+//			List<Usuario> usuarios = gerenciadorUsuario.todosUsuario();
+//			Collections.reverse(usuarios);
+//			GenericEntity<List<Usuario>> entity = new GenericEntity<List<Usuario>>(
+//					usuarios) {
+//			};
+//			return Response.ok().entity(entity).build();
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//			return Response.status(Status.PRECONDITION_FAILED).entity("Erro ao buscar usuarios").build();
+//		}
+//	}
+//	
 
 	
 	@POST
@@ -64,6 +66,31 @@ public class RESTUsuario {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return Response.status(Status.BAD_REQUEST).entity("Erro ao cadastrar!").build();
+		}
+		
+	}
+	
+	
+	
+	@POST
+	@Path("/login")
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Response login(Usuario usuario) {
+		UsuarioDAO dao = new UsuarioDAO();
+		
+		try {
+			boolean login = dao.getLogin(usuario);
+			request.getSession().setAttribute("logado", login);
+			if(login) {
+				return Response.ok().status(Status.OK).build();
+			}else {
+				return Response.status(Status.FORBIDDEN).build();
+			}
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return Response.status(Status.FORBIDDEN).entity("Erro ao cadastrar!").build();
 		}
 		
 	}
