@@ -5,14 +5,14 @@
 <title>Sistema de mercados</title>
 <link rel="shortcut icon" href="favicon.ico" />
 <link rel="stylesheet" type="text/css"
-	href="resources/css/bootstrap_4/css/bootstrap.min.css">
+	href="../resources/css/bootstrap_4/css/bootstrap.min.css">
 <link rel="stylesheet" type="text/css"
-	href="resources/css/bootstrap_4/modelo.css">
+	href="../resources/css/bootstrap_4/modelo.css">
 <link rel="stylesheet" type="text/css"
-	href="resources/fontawesome-free-5.3.1-web/css/all.css">
+	href="../resources/fontawesome-free-5.3.1-web/css/all.css">
 <link rel="stylesheet" type="text/css"
-	href="resources/css/header_generico.css">
-<link rel="stylesheet" type="text/css" href="resources/css/stilo.css">
+	href="../resources/css/header_generico.css">
+<link rel="stylesheet" type="text/css" href="../resources/css/stilo.css">
 
 </head>
 <body>
@@ -21,7 +21,7 @@
 		class="navbar fixed-top navbar-light bg-light shadow-sm p-3 mb-5 align-items-start">
 		<!-- logo do sistema   -->
 		<div class="navbar-brand">
-			<img id="logo_listemas" alt="" src="resources/img/headerIcon.svg" />
+			<img id="logo_listemas" alt="" src="../resources/img/headerIcon.svg" />
 
 			<h1 class="navbar-text">Sistema de Preços</h1>
 		</div>
@@ -50,7 +50,7 @@
 
 		<!-- Logo Hepta  -->
 		<div id="logo_hepta" class="navbar-brand">
-			<img alt="" src="resources/img/logo_hepta-sistemas.png"
+			<img alt="" src="../resources/img/logo_hepta-sistemas.png"
 				style="vertical-align: middle; border-style: none; height: 50px;">
 		</div>
 		<!-- /Logo Hepta  -->
@@ -82,7 +82,7 @@
 				<td>{{ produtos.mercado }}</td>								
 			<!-- 	<td><img src="{{ produtos.foto }}" alt="some text" width=60
 					height=40></td> -->
-				<td><img src="resources/img/mapa.png" onclick="window.location.href='mapa.html';" alt="some text" width=60
+				<td><img src="../resources/img/mapa.png" @click="chamaMapa(produtos.endereco)" alt="some text" width=60
 					height=40></td>
 
 			</tr>
@@ -96,16 +96,16 @@
 		</div>
 	</footer>
 	
-	<script src="resources/js/axios.min.js"></script>
-	<script src="resources/js/vue.js"></script>
-	<script src="resources/js/header.js"></script>
-	<script src="resources/js/loader.js"></script>
-	<script src="resources/js/paginas/gpc/cargo.js"></script>
-	<script src="resources/js/footer.js"></script>
-	<script src="resources/js/jquery-3.3.1.min.js"></script>
-	<script src="resources/js/bootstrap.min.js"></script>
+	<script src="../resources/js/axios.min.js"></script>
+	<script src="../resources/js/vue.js"></script>
+	<script src="../resources/js/header.js"></script>
+	<script src="../resources/js/loader.js"></script>
+	<script src="../resources/js/paginas/gpc/cargo.js"></script>
+	<script src="../resources/js/footer.js"></script>
+	<script src="../resources/js/jquery-3.3.1.min.js"></script>
+	<script src="../resources/js/bootstrap.min.js"></script>
 	<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-	<script src="resources/js/ie10-viewport-bug-workaround.js"></script>
+	<script src="../resources/js/ie10-viewport-bug-workaround.js"></script>
 
 	<script>
 		let vm = new Vue({
@@ -122,15 +122,29 @@
 			methods : {
 				lista : function() {
 					const vm = this;
-					axios.get('rs/product/get').then(function(response) {
+					axios.get('../rs/product/get').then(function(response) {
 						vm.produto = response.data;
 					});
 				},
 				mercados: function(){
 					const vm = this;
-					axios.get('rs/market/get').then(function(response) {
+					axios.get('../rs/market/get').then(function(response) {
 						vm.mercado = response.data;
 					});
+				},
+				chamaMapa: function(enderecomercado){
+					const vm = this;
+					let obj = {
+						endereco: enderecomercado
+					}
+					alert(obj.endereco);
+					window.location.href='mapa.html';
+				/* 	axios.post('../rs/market/insert', obj).then(function(response) {
+						console.log(response);
+						document.getElementById("msgsucess").style.display = 'block';
+						document.getElementById("msgsucess").innerHTML = "Cadastro realizado com sucesso!";
+						window.location.href = "listaProduto.html";
+					}); */
 				}
 			}
 		});

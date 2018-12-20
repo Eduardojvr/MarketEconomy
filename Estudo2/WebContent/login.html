@@ -75,7 +75,7 @@
 										Sua senha deve conter no mínimo 5 e no máximo 8 caracteres. </small>
 								</div>
 								<div class="card-body">
-									<button type="button" class="btn btn-sm btn-primary" @click="logar()" >Logar</button>
+									<button type="button" class="btn btn-sm btn-primary" style="width:120px;height:30px;" @click="logar()" >Logar</button>
 									<button type="button" class="btn btn-link" onclick="window.location.href='cadastroUsuario.html';" >Cadastrar</button>
 								</div>
 							</div>
@@ -118,12 +118,11 @@
  					}
 					axios.post('rs/user/login', obj).then(function(response) {
 						console.log(response);
-						if(response.status==200){
-							alert("Usuário existe");
-						}else{
-							alert("usuário não existe");
-						}
-					});
+						alert("Login realizado com sucesso!");
+						window.location.href = "pages/listaProduto.html";
+					}).catch(function (error){
+						alert("Usuário inexistente!");
+                    });
 				}
 			}
 		});

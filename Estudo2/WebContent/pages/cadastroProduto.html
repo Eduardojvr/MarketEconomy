@@ -5,25 +5,25 @@
 <title>Sistema de mercados</title>
 <link rel="shortcut icon" href="favicon.ico" />
 <link rel="stylesheet" type="text/css"
-	href="resources/css/bootstrap_4/css/bootstrap.min.css">
+	href="../resources/css/bootstrap_4/css/bootstrap.min.css">
 <link rel="stylesheet" type="text/css"
-	href="resources/css/bootstrap_4/modelo.css">
+	href="../resources/css/bootstrap_4/modelo.css">
 <link rel="stylesheet" type="text/css"
-	href="resources/fontawesome-free-5.3.1-web/css/all.css">
+	href="../resources/fontawesome-free-5.3.1-web/css/all.css">
 <link rel="stylesheet" type="text/css"
-	href="resources/css/header_generico.css">
+	href="../resources/css/header_generico.css">
 </head>
 <body>
 
-	<script src="resources/js/vue.js"></script>
-	<script src="resources/js/axios.min.js"></script>
+	<script src="../resources/js/vue.js"></script>
+	<script src="../resources/js/axios.min.js"></script>
 
 	<!-- Header genérico -->
 	<nav id="header_sistemas"
 		class="navbar fixed-top navbar-light bg-light shadow-sm p-3 mb-5 align-items-start">
 		<!-- logo do sistema   -->
 		<div class="navbar-brand">
-			<img id="logo_listemas" alt="" src="resources/img/headerIcon.svg" />
+			<img id="logo_listemas" alt="" src="../resources/img/headerIcon.svg" />
 			<h1 class="navbar-text">Sistema de Preços</h1>
 		</div>
 		<!-- /logo do sistema   -->
@@ -50,7 +50,7 @@
 
 		<!-- Logo Hepta  -->
 		<div id="logo_hepta" class="navbar-brand">
-			<img alt="" src="resources/img/logo_hepta-sistemas.png"
+			<img alt="" src="../resources/img/logo_hepta-sistemas.png"
 				style="vertical-align: middle; border-style: none; height: 50px;">
 		</div>
 		<!-- /Logo Hepta  -->
@@ -97,15 +97,14 @@
 										<option v-for="mercados in mercado" v-bind:value="mercados.id">{{mercados.nome }}</option>
 									</select>
 								</div>
-									
 								</div>
 								<div class="card-body">
-									<button type="button" class="btn btn-sm btn-primary" style="width:160px;height:30px;" @click="pega()">Cadastrar</button>
+									<button type="button" class="btn btn-sm btn-primary" style="width:220px;height:30px;" @click="pega()">Cadastrar</button>
 									<button type="button" class="btn btn-sm btn-danger"  style="width:100px;height:30px;" onclick="window.location.href='listaProduto.html';" >Cancelar</button>
 								</div>	
-						</div>
+								<div class="alert alert-danger" role="alert" id="msg" style="display:none;"></div>
+						        <div class="alert alert-success" role="alert" id="msgsucess" style="display:none;"></div>						</div>
 					</form>
-					<hr />
 				</div>
 
 				<!-- opções de campo para formulários -->
@@ -119,22 +118,22 @@
 			<span> Criado por: Hepta Tecnologia - {{versao}} </span>
 		</div>
 	</footer>
-	<script src="resources/js/axios.min.js"></script>
-	<script src="resources/js/vue.js"></script>
-	<script src="resources/js/header.js"></script>
-	<script src="resources/js/loader.js"></script>
-	<script src="resources/js/paginas/gpc/cargo.js"></script>
-	<script src="resources/js/footer.js"></script>
-	<script src="resources/js/jquery-3.3.1.min.js"></script>
-	<script src="resources/js/bootstrap.min.js"></script>
+	<script src="../resources/js/axios.min.js"></script>
+	<script src="../resources/js/vue.js"></script>
+	<script src="../resources/js/header.js"></script>
+	<script src="../resources/js/loader.js"></script>
+	<script src="../resources/js/paginas/gpc/cargo.js"></script>
+	<script src="../resources/js/footer.js"></script>
+	<script src="../resources/js/jquery-3.3.1.min.js"></script>
+	<script src="../resources/js/bootstrap.min.js"></script>
 	<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-	<script src="resources/js/ie10-viewport-bug-workaround.js"></script>
+	<script src="../resources/js/ie10-viewport-bug-workaround.js"></script>
 	<script>
 		let vm = new Vue({
 			el : '#formulario',
 			data : {
 				mercado : [],
-				categorias : []
+				categorias : [],
 			},
 			created : function() {
 				const vm = this;
@@ -153,27 +152,31 @@
 						categoria : vm.categoria,
  						mercadoid : vm.mercados
  					}
+			
 					if(obj.nome == null || obj.marca == null || obj.valor == null || obj.categoria == null){
-						alert("Todos os campos devem ser preenchidos!");
-						 document.getElementById("msg").innerHTML = "Campo obrigatório";
+						 //alert("Todos os campos devem ser preenchidos!");
+						 document.getElementById("msg").style.display = 'block';
+						 document.getElementById("msg").innerHTML = "Preencha todos os campos marcados com * ";
 					}else{
-						axios.post('rs/product/insert', obj).then(function(response) {
+						axios.post('../rs/product/insert', obj).then(function(response) {
 							console.log(response);
-							alert("Cadastro realizado com sucesso!");
+							document.getElementById("msgsucess").style.display = 'block';
+							document.getElementById("msgsucess").innerHTML = "Cadastro realizado com sucesso!";
 							window.location.href = "listaProduto.html";
 						});
 					}
 				},
 				inicia : function() {
 					const vm = this;
-					axios.get('rs/category/get').then(function(response) {
+					//document.getElementById("msg").style.display = 'none';
+					axios.get('../rs/category/get').then(function(response) {
 						console.log(response);
 						vm.categorias = response.data;
 					});
 				},
 				mercados : function() {
 					const vm = this;
-					axios.get('rs/market/get').then(function(response) {
+					axios.get('../rs/market/get').then(function(response) {
 						console.log(response);
 						vm.mercado = response.data;
 					});
