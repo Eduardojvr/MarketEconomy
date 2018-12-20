@@ -66,6 +66,7 @@
 
 		<table style="width: 100%" id="lista" align="center">
 			<tr>
+				<th></th>
 				<th>Produto</th>
 				<th>Marca</th>
 				<th>Valor</th>
@@ -75,17 +76,16 @@
 
 			</tr>
 			<tr v-for="produtos in produto">
+				<td><img src="https://images.vexels.com/media/users/3/141761/isolated/preview/d98a8114018473a6b0aeb849da9d6953-planta-alimento-do-trigo-by-vexels.png" alt="some text" width=60 height=60></td>
+				<br>
 				<td>{{ produtos.nomeProduto }}</td>
 				<td>{{ produtos.marca }}</td>
 				<td>R$ {{ produtos.valor }}</td>
 				<td>{{ produtos.categoria }}</td>
 				<td>{{ produtos.mercado }}</td>								
-			<!-- 	<td><img src="{{ produtos.foto }}" alt="some text" width=60
-					height=40></td> -->
-				<td><img src="../resources/img/mapa.png" @click="chamaMapa(produtos.endereco)" alt="some text" width=60
-					height=40></td>
-
+				<td><img src="../resources/img/mapa.png" @click="chamaMapa(produtos.endereco)" alt="some text" width=60 height=40></td>
 			</tr>
+		
 		</table>
 
 	</div>
@@ -134,17 +134,17 @@
 				},
 				chamaMapa: function(enderecomercado){
 					const vm = this;
+					const endereco = enderecomercado;
 					let obj = {
-						endereco: enderecomercado
+						url: "https://maps.googleapis.com/maps/api/geocode/json?address="+endereco+"&key=AIzaSyDroa8JCUm2JfRZ_7eVMb4Fqx8ufr0Mz_A"
 					}
-					alert(obj.endereco);
-					window.location.href='mapa.html';
-				/* 	axios.post('../rs/market/insert', obj).then(function(response) {
+					var nurl = encodeURI(obj.url); 
+					axios.get(nurl).then(function(response) {
 						console.log(response);
-						document.getElementById("msgsucess").style.display = 'block';
-						document.getElementById("msgsucess").innerHTML = "Cadastro realizado com sucesso!";
-						window.location.href = "listaProduto.html";
-					}); */
+						sessionStorage.setItem('latitude', response.data["results"][0]["geometry"]["location"]["lat"]);
+						sessionStorage.setItem('longitude', response.data["results"][0]["geometry"]["location"]["lng"]);
+						window.location.href = "mapa.html";
+					});				
 				}
 			}
 		});

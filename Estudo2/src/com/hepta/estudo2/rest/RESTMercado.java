@@ -57,7 +57,6 @@ public class RESTMercado {
 	@Produces({ MediaType.APPLICATION_JSON })
 	public Response insert(Mercado p) {
 		MercadoDAO dao = new MercadoDAO();
-		
 		try {
 			dao.insert(p);
 			return Response.ok().entity("deu tudo certo").build();
