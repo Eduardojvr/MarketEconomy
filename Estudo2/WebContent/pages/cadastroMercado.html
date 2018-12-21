@@ -53,14 +53,16 @@
 				role="button" aria-haspopup="true" aria-expanded="false"> <i
 					class="fas fa-user"></i>
 			</a>
-				<div id="grid_user" class="dropdown-menu">
+				<div id="log" class="dropdown-menu">
 					<span class="dropdown-item">Usuário</span>
 					<div role="separator" class="dropdown-divider"></div>
-					<a class="dropdown-item" href="#three">sair <i
+					<a @click="logout()"  class="dropdown-item" href="#three">sair <i
 						class="fas fa-sign-out-alt"></i></a>
-				</div></li>
+				</div>
+			</li>
 		</ul>
 		<!-- /Menu Usuário  -->
+
 		
 		<!-- Logo Hepta  -->
 		<div id="logo_hepta" class="navbar-brand">
@@ -137,6 +139,19 @@
 	<script src="../resources/js/ie10-viewport-bug-workaround.js"></script>
 	
 <script>	
+
+	let  control = new Vue({
+		el : '#log',
+		methods:{
+			logout : function() {
+				const vm = this;
+				axios.post('../rs/user/logout').then(function(response) {
+					window.location.href = "../login.html";
+				});
+			}
+		}	
+	});
+	
 	let vm = new Vue({
         el: '#formulario',
         methods: {			

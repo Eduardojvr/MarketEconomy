@@ -20,7 +20,7 @@
 		<url-pattern>/rs/*</url-pattern>
 	</servlet-mapping>
 	
-		<filter>
+	<filter>
         <filter-name>filtroSessao</filter-name>
         <filter-class>com.hepta.estudo2.security.SecurityFilter</filter-class>
     </filter>

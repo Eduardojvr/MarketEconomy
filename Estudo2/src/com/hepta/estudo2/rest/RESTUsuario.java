@@ -70,8 +70,6 @@ public class RESTUsuario {
 		
 	}
 	
-	
-	
 	@POST
 	@Path("/login")
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -82,6 +80,28 @@ public class RESTUsuario {
 			boolean login = dao.getLogin(usuario);
 			request.getSession().setAttribute("logado", login);
 			if(login) {
+				return Response.ok().status(Status.OK).build();
+			}else {
+				return Response.status(Status.FORBIDDEN).build();
+			}
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return Response.status(Status.FORBIDDEN).entity("Erro ao cadastrar!").build();
+		}
+		
+	}
+	
+	
+	@POST
+	@Path("/logout")
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Response logout() {
+		
+		try {
+			if(request.getSession() != null){
+				request.getSession().setAttribute("logado", false);
 				return Response.ok().status(Status.OK).build();
 			}else {
 				return Response.status(Status.FORBIDDEN).build();

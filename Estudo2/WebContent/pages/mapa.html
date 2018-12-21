@@ -49,9 +49,7 @@
 						href="cadastroMercado.html">Cadastrar Mercado</a></li>
 					<li class="nav-item "><a class="nav-link p-2"
 						href="listaProduto.html">Lista de Produtos</a></li>
-
 				</ul>
-
 			</div>
 		</div>
 		<!-- /menu do sistema   -->
@@ -63,10 +61,10 @@
 				role="button" aria-haspopup="true" aria-expanded="false"> <i
 					class="fas fa-user"></i>
 			</a>
-				<div id="grid_user" class="dropdown-menu">
+				<div id="log" class="dropdown-menu">
 					<span class="dropdown-item">Usuário</span>
 					<div role="separator" class="dropdown-divider"></div>
-					<a class="dropdown-item" href="#three">sair <i
+					<a @click="logout()" class="dropdown-item">sair <i
 						class="fas fa-sign-out-alt"></i>
 					</a>
 				</div>
@@ -86,7 +84,17 @@
 	<div id="map"></div>
 
 <script>
-
+	let  control = new Vue({
+		el : '#log',
+		methods:{
+			logout : function() {
+				const vm = this;
+				axios.post('../rs/user/logout').then(function(response) {
+					window.location.href = "../login.html";
+				});
+			}
+		}
+	});
 	
     function initMap() {
 
