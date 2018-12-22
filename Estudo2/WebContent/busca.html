@@ -12,6 +12,14 @@
 	href="resources/fontawesome-free-5.3.1-web/css/all.css">
 <link rel="stylesheet" type="text/css"
 	href="resources/css/header_generico.css">
+	<link rel="stylesheet" type="text/css"
+	href="resources/css/personalizado.css">
+<link rel="stylesheet" type="text/css" href="resources/css/stilo.css">
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
+
 </head>
 <body>
 	<!-- Header genérico -->
@@ -20,6 +28,7 @@
 		<!-- logo do sistema   -->
 		<div class="navbar-brand">
 			<img id="logo_listemas" alt="" src="resources/img/headerIcon.svg" />
+
 			<h1 class="navbar-text">Sistema de Preços</h1>
 		</div>
 		<!-- /logo do sistema   -->
@@ -31,14 +40,28 @@
 				aria-expanded="false" aria-label="Toggle navigation">
 				<span class="navbar-toggler-icon"></span>
 			</button>
-			<div class="collapse navbar-collapse  nav-pills" id="navbarNav">
-				<!-- 			  my-2 my-md-0 mr-md-3 -->
-				
-			</div>
 		</div>
+	
 		<!-- /menu do sistema   -->
 		
-	
+		<!-- Menu Usuário  -->
+		<!-- <div id="autenticado" style="display:none";>	 -->
+	 	
+				<li class="nav-item dropdown">
+				<!-- <a	class="nav-link dropdown-toggle" data-toggle="dropdown" href="#"
+					role="button" aria-haspopup="true" aria-expanded="false"> <i
+						class="fas fa-user"></i>
+				</a> -->
+					
+						<a id="autenticado" @click="logout()" class="dropdown-item">sair<i
+							class="fas fa-sign-out-alt"></i></a>
+					
+				</li>
+			
+	<!-- 	</div> -->
+		<!-- /Menu Usuário  -->
+
+
 		<!-- Logo Hepta  -->
 		<div id="logo_hepta" class="navbar-brand">
 			<img alt="" src="resources/img/logo_hepta-sistemas.png"
@@ -50,50 +73,37 @@
 	<div class="loader" id="loader-primario">
 		<span></span> <span></span> <span></span> <span></span>
 	</div>
-	<div class="loaderFocus" id="loader-primario-focus"></div>
-	<div class="container-fluid ">
-		<div id="wrapper" class=" shadow-sm">
-			<div class="container">
-				<h2 class="display-8">Login</h2>
-			</div>
-			<div class="row">
-				<div class="col">
-					<!-- opções de campo para formulários -->
-					<form id="formulario">
-						<div class="card">
-							<div class="card-body">
-								<div class="form-group">
-									<label for="exampleFormControlInput1">Email</label> <input
-										type="email" class="form-control"
-										id="email" name="email" placeholder="name@example.com" v-model="email">
-								</div>
-								<div class="form-group">
-									<label for="exampleFormControlInput1">Senha</label> <input
-										type="password" class="form-control" v-model="senha" id="exampleFormControlInput1"
-										placeholder="***********">
-								</div>
-								<div class="card-body">
-									<button type="button" class="btn btn-sm btn-primary" style="width:120px;height:30px;" @click="logar()" >Logar</button>
-									<button type="button" class="btn btn-link" onclick="window.location.href='cadastroUsuario.html';" >Cadastrar</button>
-								</div>
-									<div class="alert alert-danger" role="alert" id="msg" style="display:none;"></div>
-							</div>
-							<hr />	
+
+	<div class="container">
+    <br/>
+		<div class="row justify-content-center">
+			<div class="col-1 col-md-2 col-lg-10">
+				<form class="teste">
+				
+					<div class="card-body row no-gutters align-items-center">
+						<!--end of col-->
+						<img class="teste" src="http://dialungana.com/wp-content/uploads/2018/04/animat-search.gif" alt="Computer man" style="width:450px;height:300px;">
+						<div class="col-auto">
+							<input style="height: 50px; width: 500px" class="form-control" type="search" placeholder="Qual produto deseja pesquisar?">
 						</div>
-					
-					</form>
-					<!-- opções de campo para formulários -->
-					<hr />
-				</div>
+						<!--end of col-->
+						<div class="col-auto">
+							&nbsp<button  style="height: 50px;" class="btn btn-lg btn-success" type="submit">Buscar</button>
+						</div>
+						<!--end of col-->
+					</div>
+				</form>
 			</div>
 		</div>
 	</div>
+	
 	<footer>
 		<div class="footerSpacing"></div>
 		<div class="footer" id="footer">
 			<span> Criado por: Hepta Tecnologia - {{versao}} </span>
 		</div>
 	</footer>
+	
 	<script src="resources/js/axios.min.js"></script>
 	<script src="resources/js/vue.js"></script>
 	<script src="resources/js/header.js"></script>
@@ -104,34 +114,41 @@
 	<script src="resources/js/bootstrap.min.js"></script>
 	<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
 	<script src="resources/js/ie10-viewport-bug-workaround.js"></script>
-	
-	<script>
-		let vm = new Vue({
-			el : '#formulario',
-			methods : {
-				logar : function() {
-					const vm = this;
-					let obj = {
-						email : vm.email,
-						senha : vm.senha
- 					}
-					
-					axios.post('rs/user/login', obj).then(function(response) {
-						console.log(response);
-						sessionStorage.setItem('isLogado', response.data);		
-						alert("Login realizado com sucesso!");
-						window.location.href = "pages/listaProduto.html";
-					}).catch(function (error){
-						document.getElementById("msg").style.display = 'block';
-						document.getElementById("msg").innerHTML = "Usuário não encontrado!";
-						sessionStorage.setItem('isLogado', false);
-                    });
+
+<script>
+
+	let aut = new Vue({
+		el: '#autenticado',
+		created : function() {
+			const vm = this;
+
+			this.autenticado();
+		},
+		methods:{
+			autenticado: function(){
+				var aut = sessionStorage.getItem('isLogado');
+				if(aut == "true"){
+					document.getElementById("autenticado").style.display = 'block';
 				}
+			},
+			logout : function() {
+				alert("drk");
+				const vm = this;
+				axios.post('rs/user/logout').then(function(response) {
+					window.location.href = "login.html";
+				});
 			}
-		});
-	</script>
+		}
+	
+	});
+	
+	
+
+</script>
+	
+	
+	
 	
 	
 </body>
 </html>
-

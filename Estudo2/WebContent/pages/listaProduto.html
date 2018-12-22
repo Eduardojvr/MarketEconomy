@@ -40,7 +40,6 @@
 					<li class="nav-item "><a class="nav-link p-2" href="cadastroProduto.html">Cadastrar Produto</a></li>
 					<li class="nav-item "><a class="nav-link p-2" href="cadastroMercado.html">Cadastrar Mercado</a></li>
 					<li class="nav-item "><a class="nav-link p-2" href="listaProduto.html">Lista de Produtos</a></li>
-			
 				</ul>
 
 			</div>
@@ -49,6 +48,7 @@
 		
 		<!-- Menu Usuário  -->
 		<ul id="menu_user" class="nav nav-pills float-right">
+			<img id="busca" @click="buscar()" style="vertical-align: middle; border-style: none; height: 35px;" href="../busca.html" src="https://pt.seaicons.com/wp-content/uploads/2015/11/zoom-seach-icon.png" />
 			<li class="nav-item dropdown"><a
 				class="nav-link dropdown-toggle" data-toggle="dropdown" href="#"
 				role="button" aria-haspopup="true" aria-expanded="false"> <i
@@ -93,7 +93,7 @@
 
 			</tr>
 			<tr v-for="produtos in produto">
-				<td><img src="https://images.vexels.com/media/users/3/141761/isolated/preview/d98a8114018473a6b0aeb849da9d6953-planta-alimento-do-trigo-by-vexels.png" alt="some text" width=60 height=60></td>
+				<td><img @click="perfilProduto(produtos)" src="https://images.vexels.com/media/users/3/141761/isolated/preview/d98a8114018473a6b0aeb849da9d6953-planta-alimento-do-trigo-by-vexels.png" alt="some text" width=60 height=60></td>
 				<br>
 				<td>{{ produtos.nomeProduto }}</td>
 				<td>{{ produtos.marca }}</td>
@@ -125,13 +125,23 @@
 	<script src="../resources/js/ie10-viewport-bug-workaround.js"></script>
 
 	<script>
+	    let  pesquisa = new Vue({
+	    	el: '#busca',
+	    	methods:{
+	    		buscar: function(produtos){
+	    			window.location.href = "../busca.html";
+	    		}
+	    	}
+	    });
+	    
 	    let  control = new Vue({
-	    	el : '#log',
+	    	el: '#log',
 	    	methods:{
 	    		logout : function() {
 					const vm = this;
 					axios.post('../rs/user/logout').then(function(response) {
 						window.location.href = "../login.html";
+						sessionStorage.setItem('isLogado', false);
 					});
 				}
 	    	}
@@ -174,6 +184,15 @@
 						sessionStorage.setItem('longitude', response.data["results"][0]["geometry"]["location"]["lng"]);
 						window.location.href = "mapa.html";
 					});				
+				},
+				perfilProduto: function(produtos){
+						
+						sessionStorage.setItem('produto', produtos.nomeProduto);
+						sessionStorage.setItem('categoria', produtos.categoria);
+						sessionStorage.setItem('mercado', produtos.mercado);
+						sessionStorage.setItem('valor', produtos.valor);
+						sessionStorage.setItem('endereco', produtos.endereco);	
+						window.location.href = "produtos.html";
 				}
 			}
 		});

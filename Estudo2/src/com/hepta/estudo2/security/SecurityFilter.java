@@ -24,7 +24,6 @@ public class SecurityFilter implements Filter{
 
 		if (user) {
 		    chain.doFilter(request, res);
-	
 		} else {
 			response.sendRedirect(request.getContextPath() + "/autorizacao.html");
 		}

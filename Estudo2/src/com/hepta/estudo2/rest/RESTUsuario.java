@@ -80,7 +80,7 @@ public class RESTUsuario {
 			boolean login = dao.getLogin(usuario);
 			request.getSession().setAttribute("logado", login);
 			if(login) {
-				return Response.ok().status(Status.OK).build();
+				return Response.ok().status(Status.OK).entity(request.getSession().getAttribute("logado")).build();
 			}else {
 				return Response.status(Status.FORBIDDEN).build();
 			}

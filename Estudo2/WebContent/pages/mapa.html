@@ -43,12 +43,10 @@
 			<div class="collapse navbar-collapse  nav-pills" id="navbarNav">
 				<!-- 			  my-2 my-md-0 mr-md-3 -->
 				<ul class="navbar-nav">
-					<li class="nav-item "><a class="nav-link p-2"
-						href="cadastroProduto.html">Cadastrar Produto</a></li>
-					<li class="nav-item "><a class="nav-link p-2"
-						href="cadastroMercado.html">Cadastrar Mercado</a></li>
-					<li class="nav-item "><a class="nav-link p-2"
-						href="listaProduto.html">Lista de Produtos</a></li>
+					<li class="nav-item "><a class="nav-link p-2" href="cadastroProduto.html">Cadastrar Produto</a></li>
+					<li class="nav-item "><a class="nav-link p-2" href="cadastroMercado.html">Cadastrar Mercado</a></li>
+					<li class="nav-item "><a class="nav-link p-2" href="listaProduto.html">Lista de Produtos</a></li>
+					<li class="nav-item "><a class="nav-link p-2" href="../busca.html">Pesquisar</a></li>
 				</ul>
 			</div>
 		</div>
@@ -91,6 +89,7 @@
 				const vm = this;
 				axios.post('../rs/user/logout').then(function(response) {
 					window.location.href = "../login.html";
+					sessionStorage.setItem('isLogado', false);
 				});
 			}
 		}

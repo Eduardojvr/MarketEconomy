@@ -48,6 +48,7 @@
 
 		<!-- Menu Usuário  -->
 		<ul id="menu_user" class="nav nav-pills float-right">
+			<img id="busca" @click="buscar()" style="vertical-align: middle; border-style: none; height: 35px;" href="../busca.html" src="https://pt.seaicons.com/wp-content/uploads/2015/11/zoom-seach-icon.png" />
 			<li class="nav-item dropdown"><a
 				class="nav-link dropdown-toggle" data-toggle="dropdown" href="#"
 				role="button" aria-haspopup="true" aria-expanded="false"> <i
@@ -139,6 +140,14 @@
 	<script src="../resources/js/ie10-viewport-bug-workaround.js"></script>
 	
 <script>	
+	let  pesquisa = new Vue({
+		el: '#busca',
+		methods:{
+			buscar: function(produtos){
+				window.location.href = "../busca.html";
+			}
+		}
+	});
 
 	let  control = new Vue({
 		el : '#log',
@@ -147,6 +156,7 @@
 				const vm = this;
 				axios.post('../rs/user/logout').then(function(response) {
 					window.location.href = "../login.html";
+					sessionStorage.setItem('isLogado', false);
 				});
 			}
 		}	
