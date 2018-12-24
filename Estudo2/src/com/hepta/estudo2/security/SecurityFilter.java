@@ -19,7 +19,7 @@ public class SecurityFilter implements Filter{
 		HttpSession session = ((HttpServletRequest) req).getSession(false);
 		Object user = (session != null) ? session.getAttribute("logado") : null;
 		boolean isLog = (boolean) session.getAttribute("logado");
-		System.out.println(session.getAttribute("logado"));
+		//System.out.println(session.getAttribute("logado"));
 		HttpServletResponse response = (HttpServletResponse) res;
 		String redirectURL = "";
 		

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="utf-8">
+<meta charset="utf-8" http-equiv="refresh">
 <title>Sistema de mercados</title>
 <link rel="shortcut icon" href="favicon.ico" />
 <link rel="stylesheet" type="text/css"
@@ -42,8 +42,9 @@
 			</button>
 			<div class="collapse navbar-collapse  nav-pills" id="navbarNav">
 				<!-- 			  my-2 my-md-0 mr-md-3 -->
-			<ul class="navbar-nav">
+				<ul class="navbar-nav">
 					<li id="acess" class="nav-item "><a id="visi2" class="nav-link p-2" href="login.html">Login</a></li>
+					<li id="acess" class="nav-item "><a id="visi3" class="nav-link p-2" href="cadastroUsuario.html">Cadastrar</a></li>
 				</ul>
 			</div>
 		</div>
@@ -81,7 +82,7 @@
 				
 					<div class="card-body row no-gutters align-items-center">
 						<!--end of col-->
-						<img class="teste" src="http://dialungana.com/wp-content/uploads/2018/04/animat-search.gif" alt="Computer man" style="width:450px;height:300px;">
+						<img class="teste" src="resources/img/search.gif" alt="Computer man" style="width:450px;height:300px;">
 						<div class="col-auto">
 							<input style="height: 50px; width: 500px" class="form-control" type="search" placeholder="Qual produto deseja pesquisar?">
 						</div>
@@ -160,8 +161,10 @@
 					
 					if(!isLog){
 						document.getElementById("visi2").style.display = 'block';
+						document.getElementById("visi3").style.display = 'block';
 					}else{
 						document.getElementById("visi2").style.display = 'none';
+						document.getElementById("visi3").style.display = 'none';
 					} 
 					
 				});	
