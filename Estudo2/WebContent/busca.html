@@ -78,17 +78,17 @@
     <br/>
 		<div class="row justify-content-center">
 			<div class="col-1 col-md-2 col-lg-10">
-				<form class="teste">
+				<form class="teste" id="pesquisa">
 				
 					<div class="card-body row no-gutters align-items-center">
 						<!--end of col-->
 						<img class="teste" src="resources/img/search.gif" alt="Computer man" style="width:450px;height:300px;">
 						<div class="col-auto">
-							<input style="height: 50px; width: 500px" class="form-control" type="search" placeholder="Qual produto deseja pesquisar?">
+							<input v-model="query" style="height: 50px; width: 500px" class="form-control" type="search" placeholder="Qual produto deseja pesquisar?">
 						</div>
 						<!--end of col-->
 						<div class="col-auto">
-							&nbsp<button  style="height: 50px;" class="btn btn-lg btn-success" type="submit">Buscar</button>
+							&nbsp<button  @click="busca()"  style="height: 50px;" class="btn btn-lg btn-success" type="submit">Buscar</button>
 						</div>
 						<!--end of col-->
 					</div>
@@ -116,6 +116,25 @@
 	<script src="resources/js/ie10-viewport-bug-workaround.js"></script>
 
 <script>
+
+let busc = new Vue({
+	el: '#pesquisa',
+	methods:{
+		busca: function(query){
+			const vm = this;
+			let obj = {
+				objbusca : vm.query
+			}
+			// Implementar lógica de buscar o produto ignorando a forma escrita (lower case upper case)
+		
+		}
+	}
+
+});
+
+
+
+
 
 	let aut = new Vue({
 		el: '#autentica',

@@ -7,7 +7,6 @@ public class Produto {
 	private String marca;
 	private float valor;
     private String categoria;
-	
     
    
 	public int getMercadoid() {
