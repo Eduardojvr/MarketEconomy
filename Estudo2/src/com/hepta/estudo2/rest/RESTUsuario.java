@@ -121,9 +121,9 @@ public class RESTUsuario {
 	@Path("/isLogin")
 	@Produces(MediaType.APPLICATION_JSON)
 	public boolean isLogin() {
-		Object obj = request.getSession().getAttribute("logado");
 		
 		try {
+			Object obj = request.getSession().getAttribute("logado");
 			if(request.getSession() == null || obj.equals(false)){
 				return false;
 			}else {

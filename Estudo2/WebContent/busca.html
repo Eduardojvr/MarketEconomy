@@ -24,14 +24,14 @@
 <body>
 	<!-- Header genérico -->
 	<nav id="header_sistemas"
-		class="navbar fixed-top navbar-light bg-light shadow-sm p-3 mb-5 align-items-start">
+		class="navbar fixed-top navbar-light bg-light shadow-sm p-0 mb-1 align-items-start">
 		<!-- logo do sistema   -->
 		<div class="navbar-brand">
 			<img id="logo_listemas" alt="" src="resources/img/headerIcon.svg" />
-
 			<h1 class="navbar-text">Sistema de Preços</h1>
 		</div>
 		<!-- /logo do sistema   -->
+		
 		<!-- menu do sistema   -->
 		<div id="menu_sistema"
 			class="navbar navbar-expand-lg navbar-light bg-light col">
@@ -40,14 +40,17 @@
 				aria-expanded="false" aria-label="Toggle navigation">
 				<span class="navbar-toggler-icon"></span>
 			</button>
+			<div class="collapse navbar-collapse  nav-pills" id="navbarNav">
+				<!-- 			  my-2 my-md-0 mr-md-3 -->
+				<ul class="navbar-nav">
+					<li id="autentica" class="nav-item "><a  id="visi2" class="nav-link p-2" href="login.html">Login</a></li>
+				</ul>
+			</div>
 		</div>
-	
 		<!-- /menu do sistema   -->
-		
-
+	
 		<!-- Menu Usuário  -->
 		<ul id="autentica" class="nav nav-pills float-right">
-			
 			<li id="visi"  class="nav-item dropdown"><a
 				class="nav-link dropdown-toggle" data-toggle="dropdown" href="#"
 				role="button" aria-haspopup="true" aria-expanded="false"> <i
@@ -62,18 +65,13 @@
 		</ul>
 		<!-- /Menu Usuário  -->
 		
-		
-		
-		
-		
-
-
 		<!-- Logo Hepta  -->
 		<div id="logo_hepta" class="navbar-brand">
 			<img alt="" src="resources/img/logo_hepta-sistemas.png"
 				style="vertical-align: middle; border-style: none; height: 50px;">
 		</div>
 		<!-- /Logo Hepta  -->
+		
 	</nav>
 	<!-- Fim Header genérico -->
 	<div class="loader" id="loader-primario">
@@ -141,11 +139,18 @@
 					}else{
 						document.getElementById("visi").style.display = 'none';
 					}
+					
+					if(!isLog){
+						document.getElementById("visi2").style.display = 'block';
+					}else{
+						document.getElementById("visi").style.display = 'none';
+					}
+					
 				});	
 			},
 			logout : function() {
 				axios.post('rs/user/logout').then(function(response) {
-					window.location.href = "login.html";
+					window.location.href = "busca.html";
 				});
 			}
 		}
