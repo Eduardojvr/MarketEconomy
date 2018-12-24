@@ -118,7 +118,7 @@
 					
 					axios.post('rs/user/login', obj).then(function(response) {
 						console.log(response);
-						sessionStorage.setItem('isLogado', response.data);		
+						sessionStorage.setItem('isLogado', true);	
 						alert("Login realizado com sucesso!");
 						window.location.href = "pages/listaProduto.html";
 					}).catch(function (error){

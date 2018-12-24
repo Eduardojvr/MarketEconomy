@@ -44,22 +44,28 @@
 	
 		<!-- /menu do sistema   -->
 		
+
 		<!-- Menu Usuário  -->
-		<!-- <div id="autenticado" style="display:none";>	 -->
-	 	
-				<li class="nav-item dropdown">
-				<!-- <a	class="nav-link dropdown-toggle" data-toggle="dropdown" href="#"
-					role="button" aria-haspopup="true" aria-expanded="false"> <i
-						class="fas fa-user"></i>
-				</a> -->
-					
-						<a id="autenticado" @click="logout()" class="dropdown-item">sair<i
-							class="fas fa-sign-out-alt"></i></a>
-					
-				</li>
+		<ul id="autentica" class="nav nav-pills float-right">
 			
-	<!-- 	</div> -->
+			<li id="visi"  class="nav-item dropdown"><a
+				class="nav-link dropdown-toggle" data-toggle="dropdown" href="#"
+				role="button" aria-haspopup="true" aria-expanded="false"> <i
+					class="fas fa-user"></i>
+			</a>
+				<div class="dropdown-menu">
+					<span class="dropdown-item">Usuário</span>
+					<div role="separator" class="dropdown-divider"></div>
+					<a id="visi"  @click="logout()" class="dropdown-item">sair<i class="fas fa-sign-out-alt"></i></a>
+				</div>
+			</li>
+		</ul>
 		<!-- /Menu Usuário  -->
+		
+		
+		
+		
+		
 
 
 		<!-- Logo Hepta  -->
@@ -118,22 +124,26 @@
 <script>
 
 	let aut = new Vue({
-		el: '#autenticado',
+		el: '#autentica',
 		created : function() {
 			const vm = this;
-
 			this.autenticado();
 		},
 		methods:{
 			autenticado: function(){
-				var aut = sessionStorage.getItem('isLogado');
-				if(aut == "true"){
-					document.getElementById("autenticado").style.display = 'block';
-				}
+
+				var isLog = false;
+				axios.post('rs/user/isLogin').then(function(response) {
+					isLog = Boolean(response.data);
+				
+					if(isLog){
+						document.getElementById("visi").style.display = 'block';
+					}else{
+						document.getElementById("visi").style.display = 'none';
+					}
+				});	
 			},
 			logout : function() {
-				alert("drk");
-				const vm = this;
 				axios.post('rs/user/logout').then(function(response) {
 					window.location.href = "login.html";
 				});
@@ -141,8 +151,7 @@
 		}
 	
 	});
-	
-	
+
 
 </script>
 	

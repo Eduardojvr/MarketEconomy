@@ -156,7 +156,6 @@
 				const vm = this;
 				axios.post('../rs/user/logout').then(function(response) {
 					window.location.href = "../login.html";
-					sessionStorage.setItem('isLogado', false);
 				});
 			}
 		}	

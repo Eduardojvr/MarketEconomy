@@ -110,8 +110,31 @@ public class RESTUsuario {
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			return Response.status(Status.FORBIDDEN).entity("Erro ao cadastrar!").build();
+			return Response.status(Status.FORBIDDEN).entity("Erro ao realizar logout!").build();
 		}
+		
+	}
+	
+	
+	
+	@POST
+	@Path("/isLogin")
+	@Produces(MediaType.APPLICATION_JSON)
+	public boolean isLogin() {
+		Object obj = request.getSession().getAttribute("logado");
+		
+		try {
+			if(request.getSession() == null || obj.equals(false)){
+				return false;
+			}else {
+				return true;
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+		
 		
 	}
 }
