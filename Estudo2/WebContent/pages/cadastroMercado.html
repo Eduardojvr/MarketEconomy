@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="utf-8">
+<meta charset="utf-8" http-equiv="refresh">
 <title>Sistema de mercados</title>
 <link rel="shortcut icon" href="favicon.ico" />
 <link rel="stylesheet" type="text/css"
@@ -155,7 +155,8 @@
 			logout : function() {
 				const vm = this;
 				axios.post('../rs/user/logout').then(function(response) {
-					window.location.href = "../login.html";
+			        window.location.href = "cadastroMercado.html";
+					window.location.href = "../busca.html";
 				});
 			}
 		}	
@@ -178,6 +179,13 @@
 					if(obj.foto==null){
 						obj.foto="none";
 					}
+				/* 	var isLog = false;
+					axios.post('rs/user/isLogin').then(function(response) {
+						isLog = Boolean(response.data);
+					
+										
+
+					});	 */
 					axios.post('../rs/market/insert', obj).then(function(response) {
 						console.log(response);
 						document.getElementById("msgsucess").style.display = 'block';

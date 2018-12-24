@@ -14,20 +14,38 @@ import javax.servlet.http.HttpSession;
 public class SecurityFilter implements Filter{
 	
 	@Override
-	public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain)
-			throws IOException, ServletException {
-
+	public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain){
 		HttpServletRequest request = (HttpServletRequest) req;
 		HttpSession session = ((HttpServletRequest) req).getSession(false);
-		boolean user = (boolean) session.getAttribute("logado");
+		Object user = (session != null) ? session.getAttribute("logado") : null;
+		boolean isLog = (boolean) session.getAttribute("logado");
+		System.out.println(session.getAttribute("logado"));
 		HttpServletResponse response = (HttpServletResponse) res;
-
-		if (user) {
-		    chain.doFilter(request, res);
+		String redirectURL = "";
+		
+		if (user != null) {
+			if (isLog) {
+				try {
+					chain.doFilter(request, res);
+				} catch (Exception e) {
+					e.printStackTrace();
+				} 
+			} else {
+				redirectURL = request.getContextPath() + "/autorizacao.html";
+				try {
+					response.sendRedirect(redirectURL);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
 		} else {
-			response.sendRedirect(request.getContextPath() + "/autorizacao.html");
+			redirectURL = request.getContextPath() + "/autorizacao.html";
+			try {
+				response.sendRedirect(redirectURL);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
-
 	}
 
 }

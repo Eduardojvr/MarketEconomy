@@ -23,6 +23,7 @@
 			<h1 class="navbar-text">Sistema de Preços</h1>
 		</div>
 		<!-- /logo do sistema   -->
+		
 		<!-- menu do sistema   -->
 		<div id="menu_sistema"
 			class="navbar navbar-expand-lg navbar-light bg-light col">
@@ -37,6 +38,12 @@
 			</div>
 		</div>
 		<!-- /menu do sistema   -->
+		
+		<!-- Menu Usuário  -->
+		<ul id="menu_user" class="nav nav-pills float-right">
+			<img id="busca" @click="buscar()" style="vertical-align: middle; border-style: none; height: 35px;" href="../busca.html" src="https://pt.seaicons.com/wp-content/uploads/2015/11/zoom-seach-icon.png" />
+		</ul>
+		<!-- /Menu Usuário  -->
 		
 	
 		<!-- Logo Hepta  -->
@@ -129,6 +136,15 @@
 				}
 			}
 		});
+		
+	    let  pesquisa = new Vue({
+	    	el: '#busca',
+	    	methods:{
+	    		buscar: function(produtos){
+	    			window.location.href = "busca.html";
+	    		}
+	    	}
+	    });
 	</script>
 	
 	

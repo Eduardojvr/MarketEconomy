@@ -42,8 +42,8 @@
 			</button>
 			<div class="collapse navbar-collapse  nav-pills" id="navbarNav">
 				<!-- 			  my-2 my-md-0 mr-md-3 -->
-				<ul class="navbar-nav">
-					<li id="autentica" class="nav-item "><a  id="visi2" class="nav-link p-2" href="login.html">Login</a></li>
+			<ul class="navbar-nav">
+					<li id="acess" class="nav-item "><a id="visi2" class="nav-link p-2" href="login.html">Login</a></li>
 				</ul>
 			</div>
 		</div>
@@ -51,15 +51,11 @@
 	
 		<!-- Menu Usuário  -->
 		<ul id="autentica" class="nav nav-pills float-right">
-			<li id="visi"  class="nav-item dropdown"><a
-				class="nav-link dropdown-toggle" data-toggle="dropdown" href="#"
-				role="button" aria-haspopup="true" aria-expanded="false"> <i
-					class="fas fa-user"></i>
-			</a>
+			<li  id="visi" class="nav-item dropdown"><a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user"></i></a>
 				<div class="dropdown-menu">
 					<span class="dropdown-item">Usuário</span>
 					<div role="separator" class="dropdown-divider"></div>
-					<a id="visi"  @click="logout()" class="dropdown-item">sair<i class="fas fa-sign-out-alt"></i></a>
+					<a @click="logout()" class="dropdown-item">sair<i class="fas fa-sign-out-alt"></i></a>
 				</div>
 			</li>
 		</ul>
@@ -67,8 +63,7 @@
 		
 		<!-- Logo Hepta  -->
 		<div id="logo_hepta" class="navbar-brand">
-			<img alt="" src="resources/img/logo_hepta-sistemas.png"
-				style="vertical-align: middle; border-style: none; height: 50px;">
+			<img alt="" src="resources/img/logo_hepta-sistemas.png" style="vertical-align: middle; border-style: none; height: 50px;">
 		</div>
 		<!-- /Logo Hepta  -->
 		
@@ -126,10 +121,10 @@
 		created : function() {
 			const vm = this;
 			this.autenticado();
+	
 		},
 		methods:{
 			autenticado: function(){
-
 				var isLog = false;
 				axios.post('rs/user/isLogin').then(function(response) {
 					isLog = Boolean(response.data);
@@ -138,30 +133,43 @@
 						document.getElementById("visi").style.display = 'block';
 					}else{
 						document.getElementById("visi").style.display = 'none';
-					}
-					
-					if(!isLog){
-						document.getElementById("visi2").style.display = 'block';
-					}else{
-						document.getElementById("visi").style.display = 'none';
-					}
-					
+					}	
 				});	
 			},
 			logout : function() {
 				axios.post('rs/user/logout').then(function(response) {
-					window.location.href = "busca.html";
+					location.reload();
+					
 				});
 			}
 		}
 	
 	});
 
+	let ac = new Vue({
+		el: '#acess',
+		created: function(){
+			const vm = this;
+			this.visifunction();	
+		},
+		methods:{
+			visifunction: function(){
+				var isLog = false;
+				axios.post('rs/user/isLogin').then(function(response) {
+					isLog = Boolean(response.data);
+					
+					if(!isLog){
+						document.getElementById("visi2").style.display = 'block';
+					}else{
+						document.getElementById("visi2").style.display = 'none';
+					} 
+					
+				});	
+			}
+		}
+	});
 
 </script>
-	
-	
-	
 	
 	
 </body>
