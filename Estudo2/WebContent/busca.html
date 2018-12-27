@@ -120,21 +120,20 @@
 let busc = new Vue({
 	el: '#pesquisa',
 	methods:{
-		busca: function(query){
-			const vm = this;
+		busca: function(){
+		 	const vm = this;
 			let obj = {
 				objbusca : vm.query
-			}
-			// Implementar lógica de buscar o produto ignorando a forma escrita (lower case upper case)
-		
+				//objbusca : vm.query.toLowerCase()
+			} 
+			sessionStorage.setItem('query', obj.objbusca);	
+			//alert(sessionStorage.getItem('query'));
+			window.location.href = "listaProdutoPesquisa.html";
+			alert("Busca");
 		}
 	}
 
 });
-
-
-
-
 
 	let aut = new Vue({
 		el: '#autentica',

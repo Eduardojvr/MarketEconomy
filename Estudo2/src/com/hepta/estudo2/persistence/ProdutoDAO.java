@@ -87,4 +87,47 @@ public List<ProdutoMercadoDTO> todosProdutos() throws Exception {
 	}
 
 
+public List<ProdutoMercadoDTO> pesquisaProduto(String query) throws Exception {
+	System.out.println("PRODUTODAO");
+	System.out.println(query);
+	Connection db = ConnectionManager.getDBConnection();
+	List<ProdutoMercadoDTO> arrayList = new ArrayList<>();
+
+	PreparedStatement pstmt = null;
+
+	ResultSet result = null;		
+	
+	String querySql = "select produto.nome, produto.marca, produto.valor, produto.categoria, mercado.nome, mercado.endereco from produto INNER JOIN mercado ON produto.mercadoId = mercado.id where produto.nome like"+"'%"+query+"%'";
+
+	
+	try {	
+		pstmt = db.prepareStatement(querySql);
+		result = pstmt.executeQuery();
+		
+		while (result.next()) {
+			ProdutoMercadoDTO produto = new ProdutoMercadoDTO();
+            produto.setNomeProduto(result.getString("produto.nome"));
+            produto.setMarca(result.getString("produto.marca"));
+            produto.setValor(result.getFloat("produto.valor"));
+            produto.setCategoria(result.getString("produto.categoria"));
+            produto.setMercado(result.getString("mercado.nome"));
+            produto.setEndereco(result.getString("mercado.endereco"));
+            arrayList.add(produto);
+		}
+	} catch (Exception e) {
+		throw new Exception(e);
+	} finally {
+		if (pstmt != null)
+			pstmt.close();
+		db.close();
+	}
+	return arrayList;
+}
+
+
+
+
+
+
+
 }

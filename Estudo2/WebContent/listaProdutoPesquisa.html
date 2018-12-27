@@ -5,14 +5,14 @@
 <title>Sistema de mercados</title>
 <link rel="shortcut icon" href="favicon.ico" />
 <link rel="stylesheet" type="text/css"
-	href="../resources/css/bootstrap_4/css/bootstrap.min.css">
+	href="resources/css/bootstrap_4/css/bootstrap.min.css">
 <link rel="stylesheet" type="text/css"
-	href="../resources/css/bootstrap_4/modelo.css">
+	href="resources/css/bootstrap_4/modelo.css">
 <link rel="stylesheet" type="text/css"
-	href="../resources/fontawesome-free-5.3.1-web/css/all.css">
+	href="resources/fontawesome-free-5.3.1-web/css/all.css">
 <link rel="stylesheet" type="text/css"
-	href="../resources/css/header_generico.css">
-<link rel="stylesheet" type="text/css" href="../resources/css/stilo.css">
+	href="resources/css/header_generico.css">
+<link rel="stylesheet" type="text/css" href="resources/css/stilo.css">
 
 </head>
 <body>
@@ -21,7 +21,7 @@
 		class="navbar fixed-top navbar-light bg-light shadow-sm p-3 mb-5 align-items-start">
 		<!-- logo do sistema   -->
 		<div class="navbar-brand">
-			<img id="logo_listemas" alt="" src="../resources/img/headerIcon.svg" />
+			<img id="logo_listemas" alt="" src="resources/img/headerIcon.svg" />
 
 			<h1 class="navbar-text">Sistema de Preços</h1>
 		</div>
@@ -48,7 +48,7 @@
 		
 		<!-- Menu Usuário  -->
 		<ul id="menu_user" class="nav nav-pills float-right">
-			<img id="busca" @click="buscar()" style="vertical-align: middle; border-style: none; height: 35px;" href="../busca.html" src="../resources/img/iconsearch.png" />
+			<img id="busca" @click="buscar()" style="vertical-align: middle; border-style: none; height: 35px;" href="../busca.html" src="resources/img/iconsearch.png" />
 			<li class="nav-item dropdown"><a
 				class="nav-link dropdown-toggle" data-toggle="dropdown" href="#"
 				role="button" aria-haspopup="true" aria-expanded="false"> <i
@@ -67,7 +67,7 @@
 
 		<!-- Logo Hepta  -->
 		<div id="logo_hepta" class="navbar-brand">
-			<img alt="" src="../resources/img/logo_hepta-sistemas.png"
+			<img alt="" src="resources/img/logo_hepta-sistemas.png"
 				style="vertical-align: middle; border-style: none; height: 50px;">
 		</div>
 		<!-- /Logo Hepta  -->
@@ -83,7 +83,6 @@
 
 		<table style="width: 100%" id="lista" align="center" border="0">
 			<tr>
-				<th>Detalhes</th>
 				<th>Produto</th>
 				<th>Marca</th>
 				<th>Valor</th>
@@ -93,14 +92,12 @@
 
 			</tr>
 			<tr v-for="produtos in produto">
-				<td><img @click="perfilProduto(produtos)" src="../resources/img/iconproduct.gif" alt="some text" width=100 height=100></td>
-				
 				<td>{{ produtos.nomeProduto }}</td>
 				<td>{{ produtos.marca }}</td>
 				<td>R$ {{ produtos.valor }}</td>
 				<td>{{ produtos.categoria }}</td>
 				<td>{{ produtos.mercado }}</td>								
-				<td><img src="../resources/img/mapa.png" @click="chamaMapa(produtos.endereco)" alt="some text" width=60 height=50></td>
+				<td><img src="resources/img/mapa.png" @click="chamaMapa(produtos.endereco)" alt="some text" width=60 height=50></td>
 			</tr>
 		
 		</table>
@@ -113,64 +110,48 @@
 		</div>
 	</footer>
 	
-	<script src="../resources/js/axios.min.js"></script>
-	<script src="../resources/js/vue.js"></script>
-	<script src="../resources/js/header.js"></script>
-	<script src="../resources/js/loader.js"></script>
-	<script src="../resources/js/paginas/gpc/cargo.js"></script>
-	<script src="../resources/js/footer.js"></script>
-	<script src="../resources/js/jquery-3.3.1.min.js"></script>
-	<script src="../resources/js/bootstrap.min.js"></script>
+	<script src="resources/js/axios.min.js"></script>
+	<script src="resources/js/vue.js"></script>
+	<script src="resources/js/header.js"></script>
+	<script src="resources/js/loader.js"></script>
+	<script src="resources/js/paginas/gpc/cargo.js"></script>
+	<script src="resources/js/footer.js"></script>
+	<script src="resources/js/jquery-3.3.1.min.js"></script>
+	<script src="resources/js/bootstrap.min.js"></script>
 	<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-	<script src="../resources/js/ie10-viewport-bug-workaround.js"></script>
+	<script src="resources/js/ie10-viewport-bug-workaround.js"></script>
 
 	<script>
 	    let  pesquisa = new Vue({
 	    	el: '#busca',
 	    	methods:{
 	    		buscar: function(produtos){
-	    			window.location.href = "../busca.html";
+	    			window.location.href = "busca.html";
 	    		}
 	    	}
 	    });
-	    
-	    let  control = new Vue({
-	    	el: '#log',
-	    	methods:{
-	    		logout : function() {
-					const vm = this;
-					axios.post('../rs/user/logout').then(function(response) {
-						window.location.href = "../busca.html";
-						
-					});
-				}
-	    	}
-	    });
 	
+
 		let vm = new Vue({
 			el : '#lista',
 			data : {
-				produto : [],
-				mercado : []
+				produto : []
 			},
 			created : function() {
 				const vm = this;
-				this.lista();
-				this.mercados();
-				
+				this.resultado();
 			},
 			methods : {
-				lista : function() {
+				resultado: function(){
 					const vm = this;
-					axios.get('../rs/product/get').then(function(response) {
+					vm.pesquisa = sessionStorage.getItem('query');
+					
+					axios.post('rs/product/pesquisa', vm.pesquisa).then(function(response) {
+						console.log(response);
 						vm.produto = response.data;
+						
 					});
-				},
-				mercados: function(){
-					const vm = this;
-					axios.get('../rs/market/get').then(function(response) {
-						vm.mercado = response.data;
-					});
+						
 				},
 				chamaMapa: function(enderecomercado){
 					const vm = this;

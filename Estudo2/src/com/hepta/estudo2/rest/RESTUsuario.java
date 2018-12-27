@@ -80,15 +80,16 @@ public class RESTUsuario {
 			boolean login = dao.getLogin(usuario);
 			request.getSession().setAttribute("logado", login);
 			if(login) {
-				return Response.ok().status(Status.OK).entity(request.getSession().getAttribute("logado")).build();
+				return Response.ok().entity(request.getSession().getAttribute("logado")).build();
 			}else {
 				return Response.status(Status.FORBIDDEN).build();
 			}
 			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return Response.status(Status.FORBIDDEN).entity("Erro ao cadastrar!").build();
+			//e.printStackTrace();
+			//System.out.println("Erro RESTUsuario");
+			return Response.status(Status.FORBIDDEN).entity("Error class RESTUsuario").build();
 		}
 		
 	}
@@ -131,7 +132,7 @@ public class RESTUsuario {
 			}
 			
 		} catch (Exception e) {
-			e.printStackTrace();
+			//e.printStackTrace();
 			return false;
 		}
 		
