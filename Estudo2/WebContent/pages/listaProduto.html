@@ -94,7 +94,6 @@
 			</tr>
 			<tr v-for="produtos in produto">
 				<td><img @click="perfilProduto(produtos)" src="../resources/img/iconproduct.gif" alt="some text" width=100 height=100></td>
-				
 				<td>{{ produtos.nomeProduto }}</td>
 				<td>{{ produtos.marca }}</td>
 				<td>R$ {{ produtos.valor }}</td>
@@ -183,11 +182,12 @@
 						console.log(response);
 						sessionStorage.setItem('latitude', response.data["results"][0]["geometry"]["location"]["lat"]);
 						sessionStorage.setItem('longitude', response.data["results"][0]["geometry"]["location"]["lng"]);
-						window.location.href = "mapa.html";
+						window.location.href = "../mapa.html";
 					});				
 				},
 				perfilProduto: function(produtos){
 						
+						sessionStorage.setItem('id', produtos.idProduto);
 						sessionStorage.setItem('produto', produtos.nomeProduto);
 						sessionStorage.setItem('categoria', produtos.categoria);
 						sessionStorage.setItem('mercado', produtos.mercado);

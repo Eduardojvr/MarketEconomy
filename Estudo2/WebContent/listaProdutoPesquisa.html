@@ -37,26 +37,24 @@
 			<div class="collapse navbar-collapse  nav-pills" id="navbarNav">
 				<!-- 			  my-2 my-md-0 mr-md-3 -->
 				<ul class="navbar-nav">
-					<li class="nav-item "><a class="nav-link p-2" href="cadastroProduto.html">Cadastrar Produto</a></li>
-					<li class="nav-item "><a class="nav-link p-2" href="cadastroMercado.html">Cadastrar Mercado</a></li>
-					<li class="nav-item "><a class="nav-link p-2" href="listaProduto.html">Lista de Produtos</a></li>
+					<li id="acess" class="nav-item "><a id="visi2" class="nav-link p-2" href="login.html">Login</a></li>
+					<li id="acess" class="nav-item "><a id="visi3" class="nav-link p-2" href="cadastroUsuario.html">Cadastrar</a></li>
 				</ul>
-
 			</div>
 		</div>
 		<!-- /menu do sistema   -->
 		
 		<!-- Menu Usuário  -->
-		<ul id="menu_user" class="nav nav-pills float-right">
-			<img id="busca" @click="buscar()" style="vertical-align: middle; border-style: none; height: 35px;" href="../busca.html" src="resources/img/iconsearch.png" />
+			<ul id="menu_user" class="nav nav-pills float-right">
+			<img id="busca" @click="buscar()" style="vertical-align: middle; border-style: none; height: 35px;" href="busca.html" src="resources/img/iconsearch.png" />
 			<li class="nav-item dropdown"><a
 				class="nav-link dropdown-toggle" data-toggle="dropdown" href="#"
 				role="button" aria-haspopup="true" aria-expanded="false"> <i
 					class="fas fa-user"></i>
 			</a>
-				<div id="log" class="dropdown-menu">
+				<div id="autentica" class="dropdown-menu">
 					<span class="dropdown-item">Usuário</span>
-					<div role="separator" class="dropdown-divider"></div>
+					<div id="visi" role="separator" class="dropdown-divider"></div>
 					<a  @click="logout()" class="dropdown-item">sair<i
 						class="fas fa-sign-out-alt"></i></a>
 				</div>
@@ -178,6 +176,64 @@
 				}
 			}
 		});
+		
+		
+		let aut = new Vue({
+			el: '#autentica',
+			created : function() {
+				const vm = this;
+				this.autenticado();
+		
+			},
+			methods:{
+				autenticado: function(){
+					var isLog = false;
+					axios.post('rs/user/isLogin').then(function(response) {
+						isLog = Boolean(response.data);
+					
+						if(isLog){
+							document.getElementById("visi").style.display = 'block';
+						}else{
+							document.getElementById("visi").style.display = 'none';
+						}	
+					});	
+				},
+				logout : function() {
+					axios.post('rs/user/logout').then(function(response) {
+						location.reload();
+						
+					});
+				}
+			}
+		
+		});
+		
+		let ac = new Vue({
+			el: '#acess',
+			created: function(){
+				const vm = this;
+				this.visifunction();	
+			},
+			methods:{
+				visifunction: function(){
+					var isLog = false;
+					axios.post('rs/user/isLogin').then(function(response) {
+						isLog = Boolean(response.data);
+						
+						if(!isLog){
+							document.getElementById("visi2").style.display = 'block';
+							document.getElementById("visi3").style.display = 'block';
+						}else{
+							document.getElementById("visi2").style.display = 'none';
+							document.getElementById("visi3").style.display = 'none';
+						} 
+						
+					});	
+				}
+			}
+		});
+		
+		
 	</script>
 </body>
 </html>

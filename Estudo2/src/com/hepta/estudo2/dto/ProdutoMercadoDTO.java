@@ -2,6 +2,7 @@ package com.hepta.estudo2.dto;
 
 public class ProdutoMercadoDTO {
 	
+	private int idProduto;
 	private String nomeProduto;
 	private String marca;
 	private float valor;
@@ -10,6 +11,12 @@ public class ProdutoMercadoDTO {
 	private String endereco;
 	
 	
+	public int getIdProduto() {
+		return idProduto;
+	}
+	public void setIdProduto(int idProduto) {
+		this.idProduto = idProduto;
+	}
 	public String getNomeProduto() {
 		return nomeProduto;
 	}

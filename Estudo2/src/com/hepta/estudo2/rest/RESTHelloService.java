@@ -74,7 +74,6 @@ public class RESTHelloService {
 	}
 	
 	
-	
 	@POST
 	@Path("/pesquisa")
 	@Produces({ MediaType.APPLICATION_JSON })
@@ -89,13 +88,16 @@ public class RESTHelloService {
 			for(int i=0; i<produtos.size()-1;i++) {
 				for(int j=0; j<produtos.size()-1;j++) {
 					if(produtos.get(j).getValor() > produtos.get(j+1).getValor()) {
+						aux.setIdProduto(produtos.get(j).getIdProduto());
 						aux.setCategoria(produtos.get(j).getCategoria());
 						aux.setNomeProduto(produtos.get(j).getNomeProduto());
 						aux.setMarca(produtos.get(j).getMarca());
 						aux.setValor(produtos.get(j).getValor());
 						aux.setMercado(produtos.get(j).getMercado());
 						aux.setEndereco(produtos.get(j).getEndereco());
+						
 
+						produtos.get(j).setIdProduto(produtos.get(j+1).getIdProduto());
 						produtos.get(j).setCategoria(produtos.get(j+1).getCategoria());
 						produtos.get(j).setNomeProduto(produtos.get(j+1).getNomeProduto());
 						produtos.get(j).setMarca(produtos.get(j+1).getMarca());
@@ -103,6 +105,8 @@ public class RESTHelloService {
 						produtos.get(j).setMercado(produtos.get(j+1).getMercado());
 						produtos.get(j).setEndereco(produtos.get(j+1).getEndereco());
 				
+						
+						produtos.get(j+1).setIdProduto(aux.getIdProduto());
 						produtos.get(j+1).setCategoria(aux.getCategoria());
 						produtos.get(j+1).setNomeProduto(aux.getNomeProduto());
 						produtos.get(j+1).setMarca(aux.getMarca());
@@ -126,6 +130,26 @@ public class RESTHelloService {
 		}
 		
 	}
+	
+	
+	
+	@POST
+	@Path("/deleteProduct")
+	@Produces({ MediaType.APPLICATION_JSON })
+	public Response deleteProduct(String id) {
+		
+		ProdutoDAO dao = new ProdutoDAO();
+		try {
+			dao.delete(id);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return null;
+		
+		
+	}
+	
 }
 
 

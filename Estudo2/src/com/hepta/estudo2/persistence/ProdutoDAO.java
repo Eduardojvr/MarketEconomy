@@ -62,12 +62,13 @@ public List<ProdutoMercadoDTO> todosProdutos() throws Exception {
 		ResultSet result = null;		
 		
 		try {	
-			pstmt = db.prepareStatement("select produto.nome, produto.marca, produto.valor, produto.categoria, mercado.nome, mercado.endereco from produto\n" + 
+			pstmt = db.prepareStatement("select produto.id, produto.nome, produto.marca, produto.valor, produto.categoria, mercado.nome, mercado.endereco from produto\n" + 
 					"INNER JOIN mercado ON produto.mercadoId = mercado.id");
 			result = pstmt.executeQuery();
 			
 			while (result.next()) {
 				ProdutoMercadoDTO produto = new ProdutoMercadoDTO();
+				produto.setIdProduto(result.getInt("produto.id"));
                 produto.setNomeProduto(result.getString("produto.nome"));
                 produto.setMarca(result.getString("produto.marca"));
                 produto.setValor(result.getFloat("produto.valor"));
@@ -88,8 +89,6 @@ public List<ProdutoMercadoDTO> todosProdutos() throws Exception {
 
 
 public List<ProdutoMercadoDTO> pesquisaProduto(String query) throws Exception {
-	System.out.println("PRODUTODAO");
-	System.out.println(query);
 	Connection db = ConnectionManager.getDBConnection();
 	List<ProdutoMercadoDTO> arrayList = new ArrayList<>();
 
@@ -97,7 +96,7 @@ public List<ProdutoMercadoDTO> pesquisaProduto(String query) throws Exception {
 
 	ResultSet result = null;		
 	
-	String querySql = "select produto.nome, produto.marca, produto.valor, produto.categoria, mercado.nome, mercado.endereco from produto INNER JOIN mercado ON produto.mercadoId = mercado.id where produto.nome like"+"'%"+query+"%'";
+	String querySql = "select produto.id, produto.nome, produto.marca, produto.valor, produto.categoria, mercado.nome, mercado.endereco from produto INNER JOIN mercado ON produto.mercadoId = mercado.id where produto.nome like"+"'%"+query+"%'";
 
 	
 	try {	
@@ -106,6 +105,8 @@ public List<ProdutoMercadoDTO> pesquisaProduto(String query) throws Exception {
 		
 		while (result.next()) {
 			ProdutoMercadoDTO produto = new ProdutoMercadoDTO();
+			
+			produto.setIdProduto(result.getInt("produto.id"));
             produto.setNomeProduto(result.getString("produto.nome"));
             produto.setMarca(result.getString("produto.marca"));
             produto.setValor(result.getFloat("produto.valor"));
@@ -122,6 +123,30 @@ public List<ProdutoMercadoDTO> pesquisaProduto(String query) throws Exception {
 		db.close();
 	}
 	return arrayList;
+}
+
+public boolean delete(String query) throws Exception {
+	Connection db = ConnectionManager.getDBConnection();
+	
+//	PreparedStatement pstmt = null;
+//	ResultSet result = null;	
+	
+	  Statement st = null;
+
+	String querySql = "delete from produto where id="+query;
+		
+	try {		
+		st = db.createStatement();
+		st.executeUpdate(querySql);
+	} catch (Exception e) {
+		throw new Exception(e);
+	} finally {
+		if (st != null)
+			st.close();
+		db.close();
+	}
+	return false;
+
 }
 
 

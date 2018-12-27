@@ -96,8 +96,8 @@
 						<h4 class="price">Endereço: <span><div id="endereco"></div></span></h4>
 							
 						<div class="action" id="produto">
-							<img  style="height:50px;width:50px" id="logo_listemas" alt="" src="https://img.icons8.com/metro/1600/edit.png" />
-							<img  style="height:50px;width:50px" id="logo_listemas" alt="" src="https://www.freeiconspng.com/uploads/remove-icon-png-26.png" />
+							<img  style="height:50px;width:50px" alt="" src="https://img.icons8.com/metro/1600/edit.png"/>
+							<img  style="height:50px;width:50px" id="comport" alt="" src="https://www.freeiconspng.com/uploads/remove-icon-png-26.png" @click="deleteProduct()" />
 							<img  style="height:50px;width:50px" id="comport" alt="" src="http://cbsradiocom.com.br/wp-content/uploads/2017/05/2.png" @click="chamaMapa()" />
 							
 						</div>
@@ -136,6 +136,15 @@ let comportamento = new Vue({
 				sessionStorage.setItem('longitude', response.data["results"][0]["geometry"]["location"]["lng"]);
 				window.location.href = "mapa.html";
 			});				
+		},
+		deleteProduct : function(){
+			alert("id a ser excluido");
+			axios.post('../rs/product/deleteProduct', sessionStorage.getItem('id')).then(function(response) {
+				console.log(response);
+			});		
+			
+
+			//delete from produto where  id=5;
 		}
 	}	
 });	
