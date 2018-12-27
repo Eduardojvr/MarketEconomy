@@ -127,12 +127,7 @@ public List<ProdutoMercadoDTO> pesquisaProduto(String query) throws Exception {
 
 public boolean delete(String query) throws Exception {
 	Connection db = ConnectionManager.getDBConnection();
-	
-//	PreparedStatement pstmt = null;
-//	ResultSet result = null;	
-	
-	  Statement st = null;
-
+	Statement st = null;
 	String querySql = "delete from produto where id="+query;
 		
 	try {		
@@ -148,11 +143,5 @@ public boolean delete(String query) throws Exception {
 	return false;
 
 }
-
-
-
-
-
-
 
 }

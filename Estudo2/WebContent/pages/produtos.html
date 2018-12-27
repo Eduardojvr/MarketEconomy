@@ -138,13 +138,17 @@ let comportamento = new Vue({
 			});				
 		},
 		deleteProduct : function(){
-			alert("id a ser excluido");
-			axios.post('../rs/product/deleteProduct', sessionStorage.getItem('id')).then(function(response) {
-				console.log(response);
-			});		
 			
-
-			//delete from produto where  id=5;
+		 	var resposta = confirm("Tem certeza que deseja remover esse produto?");
+			
+		 	if(resposta){
+			 	axios.post('../rs/product/deleteProduct', sessionStorage.getItem('id')).then(function(response) {
+					console.log(response);
+					window.location.href = "listaProduto.html";
+					
+				});		
+		 	}
+			
 		}
 	}	
 });	
