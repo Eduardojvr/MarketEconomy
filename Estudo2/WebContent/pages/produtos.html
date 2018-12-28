@@ -96,7 +96,7 @@
 						<h4 class="price">Endereço: <span><div id="endereco"></div></span></h4>
 							
 						<div class="action" id="produto">
-							<img  style="height:50px;width:50px" alt="" src="https://img.icons8.com/metro/1600/edit.png"/>
+							<img  style="height:50px;width:50px" id="comport" alt="" src="https://img.icons8.com/metro/1600/edit.png" @click="editProduct()" />
 							<img  style="height:50px;width:50px" id="comport" alt="" src="https://www.freeiconspng.com/uploads/remove-icon-png-26.png" @click="deleteProduct()" />
 							<img  style="height:50px;width:50px" id="comport" alt="" src="http://cbsradiocom.com.br/wp-content/uploads/2017/05/2.png" @click="chamaMapa()" />
 							
@@ -148,6 +148,10 @@ let comportamento = new Vue({
 					
 				});		
 		 	}
+			
+		},
+		editProduct : function(){
+			window.location.href = "editaProduto.html";
 			
 		}
 	}	
