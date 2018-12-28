@@ -19,7 +19,7 @@
 
 </head>
 
-<body id="corpo" class="map" >
+<body id="corpo" class="map">
 	<!-- Header genérico -->
 	<nav id="header_sistemas"
 		class="navbar fixed-top navbar-light bg-light shadow-sm p-3 mb-5 align-items-start">
@@ -40,14 +40,17 @@
 			<div class="collapse navbar-collapse  nav-pills" id="navbarNav">
 				<!-- 			  my-2 my-md-0 mr-md-3 -->
 				<ul class="navbar-nav">
-					<li class="nav-item "><a class="nav-link p-2" href="cadastroProduto.html">Cadastrar Produto</a></li>
-					<li class="nav-item "><a class="nav-link p-2" href="cadastroMercado.html">Cadastrar Mercado</a></li>
-					<li class="nav-item "><a class="nav-link p-2" href="listaProduto.html">Lista de Produtos</a></li>
+					<li class="nav-item "><a class="nav-link p-2"
+						href="cadastroProduto.html">Cadastrar Produto</a></li>
+					<li class="nav-item "><a class="nav-link p-2"
+						href="cadastroMercado.html">Cadastrar Mercado</a></li>
+					<li class="nav-item "><a class="nav-link p-2"
+						href="listaProduto.html">Lista de Produtos</a></li>
 				</ul>
 			</div>
 		</div>
 		<!-- /menu do sistema   -->
-	
+
 		<!-- Menu Usuário  -->
 		<ul id="menu_user" class="nav nav-pills float-right">
 			<li class="nav-item dropdown"><a
@@ -61,8 +64,7 @@
 					<a @click="logout()" class="dropdown-item">sair <i
 						class="fas fa-sign-out-alt"></i>
 					</a>
-				</div>
-			</li>
+				</div></li>
 		</ul>
 		<!-- /Menu Usuário  -->
 
@@ -81,32 +83,48 @@
 			<div class="container-fliud">
 				<div class="wrapper row">
 					<div class="preview col-md-6">
-						
+
 						<div class="preview-pic tab-content">
-						  <div class="tab-pane active" id="pic-1"><img src="../resources/img/food.gif" height="350" width="100"/></div>
+							<div class="tab-pane active" id="pic-1">
+								<img src="../resources/img/food.gif" height="350" width="100" />
+							</div>
 						</div>
-				
-						
+
+
 					</div>
 					<div class="details col-md-6">
 						<h3 id="produto" class="product-title"></h3>
-						<h4 class="price">Categoria: <span><div id="categoria"></div></span></h4>
-						<h4 class="price">Mercado: <span><div id="mercado"></div></span></h4>
-						<h4 class="price">R$: <span><div id="valor"></div></span></h4>
-						<h4 class="price">Endereço: <span><div id="endereco"></div></span></h4>
-							
-						<div class="action" id="produto">
-							<img  style="height:50px;width:50px" id="comport" alt="" src="https://img.icons8.com/metro/1600/edit.png" @click="editProduct()" />
-							<img  style="height:50px;width:50px" id="comport" alt="" src="https://www.freeiconspng.com/uploads/remove-icon-png-26.png" @click="deleteProduct()" />
-							<img  style="height:50px;width:50px" id="comport" alt="" src="http://cbsradiocom.com.br/wp-content/uploads/2017/05/2.png" @click="chamaMapa()" />
-							
+						<h4 class="price">
+							Categoria: <span><div id="categoria"></div></span>
+						</h4>
+						<h4 class="price">
+							Mercado: <span><div id="mercado"></div></span>
+						</h4>
+						<h4 class="price">
+							R$: <span><div id="valor"></div></span>
+						</h4>
+						<h4 class="price">
+							Endereço: <span><div id="endereco"></div></span>
+						</h4>
+
+						<div class="action" id="produtos">
+							<img style="height: 50px; width: 50px" id="editProduct" alt=""
+								src="https://img.icons8.com/metro/1600/edit.png"
+								@click="editProduct()" /> <img
+								style="height: 50px; width: 50px" id="deleteProd" alt=""
+								src="https://www.freeiconspng.com/uploads/remove-icon-png-26.png"
+								@click="deleteProduct()" /> <img
+								style="height: 50px; width: 50px" id="comport" alt=""
+								src="http://cbsradiocom.com.br/wp-content/uploads/2017/05/2.png"
+								@click="chamaMapa()" />
+
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
- 
+
 	<script src="../resources/js/axios.min.js"></script>
 	<script src="../resources/js/vue.js"></script>
 	<script src="../resources/js/header.js"></script>
@@ -118,62 +136,98 @@
 	<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
 	<script src="../resources/js/ie10-viewport-bug-workaround.js"></script>
 
-<script>
+	<script>
+		let comportamento = new Vue(
+				{
+					el : '#comport',
+					methods : {
+						chamaMapa : function(enderecomercado) {
+							const vm = this;
+							const endereco = sessionStorage.getItem('endereco');
+							let obj = {
+								url : "https://maps.googleapis.com/maps/api/geocode/json?address="
+										+ endereco
+										+ "&key=AIzaSyDroa8JCUm2JfRZ_7eVMb4Fqx8ufr0Mz_A"
+							}
+							var nurl = encodeURI(obj.url);
+							axios
+									.get(nurl)
+									.then(
+											function(response) {
+												console.log(response);
+												sessionStorage
+														.setItem(
+																'latitude',
+																response.data["results"][0]["geometry"]["location"]["lat"]);
+												sessionStorage
+														.setItem(
+																'longitude',
+																response.data["results"][0]["geometry"]["location"]["lng"]);
+												window.location.href = "../mapa.html";
+											});
+						}
+					}
+				});
 
-let comportamento = new Vue({
-	el:'#comport',	
-	methods:{
-		chamaMapa: function(enderecomercado){
-			const vm = this;
-			const endereco = sessionStorage.getItem('endereco');
-			let obj = {
-				url: "https://maps.googleapis.com/maps/api/geocode/json?address="+endereco+"&key=AIzaSyDroa8JCUm2JfRZ_7eVMb4Fqx8ufr0Mz_A"
+		let delProduct = new Vue(
+				{
+					el : '#deleteProd',
+					methods : {
+						deleteProduct : function() {
+
+							var resposta = confirm("Tem certeza que deseja remover esse produto?");
+
+							if (resposta) {
+								axios
+										.post('../rs/product/deleteProduct',
+												sessionStorage.getItem('id'))
+										.then(
+												function(response) {
+													console.log(response);
+													window.location.href = "listaProduto.html";
+
+												});
+							}
+
+						}
+					}
+
+				});
+
+		let editProd = new Vue({
+			el : '#editProduct',
+			methods : {
+				editProduct : function() {
+					window.location.href = "editaProduto.html";
+
+				}
 			}
-			var nurl = encodeURI(obj.url); 
-			axios.get(nurl).then(function(response) {
-				console.log(response);
-				sessionStorage.setItem('latitude', response.data["results"][0]["geometry"]["location"]["lat"]);
-				sessionStorage.setItem('longitude', response.data["results"][0]["geometry"]["location"]["lng"]);
-				window.location.href = "mapa.html";
-			});				
-		},
-		deleteProduct : function(){
-			
-		 	var resposta = confirm("Tem certeza que deseja remover esse produto?");
-			
-		 	if(resposta){
-			 	axios.post('../rs/product/deleteProduct', sessionStorage.getItem('id')).then(function(response) {
-					console.log(response);
-					window.location.href = "listaProduto.html";
-					
-				});		
-		 	}
-			
-		},
-		editProduct : function(){
-			window.location.href = "editaProduto.html";
-			
-		}
-	}	
-});	
+		});
 
-let vm = new Vue({
-	el:'#produto',	
-	created : function() {
-		const vm = this;
-		this.products();
-	},
-	methods:{
-		products: function(){
-			document.getElementById("produto").innerHTML = sessionStorage.getItem('produto');
-			document.getElementById("categoria").innerHTML = sessionStorage.getItem('categoria');
-			document.getElementById("mercado").innerHTML = sessionStorage.getItem('mercado');
-			document.getElementById("endereco").innerHTML = sessionStorage.getItem('endereco');
-			document.getElementById("valor").innerHTML = sessionStorage.getItem('valor');
-		}
-	}	
-});
-</script>
+		let vm = new Vue(
+				{
+					el : '#produto',
+					created : function() {
+						const vm = this;
+						this.products();
+						
+					},
+					methods : {
+						products : function() {
+							document.getElementById("produto").innerHTML = sessionStorage
+									.getItem('produto');
+							document.getElementById("categoria").innerHTML = sessionStorage
+									.getItem('categoria');
+							document.getElementById("mercado").innerHTML = sessionStorage
+									.getItem('mercado');
+							document.getElementById("endereco").innerHTML = sessionStorage
+									.getItem('endereco');
+							document.getElementById("valor").innerHTML = sessionStorage
+									.getItem('valor');
+						}
+					}
+				});
+	</script>
 
 </body>
 

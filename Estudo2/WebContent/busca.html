@@ -12,13 +12,20 @@
 	href="resources/fontawesome-free-5.3.1-web/css/all.css">
 <link rel="stylesheet" type="text/css"
 	href="resources/css/header_generico.css">
-	<link rel="stylesheet" type="text/css"
+<link rel="stylesheet" type="text/css"
 	href="resources/css/personalizado.css">
 <link rel="stylesheet" type="text/css" href="resources/css/stilo.css">
-<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
+<link
+	href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
+	rel="stylesheet" id="bootstrap-css">
+<script
+	src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script
+	src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<link rel="stylesheet"
+	href="https://use.fontawesome.com/releases/v5.1.0/css/all.css"
+	integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt"
+	crossorigin="anonymous">
 
 </head>
 <body>
@@ -31,7 +38,7 @@
 			<h1 class="navbar-text">Sistema de Preços</h1>
 		</div>
 		<!-- /logo do sistema   -->
-		
+
 		<!-- menu do sistema   -->
 		<div id="menu_sistema"
 			class="navbar navbar-expand-lg navbar-light bg-light col">
@@ -43,31 +50,38 @@
 			<div class="collapse navbar-collapse  nav-pills" id="navbarNav">
 				<!-- 			  my-2 my-md-0 mr-md-3 -->
 				<ul class="navbar-nav">
-					<li id="acess" class="nav-item "><a id="visi2" class="nav-link p-2" href="login.html">Login</a></li>
-					<li id="acess" class="nav-item "><a id="visi3" class="nav-link p-2" href="cadastroUsuario.html">Cadastrar</a></li>
+					<li id="acess" class="nav-item "><a id="visi2"
+						class="nav-link p-2" href="login.html">Login</a></li>
+					<li id="acess" class="nav-item "><a id="visi3"
+						class="nav-link p-2" href="cadastroUsuario.html">Cadastrar</a></li>
 				</ul>
 			</div>
 		</div>
 		<!-- /menu do sistema   -->
-	
+
 		<!-- Menu Usuário  -->
 		<ul id="autentica" class="nav nav-pills float-right">
-			<li  id="visi" class="nav-item dropdown"><a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user"></i></a>
+			<li id="visi" class="nav-item dropdown"><a
+				class="nav-link dropdown-toggle" data-toggle="dropdown" href="#"
+				role="button" aria-haspopup="true" aria-expanded="false"><i
+					class="fas fa-user"></i></a>
 				<div class="dropdown-menu">
-					<span class="dropdown-item">Usuário</span>
+					<span class="dropdown-item">Logado</span><hr>
+					<span onclick="painel();" class="dropdown-item">Painel de controle</span>					
 					<div role="separator" class="dropdown-divider"></div>
-					<a @click="logout()" class="dropdown-item">sair<i class="fas fa-sign-out-alt"></i></a>
-				</div>
-			</li>
+					<a @click="logout()" class="dropdown-item">Sair<i
+						class="fas fa-sign-out-alt"></i></a>
+				</div></li>
 		</ul>
 		<!-- /Menu Usuário  -->
-		
+
 		<!-- Logo Hepta  -->
 		<div id="logo_hepta" class="navbar-brand">
-			<img alt="" src="resources/img/logo_hepta-sistemas.png" style="vertical-align: middle; border-style: none; height: 50px;">
+			<img alt="" src="resources/img/logo_hepta-sistemas.png"
+				style="vertical-align: middle; border-style: none; height: 50px;">
 		</div>
 		<!-- /Logo Hepta  -->
-		
+
 	</nav>
 	<!-- Fim Header genérico -->
 	<div class="loader" id="loader-primario">
@@ -75,20 +89,25 @@
 	</div>
 
 	<div class="container">
-    <br/>
+		<br />
 		<div class="row justify-content-center">
 			<div class="col-1 col-md-2 col-lg-10">
 				<form class="teste" id="pesquisa">
-				
+
 					<div class="card-body row no-gutters align-items-center">
 						<!--end of col-->
-						<img class="teste" src="resources/img/search.gif" alt="Computer man" style="width:450px;height:300px;">
+						<img class="teste" src="resources/img/search.gif"
+							alt="Computer man" style="width: 450px; height: 300px;">
 						<div class="col-auto">
-							<input v-model="query" style="height: 50px; width: 500px" class="form-control" type="search" placeholder="Qual produto deseja pesquisar?">
+							<input v-model="query" style="height: 50px; width: 500px"
+								class="form-control" type="search"
+								placeholder="Qual produto deseja pesquisar?">
 						</div>
 						<!--end of col-->
 						<div class="col-auto">
-							&nbsp<button  @click="busca()"  style="height: 50px;" class="btn btn-lg btn-success" type="submit">Buscar</button>
+							&nbsp
+							<button @click="busca()" style="height: 50px;"
+								class="btn btn-lg btn-success" type="submit">Buscar</button>
 						</div>
 						<!--end of col-->
 					</div>
@@ -96,14 +115,14 @@
 			</div>
 		</div>
 	</div>
-	
+
 	<footer>
 		<div class="footerSpacing"></div>
 		<div class="footer" id="footer">
 			<span> Criado por: Hepta Tecnologia - {{versao}} </span>
 		</div>
 	</footer>
-	
+
 	<script src="resources/js/axios.min.js"></script>
 	<script src="resources/js/vue.js"></script>
 	<script src="resources/js/header.js"></script>
@@ -115,83 +134,101 @@
 	<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
 	<script src="resources/js/ie10-viewport-bug-workaround.js"></script>
 
-<script>
-
-let busc = new Vue({
-	el: '#pesquisa',
-	methods:{
-		busca: function(){
-		 	const vm = this;
-			let obj = {
-				objbusca : vm.query
-				//objbusca : vm.query.toLowerCase()
-			} 
-			sessionStorage.setItem('query', obj.objbusca);	
-		alert(sessionStorage.getItem('query'));
-			window.location.href = "listaProdutoPesquisa.html";
-			alert("Busca");
-		}
-	}
-
-});
-
-	let aut = new Vue({
-		el: '#autentica',
-		created : function() {
-			const vm = this;
-			this.autenticado();
+	<script>
 	
-		},
-		methods:{
-			autenticado: function(){
-				var isLog = false;
-				axios.post('rs/user/isLogin').then(function(response) {
-					isLog = Boolean(response.data);
-				
-					if(isLog){
-						document.getElementById("visi").style.display = 'block';
-					}else{
-						document.getElementById("visi").style.display = 'none';
-					}	
-				});	
-			},
-			logout : function() {
-				axios.post('rs/user/logout').then(function(response) {
-					location.reload();
-					
+		function painel(){
+			window.location.href = "pages/listaProduto.html";
+		}
+	
+		let busc = new Vue({
+			el : '#pesquisa',
+			methods : {
+				busca : function() {
+					const vm = this;
+					let obj = {
+						objbusca : vm.query
+					//objbusca : vm.query.toLowerCase()
+					}
+					sessionStorage.setItem('query', obj.objbusca);
+					//alert(sessionStorage.getItem('query'));
+					window.location.href = "listaProdutoPesquisa.html";
+					alert("Busca");
+				}
+			}
+
+		});
+
+		let aut = new Vue(
+				{
+					el : '#autentica',
+					created : function() {
+						const vm = this;
+						this.autenticado();
+
+					},
+					methods : {
+						autenticado : function() {
+							var isLog = false;
+							axios
+									.post('rs/user/isLogin')
+									.then(
+											function(response) {
+												isLog = Boolean(response.data);
+
+												if (isLog) {
+													document
+															.getElementById("visi").style.display = 'block';
+												} else {
+													document
+															.getElementById("visi").style.display = 'none';
+												}
+											});
+						},
+						logout : function() {
+							axios.post('rs/user/logout').then(
+									function(response) {
+										location.reload();
+
+									});
+						}
+					}
+
 				});
-			}
-		}
-	
-	});
 
-	let ac = new Vue({
-		el: '#acess',
-		created: function(){
-			const vm = this;
-			this.visifunction();	
-		},
-		methods:{
-			visifunction: function(){
-				var isLog = false;
-				axios.post('rs/user/isLogin').then(function(response) {
-					isLog = Boolean(response.data);
-					
-					if(!isLog){
-						document.getElementById("visi2").style.display = 'block';
-						document.getElementById("visi3").style.display = 'block';
-					}else{
-						document.getElementById("visi2").style.display = 'none';
-						document.getElementById("visi3").style.display = 'none';
-					} 
-					
-				});	
-			}
-		}
-	});
+		let ac = new Vue(
+				{
+					el : '#acess',
+					created : function() {
+						const vm = this;
+						this.visifunction();
+					},
+					methods : {
+						visifunction : function() {
+							var isLog = false;
+							axios
+									.post('rs/user/isLogin')
+									.then(
+											function(response) {
+												isLog = Boolean(response.data);
 
-</script>
-	
-	
+												if (!isLog) {
+													document
+															.getElementById("visi2").style.display = 'block';
+													document
+															.getElementById("visi3").style.display = 'block';
+												} else {
+													document
+															.getElementById("visi2").style.display = 'none';
+													document
+															.getElementById("visi3").style.display = 'none';
+												}
+
+											});
+						}
+					}
+				});
+	</script>
+
+
 </body>
 </html>
