@@ -172,7 +172,7 @@
 			el : '#formulario',
 			data : {
 				mercado : [],
-				categorias : [],
+				categorias : []
 			},
 			created : function() {
 				const vm = this;
@@ -184,19 +184,22 @@
 			methods : {
 				pega : function() {
 					const vm = this;
+					
 					let obj = {
 						nome : vm.nome,
 						marca : vm.marca,
 						valor : vm.valor,
 						categoria : vm.categoria,
- 						mercadoid : vm.mercados
+ 						mercadoid : vm.mercados,
+ 						idUsuario : vm.user
  					}
-			
+				
 					if(obj.nome == null || obj.marca == null || obj.valor == null || obj.categoria == null){
 						 //alert("Todos os campos devem ser preenchidos!");
 						 document.getElementById("msg").style.display = 'block';
 						 document.getElementById("msg").innerHTML = "Preencha todos os campos marcados com * ";
 					}else{
+						
 						axios.post('../rs/product/insert', obj).then(function(response) {
 							console.log(response);
 							document.getElementById("msgsucess").style.display = 'block';
@@ -208,10 +211,12 @@
 				inicia : function() {
 					const vm = this;
 					//document.getElementById("msg").style.display = 'none';
+					vm.user = sessionStorage.getItem('usuarioLogado');
 					axios.get('../rs/category/get').then(function(response) {
 						console.log(response);
 						vm.categorias = response.data;
 					});
+					
 				},
 				mercados : function() {
 					const vm = this;

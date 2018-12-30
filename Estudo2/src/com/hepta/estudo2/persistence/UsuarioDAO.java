@@ -46,20 +46,23 @@ public class UsuarioDAO {
 
 	}
 
-	public boolean getLogin(Usuario user) throws Exception {
-		boolean achou = false;
+	public Usuario getLogin(Usuario user) throws Exception {
+		Usuario achou = null;
 		Connection db = ConnectionManager.getDBConnection();
 		PreparedStatement pstmt = null;
 		
 		ResultSet result = null;
 		
-		pstmt = db.prepareStatement("select email, senha from usuario");
+		pstmt = db.prepareStatement("select email, senha, id, nome from usuario");
 		
 		try {
 			result = pstmt.executeQuery();
 			while (result.next()) {
 				if(user.getEmail().equals(result.getString("email")) && user.getSenha().equals(result.getString("senha"))) {
-					achou = true;
+					achou = new Usuario();
+					achou.setNome(result.getString("nome"));
+					achou.setEmail(result.getString("email"));
+					achou.setId(result.getInt("id"));	
 				}
 			}
 		}catch (Exception e) {

@@ -37,18 +37,23 @@
 			<div class="collapse navbar-collapse  nav-pills" id="navbarNav">
 				<!-- 			  my-2 my-md-0 mr-md-3 -->
 				<ul class="navbar-nav">
-					<li class="nav-item "><a class="nav-link p-2" href="cadastroProduto.html">Cadastrar Produto</a></li>
-					<li class="nav-item "><a class="nav-link p-2" href="cadastroMercado.html">Cadastrar Mercado</a></li>
-					<li class="nav-item "><a class="nav-link p-2" href="listaProduto.html">Lista de Produtos</a></li>
+					<li class="nav-item "><a class="nav-link p-2"
+						href="cadastroProduto.html">Cadastrar Produto</a></li>
+					<li class="nav-item "><a class="nav-link p-2"
+						href="cadastroMercado.html">Cadastrar Mercado</a></li>
+					<li class="nav-item "><a class="nav-link p-2"
+						href="listaProduto.html">Lista de Produtos</a></li>
 				</ul>
 
 			</div>
 		</div>
 		<!-- /menu do sistema   -->
-		
+
 		<!-- Menu Usuário  -->
 		<ul id="menu_user" class="nav nav-pills float-right">
-			<img id="busca" @click="buscar()" style="vertical-align: middle; border-style: none; height: 35px;" href="../busca.html" src="../resources/img/iconsearch.png" />
+			<img id="busca" @click="buscar()"
+				style="vertical-align: middle; border-style: none; height: 35px;"
+				href="../busca.html" src="../resources/img/iconsearch.png" />
 			<li class="nav-item dropdown"><a
 				class="nav-link dropdown-toggle" data-toggle="dropdown" href="#"
 				role="button" aria-haspopup="true" aria-expanded="false"> <i
@@ -57,10 +62,9 @@
 				<div id="log" class="dropdown-menu">
 					<span class="dropdown-item">Usuário</span>
 					<div role="separator" class="dropdown-divider"></div>
-					<a  @click="logout()" class="dropdown-item">sair<i
+					<a @click="logout()" class="dropdown-item">sair<i
 						class="fas fa-sign-out-alt"></i></a>
-				</div>
-			</li>
+				</div></li>
 		</ul>
 		<!-- /Menu Usuário  -->
 
@@ -78,7 +82,7 @@
 	</div>
 	<div class="loaderFocus" id="loader-primario-focus"></div>
 	<div class="container-fluid ">
-		<h2 class="display-8" align="center">Sua Lista de ofertas</h2>
+		<h2 class="display-8" align="center">Meus Produtos</h2>
 		<br>
 
 		<table style="width: 100%" id="lista" align="center" border="0">
@@ -90,18 +94,21 @@
 				<th>Categoria</th>
 				<th>Mercado</th>
 				<th>Mapa</th>
-
 			</tr>
 			<tr v-for="produtos in produto">
-				<td><img @click="perfilProduto(produtos)" src="../resources/img/iconproduct.gif" alt="some text" width=100 height=100></td>
+				<td><img @click="perfilProduto(produtos)"
+					src="../resources/img/iconproduct.gif" alt="some text" width=100
+					height=100></td>
 				<td>{{ produtos.nomeProduto }}</td>
 				<td>{{ produtos.marca }}</td>
 				<td>R$ {{ produtos.valor }}</td>
 				<td>{{ produtos.categoria }}</td>
-				<td>{{ produtos.mercado }}</td>								
-				<td><img src="../resources/img/mapa.png" @click="chamaMapa(produtos.endereco)" alt="some text" width=60 height=50></td>
+				<td>{{ produtos.mercado }}</td>
+				<td><img src="../resources/img/mapa.png"
+					@click="chamaMapa(produtos.endereco)" alt="some text" width=60
+					height=50></td>
 			</tr>
-		
+
 		</table>
 
 	</div>
@@ -111,7 +118,7 @@
 			<span> Criado por: Hepta Tecnologia - {{versao}} </span>
 		</div>
 	</footer>
-	
+
 	<script src="../resources/js/axios.min.js"></script>
 	<script src="../resources/js/vue.js"></script>
 	<script src="../resources/js/header.js"></script>
@@ -124,79 +131,107 @@
 	<script src="../resources/js/ie10-viewport-bug-workaround.js"></script>
 
 	<script>
-	    let  pesquisa = new Vue({
-	    	el: '#busca',
-	    	methods:{
-	    		buscar: function(produtos){
-	    			window.location.href = "../busca.html";
-	    		}
-	    	}
-	    });
-	    
-	    let  control = new Vue({
-	    	el: '#log',
-	    	methods:{
-	    		logout : function() {
-					const vm = this;
-					axios.post('../rs/user/logout').then(function(response) {
-						window.location.href = "../busca.html";
-						
-					});
-				}
-	    	}
-	    });
-	
-		let vm = new Vue({
-			el : '#lista',
-			data : {
-				produto : [],
-				mercado : []
-			},
-			created : function() {
-				const vm = this;
-				this.lista();
-				this.mercados();
-				
-			},
+		let pesquisa = new Vue({
+			el : '#busca',
 			methods : {
-				lista : function() {
-					const vm = this;
-					axios.get('../rs/product/get').then(function(response) {
-						vm.produto = response.data;
-					});
-				},
-				mercados: function(){
-					const vm = this;
-					axios.get('../rs/market/get').then(function(response) {
-						vm.mercado = response.data;
-					});
-				},
-				chamaMapa: function(enderecomercado){
-					const vm = this;
-					const endereco = enderecomercado;
-					let obj = {
-						url: "https://maps.googleapis.com/maps/api/geocode/json?address="+endereco+"&key=AIzaSyDroa8JCUm2JfRZ_7eVMb4Fqx8ufr0Mz_A"
-					}
-					var nurl = encodeURI(obj.url); 
-					axios.get(nurl).then(function(response) {
-						console.log(response);
-						sessionStorage.setItem('latitude', response.data["results"][0]["geometry"]["location"]["lat"]);
-						sessionStorage.setItem('longitude', response.data["results"][0]["geometry"]["location"]["lng"]);
-						window.location.href = "../mapa.html";
-					});				
-				},
-				perfilProduto: function(produtos){
-						
-						sessionStorage.setItem('id', produtos.idProduto);
-						sessionStorage.setItem('produto', produtos.nomeProduto);
-						sessionStorage.setItem('categoria', produtos.categoria);
-						sessionStorage.setItem('mercado', produtos.mercado);
-						sessionStorage.setItem('valor', produtos.valor);
-						sessionStorage.setItem('endereco', produtos.endereco);	
-						window.location.href = "produtos.html";
+				buscar : function(produtos) {
+					window.location.href = "../busca.html";
 				}
 			}
 		});
+
+		let control = new Vue({
+			el : '#log',
+			methods : {
+				logout : function() {
+					const vm = this;
+					axios.post('../rs/user/logout').then(function(response) {
+						window.location.href = "../busca.html";
+
+					});
+				}
+			}
+		});
+
+		let vm = new Vue(
+				{
+					el : '#lista',
+					data : {
+						produto : [],
+						mercado : []
+					},
+					created : function() {
+						this.lista();
+						this.mercados();
+					},
+					methods : {
+						lista : function() {
+							const vm = this;
+							//alert(vm.id);
+							axios.get('../rs/user/getUser').then(
+									function(response) {
+										console.log(response);
+										vm.user = response.data.id;
+										if (response.data.id > 0) {
+											sessionStorage.setItem(
+													'usuarioLogado', vm.user);
+										}
+									}).finally(function (){
+										axios.post('../rs/product/get',
+												sessionStorage.getItem('usuarioLogado'))
+												.then(function(response) {
+													vm.produto = response.data;
+												});
+				                    });							
+						},
+						mercados : function() {
+							const vm = this;
+
+							axios.get('../rs/market/get').then(
+									function(response) {
+										vm.mercado = response.data;
+									});
+						},
+						chamaMapa : function(enderecomercado) {
+							const vm = this;
+							const endereco = enderecomercado;
+							let obj = {
+								url : "https://maps.googleapis.com/maps/api/geocode/json?address="
+										+ endereco
+										+ "&key=AIzaSyDroa8JCUm2JfRZ_7eVMb4Fqx8ufr0Mz_A"
+							}
+							var nurl = encodeURI(obj.url);
+							axios
+									.get(nurl)
+									.then(
+											function(response) {
+												console.log(response);
+												sessionStorage
+														.setItem(
+																'latitude',
+																response.data["results"][0]["geometry"]["location"]["lat"]);
+												sessionStorage
+														.setItem(
+																'longitude',
+																response.data["results"][0]["geometry"]["location"]["lng"]);
+												window.location.href = "../mapa.html";
+											});
+						},
+						perfilProduto : function(produtos) {
+
+							sessionStorage.setItem('id', produtos.idProduto);
+							sessionStorage.setItem('produto',
+									produtos.nomeProduto);
+							sessionStorage.setItem('categoria',
+									produtos.categoria);
+							sessionStorage.setItem('mercado', produtos.mercado);
+							sessionStorage.setItem('valor', produtos.valor);
+							sessionStorage.setItem('endereco',
+									produtos.endereco);
+							window.location.href = "produtos.html";
+						}
+					}
+				});
 	</script>
 </body>
 </html>

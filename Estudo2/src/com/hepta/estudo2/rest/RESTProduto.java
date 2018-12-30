@@ -20,10 +20,11 @@ import javax.ws.rs.core.Response.Status;
 
 import com.hepta.estudo2.dto.ProdutoMercadoDTO;
 import com.hepta.estudo2.entity.Produto;
+import com.hepta.estudo2.entity.Usuario;
 import com.hepta.estudo2.persistence.ProdutoDAO;
 
 @Path("/product")
-public class RESTHelloService {
+public class RESTProduto {
 	@Context
 	private HttpServletRequest request;
 
@@ -34,14 +35,16 @@ public class RESTHelloService {
 		this.request = request;
 	}
 
-	@GET
+	@POST
 	@Path("/get")
 	@Produces({ MediaType.APPLICATION_JSON })
-	public Response world() {
+	public Response todosProdutos(String id) {
+		System.out.println("aquiii");
+		System.out.println(id);
 		try {
 			ProdutoDAO gerenciadorProduto = new ProdutoDAO();
 
-			List<ProdutoMercadoDTO> produtos = gerenciadorProduto.todosProdutos();
+			List<ProdutoMercadoDTO> produtos = gerenciadorProduto.todosProdutos(id);
 			Collections.reverse(produtos);
 			GenericEntity<List<ProdutoMercadoDTO>> entity = new GenericEntity<List<ProdutoMercadoDTO>>(produtos) {
 			};
@@ -56,8 +59,8 @@ public class RESTHelloService {
 	@Path("/insert")
 	@Produces({ MediaType.APPLICATION_JSON })
 	public Response insert(Produto p) {
+		
 		ProdutoDAO dao = new ProdutoDAO();
-
 		try {
 			dao.insert(p);
 			return Response.ok().entity("deu tudo certo").build();
@@ -90,6 +93,7 @@ public class RESTHelloService {
 						aux.setValor(produtos.get(j).getValor());
 						aux.setMercado(produtos.get(j).getMercado());
 						aux.setEndereco(produtos.get(j).getEndereco());
+						aux.setIdUsuario(produtos.get(j).getIdUsuario());
 
 						produtos.get(j).setIdProduto(produtos.get(j + 1).getIdProduto());
 						produtos.get(j).setCategoria(produtos.get(j + 1).getCategoria());
@@ -98,6 +102,7 @@ public class RESTHelloService {
 						produtos.get(j).setValor(produtos.get(j + 1).getValor());
 						produtos.get(j).setMercado(produtos.get(j + 1).getMercado());
 						produtos.get(j).setEndereco(produtos.get(j + 1).getEndereco());
+						produtos.get(j).setIdUsuario(produtos.get(j + 1).getIdUsuario());
 
 						produtos.get(j + 1).setIdProduto(aux.getIdProduto());
 						produtos.get(j + 1).setCategoria(aux.getCategoria());
@@ -106,6 +111,8 @@ public class RESTHelloService {
 						produtos.get(j + 1).setValor(aux.getValor());
 						produtos.get(j + 1).setMercado(aux.getMercado());
 						produtos.get(j + 1).setEndereco(aux.getEndereco());
+						produtos.get(j + 1).setIdUsuario(aux.getIdUsuario());
+						
 
 					}
 

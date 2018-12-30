@@ -7,6 +7,7 @@ public class Produto {
 	private String marca;
 	private float valor;
     private String categoria;
+    private int idUsuario;
     
    
 	public int getMercadoid() {
@@ -55,6 +56,14 @@ public class Produto {
 
 	public void setId(int id) {
 		this.id = id;
+	}
+
+	public int getIdUsuario() {
+		return idUsuario;
+	}
+
+	public void setIdUsuario(int idUsuario) {
+		this.idUsuario = idUsuario;
 	}
 	
 	

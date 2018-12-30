@@ -23,15 +23,17 @@ public class ProdutoDAO {
 
 		StringBuilder sql = new StringBuilder();
 
+
 		sql.append("INSERT INTO produto ");
 		sql.append(" ( ");
 		sql.append(" nome, ");
 		sql.append(" marca, ");
 		sql.append(" valor, ");
 		sql.append(" categoria, ");
-		sql.append(" mercadoId ");
+		sql.append(" mercadoId, ");
+		sql.append(" usuarioId ");
 		sql.append(" ) ");
-		sql.append(" VALUES (?,?,?,?,?);");
+		sql.append(" VALUES (?,?,?,?,?,?);");
 
 		try {
 			pstmt = db.prepareStatement(sql.toString(), Statement.RETURN_GENERATED_KEYS);
@@ -40,6 +42,7 @@ public class ProdutoDAO {
 			pstmt.setFloat(3, produto.getValor());
 			pstmt.setString(4, produto.getCategoria());
 			pstmt.setInt(5, produto.getMercadoid());
+			pstmt.setInt(6, produto.getIdUsuario());
 			pstmt.executeUpdate();
 
 		} finally {
@@ -52,7 +55,7 @@ public class ProdutoDAO {
 
 	}
 
-	public List<ProdutoMercadoDTO> todosProdutos() throws Exception {
+	public List<ProdutoMercadoDTO> todosProdutos(String id) throws Exception {
 		Connection db = ConnectionManager.getDBConnection();
 		List<ProdutoMercadoDTO> arrayList = new ArrayList<>();
 
@@ -61,9 +64,11 @@ public class ProdutoDAO {
 		ResultSet result = null;
 
 		try {
-			pstmt = db.prepareStatement(
-					"select produto.id, produto.nome, produto.marca, produto.valor, produto.categoria, mercado.nome, mercado.endereco from produto\n"
-							+ "INNER JOIN mercado ON produto.mercadoId = mercado.id");
+//			pstmt = db.prepareStatement(
+//					"select produto.id, produto.nome, produto.marca, produto.valor, produto.categoria, mercado.nome, mercado.endereco from produto\n"
+//							+ "INNER JOIN mercado ON produto.mercadoId = mercado.id");
+			pstmt = db.prepareStatement("select * from produto inner join mercado on produto.mercadoId = mercado.id inner join usuario on produto.usuarioId=usuario.id where usuario.id="+id);
+			
 			result = pstmt.executeQuery();
 
 			while (result.next()) {

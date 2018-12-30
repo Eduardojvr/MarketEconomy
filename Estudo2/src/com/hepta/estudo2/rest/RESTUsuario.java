@@ -20,6 +20,7 @@ import javax.ws.rs.core.Response.Status;
 import com.hepta.estudo2.entity.Usuario;
 import com.hepta.estudo2.persistence.UsuarioDAO;
 
+
 @Path("/user")
 public class RESTUsuario {
 	@Context
@@ -31,27 +32,6 @@ public class RESTUsuario {
 	protected void setRequest(HttpServletRequest request) {
 		this.request = request;
 	}
-
-//	@GET
-//	@Path("/getall")
-//	@Produces({ MediaType.APPLICATION_JSON })
-//	public Response world() {
-//		try {
-//			UsuarioDAO gerenciadorUsuario = new UsuarioDAO();
-//
-//			List<Usuario> usuarios = gerenciadorUsuario.todosUsuario();
-//			Collections.reverse(usuarios);
-//			GenericEntity<List<Usuario>> entity = new GenericEntity<List<Usuario>>(
-//					usuarios) {
-//			};
-//			return Response.ok().entity(entity).build();
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//			return Response.status(Status.PRECONDITION_FAILED).entity("Erro ao buscar usuarios").build();
-//		}
-//	}
-//	
-
 	
 	@POST
 	@Path("/insert")
@@ -77,10 +57,12 @@ public class RESTUsuario {
 		UsuarioDAO dao = new UsuarioDAO();
 		
 		try {
-			boolean login = dao.getLogin(usuario);
-			request.getSession().setAttribute("logado", login);
-			if(login) {
-				return Response.ok().entity(request.getSession().getAttribute("logado")).build();
+			Usuario login = dao.getLogin(usuario);	
+			
+			if(login != null) {
+				request.getSession().setAttribute("logado", true);
+				request.getSession().setAttribute("usuario", login);
+				return Response.ok().build();
 			}else {
 				return Response.status(Status.FORBIDDEN).build();
 			}
@@ -137,6 +119,23 @@ public class RESTUsuario {
 		}
 		
 		
+	}
+
+	@GET
+	@Path("/getUser")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response userAut() {		
+
+		try {
+			Usuario user = (Usuario)request.getSession().getAttribute("usuario");
+			return Response.ok().entity(user).build();
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+			return Response.status(Status.FORBIDDEN).build();
+		}
+		
+	
 	}
 }
 
