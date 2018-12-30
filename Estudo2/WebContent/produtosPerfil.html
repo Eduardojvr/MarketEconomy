@@ -1,8 +1,10 @@
 <!DOCTYPE html>
 <html>
+
 <head>
 <meta charset="utf-8" http-equiv="refresh">
-<title>Sistema de mercados</title>
+<title>Sistema de preçoes</title>
+
 <link rel="shortcut icon" href="favicon.ico" />
 <link rel="stylesheet" type="text/css"
 	href="resources/css/bootstrap_4/css/bootstrap.min.css">
@@ -12,10 +14,13 @@
 	href="resources/fontawesome-free-5.3.1-web/css/all.css">
 <link rel="stylesheet" type="text/css"
 	href="resources/css/header_generico.css">
-<link rel="stylesheet" type="text/css" href="resources/css/stilo.css">
+<link rel="stylesheet" type="text/css"
+	href="resources/css/personalizado.css">
 
 </head>
-<body>
+
+<body id="corpo" class="map">
+	<!-- Header genérico -->
 	<!-- Header genérico -->
 	<nav id="header_sistemas"
 		class="navbar fixed-top navbar-light bg-light shadow-sm p-0 mb-1 align-items-start">
@@ -47,12 +52,12 @@
 		<!-- /menu do sistema   -->
 
 		<!-- Menu Usuário  -->
+		<ul id="menu_user" class="nav nav-pills float-right">
+			<img id="busca" onclick="window.location.href = 'busca.html'; "
+				style="vertical-align: middle; border-style: none; height: 35px;"
+				href="busca.html" src="resources/img/iconsearch.png" />
+		</ul>
 		<ul id="autentica" class="nav nav-pills float-right">
-			<ul id="menu_user" class="nav nav-pills float-right">
-				<img id="busca" onclick="window.location.href = 'busca.html'; "
-					style="vertical-align: middle; border-style: none; height: 35px;"
-					href="busca.html" src="resources/img/iconsearch.png" />
-			</ul>
 			<li id="visi" class="nav-item dropdown"><a
 				class="nav-link dropdown-toggle" data-toggle="dropdown" href="#"
 				role="button" aria-haspopup="true" aria-expanded="false"><i
@@ -77,50 +82,49 @@
 		<!-- /Logo Hepta  -->
 
 	</nav>
-	<!-- Fim Header genérico -->
-	<div class="loader" id="loader-primario">
-		<span></span> <span></span> <span></span> <span></span>
-	</div>
-	<div class="loaderFocus" id="loader-primario-focus"></div>
-	<div class="container-fluid ">
-		<h2 class="display-8" align="center">Resultados da pesquisa</h2>
-		<br>
 
-		<table style="width: 100%" id="lista" align="center" border="0">
-			<tr>
-				<th>Detalhes</th>
-				<th>Produto</th>
-				<th>Marca</th>
-				<th>Valor</th>
-				<th>Categoria</th>
-				<th>Mercado</th>
-				<th>Mapa</th>
 
-			</tr>
-			<tr v-for="produtos in produto">
-				<td><img @click="perfilProduto(produtos)"
-					src="resources/img/iconproduct.gif" alt="some text" width=100
-					height=100></td>
-				<td>{{ produtos.nomeProduto }}</td>
-				<td>{{ produtos.marca }}</td>
-				<td>R$ {{ produtos.valor }}</td>
-				<td>{{ produtos.categoria }}</td>
-				<td>{{ produtos.mercado }}</td>
-				<td><img src="resources/img/mapa.png"
-					@click="chamaMapa(produtos.endereco)" alt="some text" width=60
-					height=50></td>
+	<!-- Informações do produto  -->
+	<div class="container">
+		<div class="card">
+			<div class="container-fliud">
+				<div class="wrapper row">
+					<div class="preview col-md-6">
 
-			</tr>
+						<div class="preview-pic tab-content">
+							<div class="tab-pane active" id="pic-1">
+								<img src="resources/img/food.gif" height="350" width="100" />
+							</div>
+						</div>
 
-		</table>
 
-	</div>
-	<footer>
-		<div class="footerSpacing"></div>
-		<div class="footer" id="footer">
-			<span> Criado por: Hepta Tecnologia - {{versao}} </span>
+					</div>
+					<div class="details col-md-6">
+						<h3 id="produto" class="product-title"></h3>
+						<h4 class="price">
+							Categoria: <span><div id="categoria"></div></span>
+						</h4>
+						<h4 class="price">
+							Mercado: <span><div id="mercado"></div></span>
+						</h4>
+						<h4 class="price">
+							R$: <span><div id="valor"></div></span>
+						</h4>
+						<h4 class="price">
+							Endereço: <span><div id="endereco"></div></span>
+						</h4>
+
+						<div class="action" id="produtos">
+							<img style="height: 50px; width: 50px" id="comport" alt=""
+								src="http://cbsradiocom.com.br/wp-content/uploads/2017/05/2.png"
+								@click="chamaMapa()" />
+
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
-	</footer>
+	</div>
 
 	<script src="resources/js/axios.min.js"></script>
 	<script src="resources/js/vue.js"></script>
@@ -134,45 +138,13 @@
 	<script src="resources/js/ie10-viewport-bug-workaround.js"></script>
 
 	<script>
-		function painel() {
-			window.location.href = "pages/listaProduto.html";
-		}
-
-		let pesquisa = new Vue({
-			el : '#busca',
-			methods : {
-				buscar : function(produtos) {
-					window.location.href = "busca.html";
-				}
-			}
-		});
-
-		let vm = new Vue(
+		let comportamento = new Vue(
 				{
-					el : '#lista',
-					data : {
-						produto : []
-					},
-					created : function() {
-						const vm = this;
-						this.resultado();
-					},
+					el : '#comport',
 					methods : {
-						resultado : function() {
-							const vm = this;
-							vm.pesquisa = sessionStorage.getItem('query');
-
-							axios.post('rs/product/pesquisa', vm.pesquisa)
-									.then(function(response) {
-										console.log(response);
-										vm.produto = response.data;
-
-									});
-
-						},
 						chamaMapa : function(enderecomercado) {
 							const vm = this;
-							const endereco = enderecomercado;
+							const endereco = sessionStorage.getItem('endereco');
 							let obj = {
 								url : "https://maps.googleapis.com/maps/api/geocode/json?address="
 										+ endereco
@@ -194,58 +166,32 @@
 																response.data["results"][0]["geometry"]["location"]["lng"]);
 												window.location.href = "mapa.html";
 											});
-						},
-						perfilProduto : function(produtos) {
-
-							sessionStorage.setItem('produto',
-									produtos.nomeProduto);
-							sessionStorage.setItem('categoria',
-									produtos.categoria);
-							sessionStorage.setItem('mercado', produtos.mercado);
-							sessionStorage.setItem('valor', produtos.valor);
-							sessionStorage.setItem('endereco',
-									produtos.endereco);
-							window.location.href = "produtosPerfil.html";
 						}
 					}
 				});
 
-		let aut = new Vue(
+		let vm = new Vue(
 				{
-					el : '#autentica',
+					el : '#produto',
 					created : function() {
 						const vm = this;
-						this.autenticado();
+						this.products();
 
 					},
 					methods : {
-						autenticado : function() {
-							var isLog = false;
-							axios
-									.post('rs/user/isLogin')
-									.then(
-											function(response) {
-												isLog = Boolean(response.data);
-
-												if (isLog) {
-													document
-															.getElementById("visi").style.display = 'block';
-												} else {
-													document
-															.getElementById("visi").style.display = 'none';
-												}
-											});
-						},
-						logout : function() {
-							axios.post('rs/user/logout').then(
-									function(response) {
-										location.reload();
-										window.location.href = "busca.html";
-
-									});
+						products : function() {
+							document.getElementById("produto").innerHTML = sessionStorage
+									.getItem('produto');
+							document.getElementById("categoria").innerHTML = sessionStorage
+									.getItem('categoria');
+							document.getElementById("mercado").innerHTML = sessionStorage
+									.getItem('mercado');
+							document.getElementById("endereco").innerHTML = sessionStorage
+									.getItem('endereco');
+							document.getElementById("valor").innerHTML = sessionStorage
+									.getItem('valor');
 						}
 					}
-
 				});
 
 		let ac = new Vue(
@@ -280,6 +226,45 @@
 						}
 					}
 				});
+
+		let aut = new Vue(
+				{
+					el : '#autentica',
+					created : function() {
+						const vm = this;
+						this.autenticado();
+
+					},
+					methods : {
+						autenticado : function() {
+							var isLog = false;
+							axios
+									.post('rs/user/isLogin')
+									.then(
+											function(response) {
+												isLog = Boolean(response.data);
+
+												if (isLog) {
+													document
+															.getElementById("visi").style.display = 'block';
+												} else {
+													document
+															.getElementById("visi").style.display = 'none';
+												}
+											});
+						},
+						logout : function() {
+							axios.post('rs/user/logout').then(
+									function(response) {
+										location.reload();
+
+									});
+						}
+					}
+
+				});
 	</script>
+
 </body>
+
 </html>

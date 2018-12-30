@@ -39,8 +39,7 @@ public class RESTProduto {
 	@Path("/get")
 	@Produces({ MediaType.APPLICATION_JSON })
 	public Response todosProdutos(String id) {
-		System.out.println("aquiii");
-		System.out.println(id);
+
 		try {
 			ProdutoDAO gerenciadorProduto = new ProdutoDAO();
 
@@ -59,7 +58,7 @@ public class RESTProduto {
 	@Path("/insert")
 	@Produces({ MediaType.APPLICATION_JSON })
 	public Response insert(Produto p) {
-		
+
 		ProdutoDAO dao = new ProdutoDAO();
 		try {
 			dao.insert(p);
@@ -112,7 +111,6 @@ public class RESTProduto {
 						produtos.get(j + 1).setMercado(aux.getMercado());
 						produtos.get(j + 1).setEndereco(aux.getEndereco());
 						produtos.get(j + 1).setIdUsuario(aux.getIdUsuario());
-						
 
 					}
 
@@ -146,23 +144,21 @@ public class RESTProduto {
 
 	}
 
-	
 	@POST
 	@Path("/update")
 	@Produces({ MediaType.APPLICATION_JSON })
 	public Response update(Produto p) {
 
 		ProdutoDAO dao = new ProdutoDAO();
-		
+
 		try {
 			dao.update(p);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		return null;
-		
 
 	}
 

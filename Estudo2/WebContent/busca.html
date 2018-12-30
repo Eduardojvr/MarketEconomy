@@ -66,8 +66,10 @@
 				role="button" aria-haspopup="true" aria-expanded="false"><i
 					class="fas fa-user"></i></a>
 				<div class="dropdown-menu">
-					<span class="dropdown-item">Logado</span><hr>
-					<span onclick="painel();" class="dropdown-item">Painel de controle</span>					
+					<span class="dropdown-item">Logado</span>
+					<hr>
+					<span onclick="painel();" class="dropdown-item">Painel de
+						controle</span>
 					<div role="separator" class="dropdown-divider"></div>
 					<a @click="logout()" class="dropdown-item">Sair<i
 						class="fas fa-sign-out-alt"></i></a>
@@ -135,11 +137,10 @@
 	<script src="resources/js/ie10-viewport-bug-workaround.js"></script>
 
 	<script>
-	
-		function painel(){
+		function painel() {
 			window.location.href = "pages/listaProduto.html";
 		}
-	
+
 		let busc = new Vue({
 			el : '#pesquisa',
 			methods : {

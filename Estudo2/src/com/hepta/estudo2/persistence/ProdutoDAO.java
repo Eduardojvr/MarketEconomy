@@ -23,7 +23,6 @@ public class ProdutoDAO {
 
 		StringBuilder sql = new StringBuilder();
 
-
 		sql.append("INSERT INTO produto ");
 		sql.append(" ( ");
 		sql.append(" nome, ");
@@ -67,8 +66,10 @@ public class ProdutoDAO {
 //			pstmt = db.prepareStatement(
 //					"select produto.id, produto.nome, produto.marca, produto.valor, produto.categoria, mercado.nome, mercado.endereco from produto\n"
 //							+ "INNER JOIN mercado ON produto.mercadoId = mercado.id");
-			pstmt = db.prepareStatement("select * from produto inner join mercado on produto.mercadoId = mercado.id inner join usuario on produto.usuarioId=usuario.id where usuario.id="+id);
-			
+			pstmt = db.prepareStatement(
+					"select * from produto inner join mercado on produto.mercadoId = mercado.id inner join usuario on produto.usuarioId=usuario.id where usuario.id="
+							+ id);
+
 			result = pstmt.executeQuery();
 
 			while (result.next()) {

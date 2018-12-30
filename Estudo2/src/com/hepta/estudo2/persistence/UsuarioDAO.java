@@ -1,4 +1,5 @@
 package com.hepta.estudo2.persistence;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -10,16 +11,16 @@ import com.hepta.estudo2.entity.Usuario;
 
 public class UsuarioDAO {
 	public UsuarioDAO() {
-		
+
 	}
-	
+
 	public boolean insert(Usuario usuario) throws Exception {
-		
+
 		Connection db = ConnectionManager.getDBConnection();
 		PreparedStatement pstmt = null;
 
 		StringBuilder sql = new StringBuilder();
-		
+
 		sql.append("INSERT INTO usuario ");
 		sql.append(" ( ");
 		sql.append(" nome, ");
@@ -27,16 +28,15 @@ public class UsuarioDAO {
 		sql.append(" senha ");
 		sql.append(" ) ");
 		sql.append(" VALUES (?,?,?);");
-				
-		
+
 		try {
 			pstmt = db.prepareStatement(sql.toString(), Statement.RETURN_GENERATED_KEYS);
 			pstmt.setString(1, usuario.getNome());
 			pstmt.setString(2, usuario.getEmail());
 			pstmt.setString(3, usuario.getSenha());
 			pstmt.executeUpdate();
-			
-		}finally {
+
+		} finally {
 			if (pstmt != null)
 				pstmt.close();
 			db.close();
@@ -50,22 +50,23 @@ public class UsuarioDAO {
 		Usuario achou = null;
 		Connection db = ConnectionManager.getDBConnection();
 		PreparedStatement pstmt = null;
-		
+
 		ResultSet result = null;
-		
+
 		pstmt = db.prepareStatement("select email, senha, id, nome from usuario");
-		
+
 		try {
 			result = pstmt.executeQuery();
 			while (result.next()) {
-				if(user.getEmail().equals(result.getString("email")) && user.getSenha().equals(result.getString("senha"))) {
+				if (user.getEmail().equals(result.getString("email"))
+						&& user.getSenha().equals(result.getString("senha"))) {
 					achou = new Usuario();
 					achou.setNome(result.getString("nome"));
 					achou.setEmail(result.getString("email"));
-					achou.setId(result.getInt("id"));	
+					achou.setId(result.getInt("id"));
 				}
 			}
-		}catch (Exception e) {
+		} catch (Exception e) {
 			throw new Exception(e);
 		} finally {
 			if (pstmt != null)
@@ -74,5 +75,5 @@ public class UsuarioDAO {
 		}
 		return achou;
 	}
-	
+
 }
