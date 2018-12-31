@@ -127,8 +127,7 @@
 								src="resources/img/deslike.png" @click="naocertificado()" />Preço
 								incorreto</a> &nbsp &nbsp &nbsp &nbsp<img
 								style="height: 50px; width: 50px" id="comport" alt=""
-								src="http://cbsradiocom.com.br/wp-content/uploads/2017/05/2.png"
-								@click="chamaMapa()" />
+								src="resources/img/mapicon.png" @click="chamaMapa()" />
 						</div>
 					</div>
 				</div>
@@ -147,6 +146,10 @@
 		<script src="resources/js/ie10-viewport-bug-workaround.js"></script>
 
 		<script>
+			function painel() {
+				window.location.href = "pages/listaProduto.html";
+			}
+			
 			let comportamento = new Vue(
 					{
 						el : '#comport',
