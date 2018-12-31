@@ -170,5 +170,122 @@ public class ProdutoDAO {
 		return false;
 
 	}
+	
+	public int soma_like(String idProduto) throws Exception {
+		Connection db = ConnectionManager.getDBConnection();
+		
+		Statement st = null;
+		
+		PreparedStatement pstmt = null;
+
+		ResultSet result = null;
+
+		int certificado = 0;
+		
+		//String de busca
+		String busca =  "select * from produto where id=" + idProduto;
+		try {
+			pstmt = db.prepareStatement(busca);
+			result = pstmt.executeQuery();
+		}catch(Exception e) {
+			throw new Exception(e);
+		}
+		
+		while (result.next()) {
+			certificado  = result.getInt("produto.certificado");
+		}
+		
+		//String de atualização
+		certificado+=1;
+		String querySql = "update produto set certificado="+ certificado + " where id=" + idProduto;
+		
+		try {
+			st = db.createStatement();
+			st.executeUpdate(querySql);
+		} catch (Exception e) {
+			throw new Exception(e);
+		} finally {
+			if (st != null)
+				st.close();
+			db.close();
+		}
+		return certificado;
+
+	}
+	
+	public int subtrai_like(String idProduto) throws Exception {
+		Connection db = ConnectionManager.getDBConnection();
+		
+		Statement st = null;
+		
+		PreparedStatement pstmt = null;
+
+		ResultSet result = null;
+
+		int certificado = 0;
+		
+		//String de busca
+		String busca =  "select * from produto where id=" + idProduto;
+		try {
+			pstmt = db.prepareStatement(busca);
+			result = pstmt.executeQuery();
+		}catch(Exception e) {
+			throw new Exception(e);
+		}
+		
+		while (result.next()) {
+			certificado  = result.getInt("produto.certificado");
+		}
+		
+		//String de atualização
+		certificado-=1;
+		String querySql = "update produto set certificado="+ certificado + " where id=" + idProduto;
+		
+		try {
+			st = db.createStatement();
+			st.executeUpdate(querySql);
+		} catch (Exception e) {
+			throw new Exception(e);
+		} finally {
+			if (st != null)
+				st.close();
+			db.close();
+		}
+		return certificado;
+
+	}
+
+
+	public int controle_like(String idProduto) throws Exception {
+		Connection db = ConnectionManager.getDBConnection();
+		
+		PreparedStatement pstmt = null;
+		
+		ResultSet result = null;
+		
+		int certificado = 0;
+		
+		//String de busca
+		String busca =  "select * from produto where id=" + idProduto;
+		
+		
+		
+		try {
+			pstmt = db.prepareStatement(busca);
+			result = pstmt.executeQuery();
+			while (result.next()) {
+				certificado  = result.getInt("produto.certificado");
+			}
+
+		}catch (Exception e) {
+			throw new Exception(e);
+		} finally {
+			if (pstmt != null)
+				pstmt.close();
+			db.close();
+		}
+		return certificado;
+		
+	}
 
 }

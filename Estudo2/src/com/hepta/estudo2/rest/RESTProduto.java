@@ -1,5 +1,6 @@
 package com.hepta.estudo2.rest;
 
+import java.sql.ResultSet;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -160,6 +161,57 @@ public class RESTProduto {
 
 		return null;
 
+	}
+
+	@POST
+	@Path("/like")
+	@Produces({ MediaType.APPLICATION_JSON })
+	public Response like(String idProduto) {
+		ProdutoDAO dao = new ProdutoDAO();
+
+		try {
+			int entity = dao.soma_like(idProduto);
+			return Response.ok().entity(entity).build();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return Response.status(Status.BAD_REQUEST).build();
+		}
+
+	}
+
+	@POST
+	@Path("/dislike")
+	@Produces({ MediaType.APPLICATION_JSON })
+	public Response dislike(String idProduto) {
+		ProdutoDAO dao = new ProdutoDAO();
+		
+		try {
+			int entity = dao.subtrai_like(idProduto);
+			return Response.ok().entity(entity).build();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return Response.status(Status.BAD_REQUEST).build();
+		}
+		
+	}
+
+	@POST
+	@Path("/control_like")
+	@Produces({ MediaType.APPLICATION_JSON })
+	public Response control_like(String idProduto) {
+		ProdutoDAO dao = new ProdutoDAO();
+		
+		try {
+			int entity = dao.controle_like(idProduto);
+			return Response.ok().entity(entity).build();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return Response.status(Status.BAD_REQUEST).build();
+		}
+		
 	}
 
 }

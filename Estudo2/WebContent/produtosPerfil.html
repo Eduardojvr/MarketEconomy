@@ -90,14 +90,11 @@
 			<div class="container-fliud">
 				<div class="wrapper row">
 					<div class="preview col-md-6">
-
 						<div class="preview-pic tab-content">
 							<div class="tab-pane active" id="pic-1">
 								<img src="resources/img/food.gif" height="350" width="100" />
 							</div>
 						</div>
-
-
 					</div>
 					<div class="details col-md-6">
 						<h3 id="produto" class="product-title"></h3>
@@ -113,158 +110,224 @@
 						<h4 class="price">
 							Endereço: <span><div id="endereco"></div></span>
 						</h4>
+						<h4 id="certificadoLike">
+							Certificado: <img src="resources/img/certified.png" height="40"
+								width="35" />
+						</h4>
+						<h4 id="certificadoDislike">
+							Certificado: <img src="resources/img/ncertified.png" height="40"
+								width="40" />
+						</h4>
 
 						<div class="action" id="produtos">
-							<img style="height: 50px; width: 50px" id="comport" alt=""
+							<a><img style="height: 50px; width: 50px" id="verifica_like"
+								alt="" src="resources/img/like.png" @click="certificado()" />Preço
+								Correto</a> &nbsp &nbsp &nbsp &nbsp<a><img
+								style="height: 50px; width: 50px" id="verifica_dislike" alt=""
+								src="resources/img/deslike.png" @click="naocertificado()" />Preço
+								incorreto</a> &nbsp &nbsp &nbsp &nbsp<img
+								style="height: 50px; width: 50px" id="comport" alt=""
 								src="http://cbsradiocom.com.br/wp-content/uploads/2017/05/2.png"
 								@click="chamaMapa()" />
-
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-	</div>
 
-	<script src="resources/js/axios.min.js"></script>
-	<script src="resources/js/vue.js"></script>
-	<script src="resources/js/header.js"></script>
-	<script src="resources/js/loader.js"></script>
-	<script src="resources/js/paginas/gpc/cargo.js"></script>
-	<script src="resources/js/footer.js"></script>
-	<script src="resources/js/jquery-3.3.1.min.js"></script>
-	<script src="resources/js/bootstrap.min.js"></script>
-	<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-	<script src="resources/js/ie10-viewport-bug-workaround.js"></script>
+		<script src="resources/js/axios.min.js"></script>
+		<script src="resources/js/vue.js"></script>
+		<script src="resources/js/header.js"></script>
+		<script src="resources/js/loader.js"></script>
+		<script src="resources/js/paginas/gpc/cargo.js"></script>
+		<script src="resources/js/footer.js"></script>
+		<script src="resources/js/jquery-3.3.1.min.js"></script>
+		<script src="resources/js/bootstrap.min.js"></script>
+		<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+		<script src="resources/js/ie10-viewport-bug-workaround.js"></script>
 
-	<script>
-		let comportamento = new Vue(
-				{
-					el : '#comport',
-					methods : {
-						chamaMapa : function(enderecomercado) {
-							const vm = this;
-							const endereco = sessionStorage.getItem('endereco');
-							let obj = {
-								url : "https://maps.googleapis.com/maps/api/geocode/json?address="
-										+ endereco
-										+ "&key=AIzaSyDroa8JCUm2JfRZ_7eVMb4Fqx8ufr0Mz_A"
+		<script>
+			let comportamento = new Vue(
+					{
+						el : '#comport',
+						methods : {
+							chamaMapa : function(enderecomercado) {
+								const vm = this;
+								const endereco = sessionStorage
+										.getItem('endereco');
+								let obj = {
+									url : "https://maps.googleapis.com/maps/api/geocode/json?address="
+											+ endereco
+											+ "&key=AIzaSyDroa8JCUm2JfRZ_7eVMb4Fqx8ufr0Mz_A"
+								}
+								var nurl = encodeURI(obj.url);
+								axios
+										.get(nurl)
+										.then(
+												function(response) {
+													console.log(response);
+													sessionStorage
+															.setItem(
+																	'latitude',
+																	response.data["results"][0]["geometry"]["location"]["lat"]);
+													sessionStorage
+															.setItem(
+																	'longitude',
+																	response.data["results"][0]["geometry"]["location"]["lng"]);
+													window.location.href = "mapa.html";
+												});
 							}
-							var nurl = encodeURI(obj.url);
-							axios
-									.get(nurl)
-									.then(
-											function(response) {
-												console.log(response);
-												sessionStorage
-														.setItem(
-																'latitude',
-																response.data["results"][0]["geometry"]["location"]["lat"]);
-												sessionStorage
-														.setItem(
-																'longitude',
-																response.data["results"][0]["geometry"]["location"]["lng"]);
-												window.location.href = "mapa.html";
-											});
 						}
-					}
-				});
+					});
 
-		let vm = new Vue(
-				{
-					el : '#produto',
-					created : function() {
-						const vm = this;
-						this.products();
+			let vm = new Vue(
+					{
+						el : '#produto',
+						created : function() {
+							const vm = this;
+							this.products();
 
-					},
-					methods : {
-						products : function() {
-							document.getElementById("produto").innerHTML = sessionStorage
-									.getItem('produto');
-							document.getElementById("categoria").innerHTML = sessionStorage
-									.getItem('categoria');
-							document.getElementById("mercado").innerHTML = sessionStorage
-									.getItem('mercado');
-							document.getElementById("endereco").innerHTML = sessionStorage
-									.getItem('endereco');
-							document.getElementById("valor").innerHTML = sessionStorage
-									.getItem('valor');
-						}
-					}
-				});
-
-		let ac = new Vue(
-				{
-					el : '#acess',
-					created : function() {
-						const vm = this;
-						this.visifunction();
-					},
-					methods : {
-						visifunction : function() {
-							var isLog = false;
-							axios
-									.post('rs/user/isLogin')
-									.then(
-											function(response) {
-												isLog = Boolean(response.data);
-
-												if (!isLog) {
-													document
-															.getElementById("visi2").style.display = 'block';
-													document
-															.getElementById("visi3").style.display = 'block';
-												} else {
-													document
-															.getElementById("visi2").style.display = 'none';
-													document
-															.getElementById("visi3").style.display = 'none';
-												}
-
-											});
-						}
-					}
-				});
-
-		let aut = new Vue(
-				{
-					el : '#autentica',
-					created : function() {
-						const vm = this;
-						this.autenticado();
-
-					},
-					methods : {
-						autenticado : function() {
-							var isLog = false;
-							axios
-									.post('rs/user/isLogin')
-									.then(
-											function(response) {
-												isLog = Boolean(response.data);
-
-												if (isLog) {
-													document
-															.getElementById("visi").style.display = 'block';
-												} else {
-													document
-															.getElementById("visi").style.display = 'none';
-												}
-											});
 						},
-						logout : function() {
-							axios.post('rs/user/logout').then(
-									function(response) {
-										location.reload();
-
-									});
+						methods : {
+							products : function() {
+								document.getElementById("produto").innerHTML = sessionStorage
+										.getItem('produto');
+								document.getElementById("categoria").innerHTML = sessionStorage
+										.getItem('categoria');
+								document.getElementById("mercado").innerHTML = sessionStorage
+										.getItem('mercado');
+								document.getElementById("endereco").innerHTML = sessionStorage
+										.getItem('endereco');
+								document.getElementById("valor").innerHTML = sessionStorage
+										.getItem('valor');
+							}
 						}
+					});
+
+			let ac = new Vue(
+					{
+						el : '#acess',
+						created : function() {
+							const vm = this;
+							this.visifunction();
+						},
+						methods : {
+							visifunction : function() {
+								var isLog = false;
+								axios
+										.post('rs/user/isLogin')
+										.then(
+												function(response) {
+													isLog = Boolean(response.data);
+
+													if (!isLog) {
+														document
+																.getElementById("visi2").style.display = 'block';
+														document
+																.getElementById("visi3").style.display = 'block';
+													} else {
+														document
+																.getElementById("visi2").style.display = 'none';
+														document
+																.getElementById("visi3").style.display = 'none';
+													}
+
+												});
+							}
+						}
+					});
+
+			let aut = new Vue(
+					{
+						el : '#autentica',
+						created : function() {
+							const vm = this;
+							this.autenticado();
+
+						},
+						methods : {
+							autenticado : function() {
+								var isLog = false;
+								axios
+										.post('rs/user/isLogin')
+										.then(
+												function(response) {
+													isLog = Boolean(response.data);
+
+													if (isLog) {
+														document
+																.getElementById("visi").style.display = 'block';
+													} else {
+														document
+																.getElementById("visi").style.display = 'none';
+													}
+												});
+							},
+							logout : function() {
+								axios.post('rs/user/logout').then(
+										function(response) {
+											location.reload();
+
+										});
+							}
+						}
+
+					});
+
+			let verifica_like = new Vue(
+					{
+						el : '#verifica_like',
+						created : function() {
+							this.getCertificado();
+						},
+						methods : {
+							certificado : function() {
+								axios.post('rs/product/like',
+										sessionStorage.getItem('idProduto'))
+										.then(function(response) {
+											alert("Obrigado pelo feedback!");
+											location.reload();
+										});
+							},
+							getCertificado : function() {
+								axios
+										.post(
+												'rs/product/control_like',
+												sessionStorage
+														.getItem('idProduto'))
+										.then(
+												function(response) {
+													if (response.data >= 10) {
+														document
+																.getElementById("certificadoLike").style.display = 'block';
+														document
+																.getElementById("certificadoDislike").style.display = 'none';
+													} else {
+														document
+																.getElementById("certificadoLike").style.display = 'none';
+														document
+																.getElementById("certificadoDilike").style.display = 'block';
+													}
+
+												});
+							}
+						}
+					});
+
+			let verifica_dislike = new Vue({
+				el : '#verifica_dislike',
+				methods : {
+					naocertificado : function() {
+						axios.post('rs/product/dislike',
+								sessionStorage.getItem('idProduto')).then(
+								function(response) {
+									alert("Obrigado pelo feedback!");
+									location.reload();
+								});
 					}
-
-				});
-	</script>
-
+				}
+			});
+		</script>
 </body>
 
 </html>
